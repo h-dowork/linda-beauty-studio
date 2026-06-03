@@ -335,26 +335,26 @@ export default function Home() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="gallery"
-          className="relative bg-gray-950 overflow-hidden"
+          className="relative bg-gray-100 overflow-hidden"
           style={{ height: "100svh" }}
           aria-labelledby="gallery-heading"
         >
           {/* Overlay heading */}
           <div className="absolute top-0 left-0 right-0 z-10 pt-12 sm:pt-16 pb-6 text-center pointer-events-none">
-            <p className="text-rose-400 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
+            <p className="text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
               {t.gallery.sectionLabel}
             </p>
             <h2
               id="gallery-heading"
-              className="text-3xl sm:text-5xl font-bold text-white mb-3"
+              className="text-3xl sm:text-5xl font-bold text-gray-900 mb-3"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               {t.gallery.heading}
             </h2>
-            <p className="text-gray-400 text-xs sm:text-sm max-w-xs mx-auto px-4 leading-relaxed">
+            <p className="text-gray-500 text-xs sm:text-sm max-w-xs mx-auto px-4 leading-relaxed">
               {t.gallery.subheading}
             </p>
-            <p className="text-gray-600 text-xs mt-3 tracking-wider">
+            <p className="text-gray-400 text-xs mt-3 tracking-wider">
               ← {lang === "cs" ? "přejeďte" : "drag"} →
             </p>
           </div>
@@ -363,7 +363,7 @@ export default function Home() {
         </section>
 
         {/* Facebook follow strip — between gallery and reviews */}
-        <div className="bg-gray-100 py-8 text-center">
+        <div className="bg-white border-t border-gray-200 py-8 text-center">
           <a
             href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
             target="_blank"

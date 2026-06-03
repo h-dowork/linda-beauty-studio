@@ -113,6 +113,7 @@ export default function GalleryTrack() {
               objectFit: "cover",
               objectPosition: "100% center",
               pointerEvents: "none",
+              borderRadius: "16px",
             }}
           />
         ))}
