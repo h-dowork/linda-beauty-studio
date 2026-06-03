@@ -158,10 +158,19 @@ export const translations = {
       errorGeneric: "Něco se pokazilo. Zkuste to znovu nebo nás kontaktujte přímo na Facebooku.",
       successHeading: "Téměř hotovo!",
       successBody:
-        "Messenger se otevřel s předvyplněnou rezervací. Stačí kliknout na Odeslat a Linda vám potvrdí termín.",
+        "Messenger se otevřel s vaší rezervací. Stačí kliknout na Odeslat a Linda vám potvrdí termín.",
+      messengerHint: "Pokud se Messenger otevřel bez textu, zkopírujte zprávu a vložte ji:",
+      copyText: "Zkopírovat",
+      copied: "Zkopírováno!",
       openAgain: "Otevřít Messenger znovu",
       newBooking: "Nová rezervace",
       services: ["Vlasy – dámský", "Vlasy – pánský", "Nehty", "Make-up & Řasy", "Péče o pleť", "Ostatní"],
+    },
+    // Cookie banner
+    cookie: {
+      notice: "Tento web používá pouze nezbytné soubory cookie pro správné fungování stránky. Nepoužíváme sledovací ani marketingové cookies.",
+      accept: "Rozumím",
+      learnMore: "Zásady ochrany soukromí",
     },
     // Footer
     footer: {
@@ -320,10 +329,19 @@ export const translations = {
       errorGeneric: "Something went wrong. Please try again or contact us directly on Facebook.",
       successHeading: "Almost there!",
       successBody:
-        "Messenger opened in a new tab with your booking details pre-filled. Just hit Send to confirm your appointment.",
+        "Messenger opened with your booking details. Just tap Send to confirm your appointment.",
+      messengerHint: "If Messenger opened empty, copy the message below and paste it:",
+      copyText: "Copy",
+      copied: "Copied!",
       openAgain: "Open Messenger Again",
       newBooking: "New booking",
       services: ["Hair – Women's", "Hair – Men's", "Nails", "Makeup & Lashes", "Skin Care", "Other"],
+    },
+    // Cookie banner
+    cookie: {
+      notice: "This site uses only essential cookies necessary for basic functionality. No tracking or marketing cookies are used.",
+      accept: "Got it",
+      learnMore: "Privacy Policy",
     },
     footer: {
       tagline:

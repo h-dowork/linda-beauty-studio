@@ -85,7 +85,7 @@ export default function Home() {
     <>
       <Navbar />
 
-      <main>
+      <main id="main-content">
         {/* ══════════════════════════════════════════════════════════
             HERO
         ══════════════════════════════════════════════════════════ */}
@@ -497,18 +497,6 @@ export default function Home() {
                   </li>
                 </ul>
 
-                <div className="reveal reveal-d4 mt-8">
-                  <a
-                    href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 px-5 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
-                    aria-label={t.contact.messageBtn}
-                  >
-                    <FacebookIcon className="w-4 h-4" />
-                    {t.contact.messageBtn}
-                  </a>
-                </div>
               </div>
 
               {/* ── Form column ─────────────────────────────────── */}
@@ -604,10 +592,16 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-6 text-center">
+          <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
             <p className="text-xs text-gray-600">
               © {new Date().getFullYear()} Linda Beauty Studio. All rights reserved.
             </p>
+            <a
+              href="/ochrana-soukromi"
+              className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
+            >
+              {lang === "cs" ? "Zásady ochrany soukromí" : "Privacy Policy"}
+            </a>
           </div>
         </div>
       </footer>
