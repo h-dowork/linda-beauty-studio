@@ -363,14 +363,14 @@ export default function Home() {
         </section>
 
         {/* Facebook follow strip — between gallery and reviews */}
-        <div className="bg-gray-950 py-8 text-center">
+        <div className="bg-gray-100 py-8 text-center">
           <a
             href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/20 hover:bg-white/20 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-white text-gray-700 text-sm font-semibold rounded-full border border-gray-200 hover:bg-gray-50 hover:border-gray-300 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer shadow-sm"
           >
-            <FacebookIcon className="w-4 h-4" />
+            <FacebookIcon className="w-4 h-4 text-gray-500" />
             {t.gallery.followUs}
           </a>
         </div>
