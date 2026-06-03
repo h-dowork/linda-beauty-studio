@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ContactForm from "@/components/ContactForm";
+import GalleryTrack from "@/components/GalleryTrack";
 import { useLanguage } from "@/context/LanguageContext";
 
 function FacebookIcon({ className }: { className?: string }) {
@@ -38,15 +39,6 @@ const team = [
   { name: "Specialist 3", role: "Makeup Artist", specialty: "Lashes & Brows", phone: "+84 xxx xxx xxx", initials: "S3" },
   { name: "Specialist 4", role: "Skin Care Therapist", specialty: "Facials & Treatments", phone: "+84 xxx xxx xxx", initials: "S4" },
 ];
-
-const galleryGradients = [
-  "from-gray-100 to-gray-200",
-  "from-rose-50 to-gray-200",
-  "from-gray-200 to-gray-100",
-  "from-gray-100 to-rose-50",
-  "from-gray-50 to-gray-200",
-  "from-rose-50 to-gray-100",
-] as const;
 
 export default function Home() {
   const { t } = useLanguage();
@@ -210,45 +202,42 @@ export default function Home() {
         </section>
 
         {/* ── Gallery ───────────────────────────────────────────────────────── */}
-        <section id="gallery" className="py-20 sm:py-28 bg-gray-50" aria-labelledby="gallery-heading">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <p className="text-rose-700 text-sm font-semibold uppercase tracking-widest mb-3">
-                {t.gallery.sectionLabel}
-              </p>
-              <h2
-                id="gallery-heading"
-                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                {t.gallery.heading}
-              </h2>
-              <p className="text-gray-600 max-w-xl mx-auto">{t.gallery.subheading}</p>
-            </div>
+        <section
+          id="gallery"
+          className="relative bg-gray-950 overflow-hidden"
+          style={{ height: "100svh" }}
+          aria-labelledby="gallery-heading"
+        >
+          {/* Heading — sits above the track, non-interactive so drags still register */}
+          <div className="absolute top-0 left-0 right-0 z-10 pt-16 pb-6 text-center pointer-events-none">
+            <p className="text-rose-400 text-sm font-semibold uppercase tracking-widest mb-3">
+              {t.gallery.sectionLabel}
+            </p>
+            <h2
+              id="gallery-heading"
+              className="text-4xl sm:text-5xl font-bold text-white mb-3"
+              style={{ fontFamily: "var(--font-playfair)" }}
+            >
+              {t.gallery.heading}
+            </h2>
+            <p className="text-gray-400 text-sm max-w-sm mx-auto px-4">{t.gallery.subheading}</p>
+            <p className="text-gray-600 text-xs mt-3">← drag →</p>
+          </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" role="list" aria-label={t.gallery.heading}>
-              {galleryGradients.map((gradient, i) => (
-                <div
-                  key={i}
-                  className={`relative aspect-square rounded-2xl bg-gradient-to-br ${gradient} overflow-hidden group cursor-pointer border border-gray-100`}
-                  role="listitem"
-                >
-                  <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/10 transition-colors duration-300" />
-                </div>
-              ))}
-            </div>
+          {/* Drag-to-scroll image track */}
+          <GalleryTrack />
 
-            <div className="text-center mt-10">
-              <a
-                href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-full border border-gray-200 hover:bg-gray-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
-              >
-                <FacebookIcon className="w-4 h-4" />
-                {t.gallery.followUs}
-              </a>
-            </div>
+          {/* Facebook link — pinned to bottom */}
+          <div className="absolute bottom-8 left-0 right-0 z-10 text-center pointer-events-none">
+            <a
+              href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pointer-events-auto inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+            >
+              <FacebookIcon className="w-4 h-4" />
+              {t.gallery.followUs}
+            </a>
           </div>
         </section>
 
