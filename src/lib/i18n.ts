@@ -308,7 +308,7 @@ export const translations = {
       emailPlaceholder: "you@example.com",
       emailRequired: "A valid email address is required.",
       phone: "Phone",
-      phonePlaceholder: "+84 xxx xxx xxx",
+      phonePlaceholder: "+420 xxx xxx xxx",
       service: "Service",
       servicePlaceholder: "Select a service",
       message: "Message",

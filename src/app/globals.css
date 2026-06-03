@@ -7,18 +7,70 @@
   --font-sans: var(--font-inter);
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background: #ffffff;
   color: #111827;
 }
 
+/* ── Scroll reveal ──────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity  0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay:  80ms; }
+.reveal-d2 { transition-delay: 160ms; }
+.reveal-d3 { transition-delay: 240ms; }
+.reveal-d4 { transition-delay: 320ms; }
+.reveal-d5 { transition-delay: 400ms; }
+
+/* ── Hero entrance (CSS animation, fires on mount) ──────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-enter   { animation: slideUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-enter-1 { animation-delay:  80ms; }
+.hero-enter-2 { animation-delay: 220ms; }
+.hero-enter-3 { animation-delay: 380ms; }
+.hero-enter-4 { animation-delay: 540ms; }
+.hero-enter-5 { animation-delay: 680ms; }
+
+/* ── Decorative blob ────────────────────────────────────────────── */
+@keyframes blobDrift {
+  0%, 100% { transform: translate(0, 0) scale(1);     opacity: 0.35; }
+  40%       { transform: translate(16px, -12px) scale(1.05); opacity: 0.55; }
+  70%       { transform: translate(-10px, 9px) scale(0.96); opacity: 0.28; }
+}
+.blob   { animation: blobDrift 14s ease-in-out infinite; will-change: transform; }
+.blob-2 { animation-delay: -6s; }
+
+/* ── Scroll cue bounce ──────────────────────────────────────────── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+.scroll-cue { animation: scrollBounce 1.6s ease-in-out infinite; }
+
+/* ── Hide scrollbar (snap carousels) ────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+  .reveal     { opacity: 1; transform: none; }
+  .hero-enter { animation: none; opacity: 1; }
+  .blob       { animation: none; }
+  .scroll-cue { animation: none; }
 }

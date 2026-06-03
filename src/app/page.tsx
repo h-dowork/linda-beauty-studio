@@ -1,14 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
-  Scissors,
-  Sparkles,
-  Heart,
-  Star,
-  Phone,
-  MapPin,
-  Clock,
-  ChevronRight,
+  Scissors, Sparkles, Heart, Star,
+  Phone, MapPin, Clock, ChevronRight, ChevronDown,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ContactForm from "@/components/ContactForm";
@@ -34,164 +29,280 @@ function InstagramIcon({ className }: { className?: string }) {
 const serviceIcons = [Scissors, Sparkles, Heart, Star] as const;
 
 const team = [
-  { name: "Linda Nguyen", role: "Founder & Senior Stylist", specialty: "Hair Color & Cuts", phone: "+84 xxx xxx xxx", initials: "LN" },
-  { name: "Specialist 2", role: "Nail Technician", specialty: "Nail Art & Gel", phone: "+84 xxx xxx xxx", initials: "S2" },
-  { name: "Specialist 3", role: "Makeup Artist", specialty: "Lashes & Brows", phone: "+84 xxx xxx xxx", initials: "S3" },
-  { name: "Specialist 4", role: "Skin Care Therapist", specialty: "Facials & Treatments", phone: "+84 xxx xxx xxx", initials: "S4" },
+  { name: "Linda Nguyen", role: "Founder & Senior Stylist",  specialty: "Hair Color & Cuts",    phone: "+420 xxx xxx xxx", initials: "LN" },
+  { name: "Specialist 2", role: "Nail Technician",            specialty: "Nail Art & Gel",       phone: "+420 xxx xxx xxx", initials: "S2" },
+  { name: "Specialist 3", role: "Makeup Artist",              specialty: "Lashes & Brows",       phone: "+420 xxx xxx xxx", initials: "S3" },
+  { name: "Specialist 4", role: "Skin Care Therapist",        specialty: "Facials & Treatments", phone: "+420 xxx xxx xxx", initials: "S4" },
 ];
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+
+  // ── Scroll reveal ────────────────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -48px 0px" }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // ── Floating mobile CTA ───────────────────────────────────────
+  const [showFloatCTA, setShowFloatCTA] = useState(false);
+
+  useEffect(() => {
+    const hero    = document.getElementById("hero");
+    const contact = document.getElementById("contact");
+    if (!hero || !contact) return;
+
+    let heroDone     = false;
+    let contactNear  = false;
+    const update = () => setShowFloatCTA(heroDone && !contactNear);
+
+    const heroObs = new IntersectionObserver(
+      ([e]) => { heroDone = !e.isIntersecting; update(); },
+      { threshold: 0.4 }
+    );
+    const contactObs = new IntersectionObserver(
+      ([e]) => { contactNear = e.isIntersecting; update(); },
+      { threshold: 0.15 }
+    );
+
+    heroObs.observe(hero);
+    contactObs.observe(contact);
+    return () => { heroObs.disconnect(); contactObs.disconnect(); };
+  }, []);
 
   return (
     <>
       <Navbar />
 
       <main>
-        {/* ── Hero ──────────────────────────────────────────────────────────── */}
+        {/* ══════════════════════════════════════════════════════════
+            HERO
+        ══════════════════════════════════════════════════════════ */}
         <section
+          id="hero"
           className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-white"
           aria-label="Hero"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-rose-50/30" aria-hidden="true" />
-          <div className="absolute top-20 right-10 w-72 h-72 bg-rose-100/30 rounded-full blur-3xl" aria-hidden="true" />
-          <div className="absolute bottom-20 left-10 w-64 h-64 bg-gray-100/60 rounded-full blur-3xl" aria-hidden="true" />
+          {/* Background gradient */}
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-rose-50/40"
+            aria-hidden="true"
+          />
+          {/* Atmospheric blobs */}
+          <div
+            className="blob absolute top-1/4 -right-12 sm:right-8 w-56 sm:w-80 h-56 sm:h-80 bg-rose-100/40 rounded-full blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="blob blob-2 absolute bottom-1/4 -left-12 sm:left-8 w-48 sm:w-64 h-48 sm:h-64 bg-gray-100/70 rounded-full blur-3xl"
+            aria-hidden="true"
+          />
 
-          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-            <p className="text-rose-700 text-sm font-semibold uppercase tracking-widest mb-4">
+          {/* Content */}
+          <div className="relative z-10 max-w-4xl mx-auto px-5 sm:px-6 lg:px-8 text-center pt-20 pb-24">
+            <p className="hero-enter hero-enter-1 text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-4">
               {t.hero.welcome}
             </p>
+
             <h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+              className="hero-enter hero-enter-2 text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-[1.1] mb-5"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Linda Beauty
               <br />
               <span className="text-rose-700">Studio</span>
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+
+            <p className="hero-enter hero-enter-3 text-base sm:text-xl text-gray-600 max-w-xl mx-auto mb-9 leading-relaxed">
               {t.hero.tagline}
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+
+            {/* CTAs — full-width on mobile, inline on sm+ */}
+            <div className="hero-enter hero-enter-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-700 active:bg-gray-800 transition-colors duration-200 shadow-lg shadow-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-7 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-700 active:scale-95 transition-all duration-150 shadow-lg shadow-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
               >
                 {t.hero.cta}
                 <ChevronRight className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
                 href="#services"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-colors duration-200 border border-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-7 py-4 bg-white text-gray-700 font-semibold rounded-2xl border border-gray-200 hover:bg-gray-50 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
               >
                 {t.hero.viewServices}
               </a>
             </div>
 
-            <div className="mt-16 grid grid-cols-3 gap-6 sm:gap-10 max-w-md mx-auto">
+            {/* Stats */}
+            <div className="hero-enter hero-enter-5 mt-12 grid grid-cols-3 gap-4 sm:gap-10 max-w-sm sm:max-w-md mx-auto">
               {t.hero.stats.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="text-3xl font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <p
+                    className="text-2xl sm:text-3xl font-bold text-gray-900"
+                    style={{ fontFamily: "var(--font-playfair)" }}
+                  >
                     {stat.value}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1 leading-tight">{stat.label}</p>
+                  <p className="text-xs text-gray-500 mt-1 leading-snug">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Scroll cue */}
+          <div
+            className="scroll-cue absolute bottom-7 left-1/2 flex flex-col items-center gap-1.5 pointer-events-none"
+            aria-hidden="true"
+          >
+            <span className="text-[10px] text-gray-400 uppercase tracking-widest">Scroll</span>
+            <ChevronDown className="w-4 h-4 text-gray-400" />
+          </div>
         </section>
 
-        {/* ── Services ──────────────────────────────────────────────────────── */}
-        <section id="services" className="py-20 sm:py-28 bg-gray-50" aria-labelledby="services-heading">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <p className="text-rose-700 text-sm font-semibold uppercase tracking-widest mb-3">
+        {/* ══════════════════════════════════════════════════════════
+            SERVICES
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          id="services"
+          className="py-16 sm:py-24 bg-gray-50"
+          aria-labelledby="services-heading"
+        >
+          <div className="max-w-7xl mx-auto">
+            {/* Heading */}
+            <div className="text-center mb-10 sm:mb-14 px-5 sm:px-6 lg:px-8">
+              <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
                 {t.services.sectionLabel}
               </p>
               <h2
                 id="services-heading"
-                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"
+                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {t.services.heading}
               </h2>
-              <p className="text-gray-600 max-w-xl mx-auto">{t.services.subheading}</p>
+              <p className="reveal reveal-d2 text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+                {t.services.subheading}
+              </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {t.services.items.map((service, i) => {
-                const Icon = serviceIcons[i];
-                return (
-                  <div
-                    key={service.title}
-                    className="group bg-white rounded-2xl p-6 border border-gray-100 hover:border-gray-300 hover:shadow-lg hover:shadow-gray-100 transition-all duration-300"
-                  >
-                    <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-gray-200 transition-colors duration-200">
-                      <Icon className="w-6 h-6 text-gray-700" aria-hidden="true" strokeWidth={1.5} />
+            {/* Mobile: horizontal snap scroll  /  sm+: 2-col grid  /  lg: 4-col */}
+            <div className="relative">
+              {/* Fade hint on right edge — mobile only */}
+              <div
+                className="absolute right-0 top-0 bottom-4 w-10 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none sm:hidden"
+                aria-hidden="true"
+              />
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-5 no-scrollbar sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-6 sm:pb-0 lg:grid-cols-4 lg:px-8 lg:gap-6">
+                {t.services.items.map((service, i) => {
+                  const Icon = serviceIcons[i];
+                  return (
+                    <div
+                      key={service.title}
+                      className={`reveal reveal-d${i + 1} snap-start flex-none w-[82vw] sm:w-full group bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-gray-300 hover:shadow-lg hover:shadow-gray-100 active:scale-[0.98] transition-all duration-300`}
+                    >
+                      <div className="w-11 h-11 bg-gray-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-gray-200 transition-colors duration-200">
+                        <Icon className="w-5 h-5 text-gray-700" aria-hidden="true" strokeWidth={1.5} />
+                      </div>
+                      <h3
+                        className="text-lg sm:text-xl font-bold text-gray-900 mb-1.5"
+                        style={{ fontFamily: "var(--font-playfair)" }}
+                      >
+                        {service.title}
+                      </h3>
+                      <p className="text-sm text-gray-500 mb-4 leading-relaxed">{service.description}</p>
+                      <ul className="space-y-2.5" role="list">
+                        {service.items.map((item) => (
+                          <li
+                            key={item.name}
+                            className="flex items-center justify-between text-sm border-b border-gray-100 pb-2 last:border-0 last:pb-0"
+                          >
+                            <span className="text-gray-700">{item.name}</span>
+                            <span className="font-semibold text-gray-400 ml-2 flex-shrink-0">{item.price}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: "var(--font-playfair)" }}>
-                      {service.title}
-                    </h3>
-                    <p className="text-sm text-gray-500 mb-5 leading-relaxed">{service.description}</p>
-                    <ul className="space-y-3" role="list">
-                      {service.items.map((item) => (
-                        <li key={item.name} className="flex items-center justify-between text-sm border-b border-gray-100 pb-2 last:border-0 last:pb-0">
-                          <span className="text-gray-700">{item.name}</span>
-                          <span className="font-semibold text-gray-400">{item.price}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
-            <p className="text-center text-sm text-gray-400 mt-8">{t.services.priceNote}</p>
+            <p className="reveal text-center text-xs sm:text-sm text-gray-400 mt-6 px-5 sm:px-6 lg:px-8">
+              {t.services.priceNote}
+            </p>
           </div>
         </section>
 
-        {/* ── Team ──────────────────────────────────────────────────────────── */}
-        <section id="team" className="py-20 sm:py-28 bg-white" aria-labelledby="team-heading">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <p className="text-rose-700 text-sm font-semibold uppercase tracking-widest mb-3">
+        {/* ══════════════════════════════════════════════════════════
+            TEAM
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          id="team"
+          className="py-16 sm:py-24 bg-white"
+          aria-labelledby="team-heading"
+        >
+          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div className="text-center mb-10 sm:mb-14">
+              <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
                 {t.team.sectionLabel}
               </p>
               <h2
                 id="team-heading"
-                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"
+                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {t.team.heading}
               </h2>
-              <p className="text-gray-600 max-w-xl mx-auto">{t.team.subheading}</p>
+              <p className="reveal reveal-d2 text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+                {t.team.subheading}
+              </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {team.map((member) => (
+            {/* 2-col on mobile, 4-col on lg */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {team.map((member, i) => (
                 <div
                   key={member.name}
-                  className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-lg hover:shadow-gray-100 transition-all duration-300"
+                  className={`reveal reveal-d${i + 1} bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-lg hover:shadow-gray-100 transition-all duration-300`}
                 >
+                  {/* Avatar placeholder */}
                   <div
-                    className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+                    className="h-32 sm:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
                     aria-hidden="true"
                   >
-                    <span className="text-4xl font-bold text-gray-400" style={{ fontFamily: "var(--font-playfair)" }}>
+                    <span
+                      className="text-2xl sm:text-4xl font-bold text-gray-400"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
                       {member.initials}
                     </span>
                   </div>
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-gray-900" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <div className="p-3.5 sm:p-5">
+                    <h3
+                      className="text-sm sm:text-lg font-bold text-gray-900 leading-tight"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
                       {member.name}
                     </h3>
-                    <p className="text-sm font-medium text-rose-700 mb-1">{member.role}</p>
-                    <p className="text-xs text-gray-400 mb-4">{member.specialty}</p>
+                    <p className="text-xs sm:text-sm font-medium text-rose-700 mt-0.5 mb-0.5">{member.role}</p>
+                    <p className="text-xs text-gray-400 mb-3 leading-snug">{member.specialty}</p>
                     <a
                       href={`tel:${member.phone.replace(/\s/g, "")}`}
-                      className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded cursor-pointer"
                     >
-                      <Phone className="w-3.5 h-3.5" aria-hidden="true" />
+                      <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" aria-hidden="true" />
                       {member.phone}
                     </a>
                   </div>
@@ -201,39 +312,44 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Gallery ───────────────────────────────────────────────────────── */}
+        {/* ══════════════════════════════════════════════════════════
+            GALLERY  (drag-to-scroll, full-viewport)
+        ══════════════════════════════════════════════════════════ */}
         <section
           id="gallery"
           className="relative bg-gray-950 overflow-hidden"
           style={{ height: "100svh" }}
           aria-labelledby="gallery-heading"
         >
-          {/* Heading — sits above the track, non-interactive so drags still register */}
-          <div className="absolute top-0 left-0 right-0 z-10 pt-16 pb-6 text-center pointer-events-none">
-            <p className="text-rose-400 text-sm font-semibold uppercase tracking-widest mb-3">
+          {/* Overlay heading */}
+          <div className="absolute top-0 left-0 right-0 z-10 pt-12 sm:pt-16 pb-6 text-center pointer-events-none">
+            <p className="text-rose-400 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
               {t.gallery.sectionLabel}
             </p>
             <h2
               id="gallery-heading"
-              className="text-4xl sm:text-5xl font-bold text-white mb-3"
+              className="text-3xl sm:text-5xl font-bold text-white mb-3"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               {t.gallery.heading}
             </h2>
-            <p className="text-gray-400 text-sm max-w-sm mx-auto px-4">{t.gallery.subheading}</p>
-            <p className="text-gray-600 text-xs mt-3">← drag →</p>
+            <p className="text-gray-400 text-xs sm:text-sm max-w-xs mx-auto px-4 leading-relaxed">
+              {t.gallery.subheading}
+            </p>
+            <p className="text-gray-600 text-xs mt-3 tracking-wider">
+              ← {lang === "cs" ? "přejeďte" : "drag"} →
+            </p>
           </div>
 
-          {/* Drag-to-scroll image track */}
           <GalleryTrack />
 
-          {/* Facebook link — pinned to bottom */}
+          {/* Bottom Facebook link */}
           <div className="absolute bottom-8 left-0 right-0 z-10 text-center pointer-events-none">
             <a
               href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
               target="_blank"
               rel="noopener noreferrer"
-              className="pointer-events-auto inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+              className="pointer-events-auto inline-flex items-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/20 hover:bg-white/20 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
             >
               <FacebookIcon className="w-4 h-4" />
               {t.gallery.followUs}
@@ -241,31 +357,41 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Reviews ───────────────────────────────────────────────────────── */}
-        <section id="reviews" className="py-20 sm:py-28 bg-white" aria-labelledby="reviews-heading">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <p className="text-rose-700 text-sm font-semibold uppercase tracking-widest mb-3">
+        {/* ══════════════════════════════════════════════════════════
+            REVIEWS
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          id="reviews"
+          className="py-16 sm:py-24 bg-white"
+          aria-labelledby="reviews-heading"
+        >
+          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div className="text-center mb-10 sm:mb-14">
+              <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
                 {t.reviews.sectionLabel}
               </p>
               <h2
                 id="reviews-heading"
-                className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"
+                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {t.reviews.heading}
               </h2>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-6">
-              {t.reviews.items.map((review) => (
-                <figure key={review.name} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
-                  <div className="flex gap-1 mb-4" aria-label="5 hvězd z 5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" aria-hidden="true" />
+            {/* Single column on mobile, 3-col on sm+ */}
+            <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
+              {t.reviews.items.map((review, i) => (
+                <figure
+                  key={review.name}
+                  className={`reveal reveal-d${i + 1} bg-gray-50 rounded-2xl p-5 sm:p-6 border border-gray-100`}
+                >
+                  <div className="flex gap-1 mb-3" aria-label="5 hvězd z 5">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star key={j} className="w-4 h-4 text-yellow-400 fill-yellow-400" aria-hidden="true" />
                     ))}
                   </div>
-                  <blockquote className="text-gray-600 text-sm leading-relaxed mb-5">
+                  <blockquote className="text-gray-600 text-sm leading-relaxed mb-4">
                     &ldquo;{review.text}&rdquo;
                   </blockquote>
                   <figcaption className="flex items-center gap-3">
@@ -286,62 +412,84 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Contact ───────────────────────────────────────────────────────── */}
-        <section id="contact" className="py-20 sm:py-28 bg-gray-50" aria-labelledby="contact-heading">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
+        {/* ══════════════════════════════════════════════════════════
+            CONTACT  +  FORM
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          id="contact"
+          className="py-16 sm:py-24 bg-gray-50"
+          aria-labelledby="contact-heading"
+        >
+          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 items-start">
+
+              {/* ── Info column ─────────────────────────────────── */}
               <div>
-                <p className="text-rose-700 text-sm font-semibold uppercase tracking-widest mb-3">
+                <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
                   {t.contact.sectionLabel}
                 </p>
                 <h2
                   id="contact-heading"
-                  className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6"
+                  className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900 mb-4 leading-tight"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {t.contact.heading}
                 </h2>
-                <p className="text-gray-600 mb-10 leading-relaxed">{t.contact.subheading}</p>
+                <p className="reveal reveal-d2 text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
+                  {t.contact.subheading}
+                </p>
 
-                <ul className="space-y-6" role="list">
+                <ul className="space-y-5 reveal reveal-d3" role="list">
+                  {/* Phone */}
                   <li className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0" aria-hidden="true">
-                      <Phone className="w-5 h-5 text-gray-700" />
+                    <div
+                      className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                      aria-hidden="true"
+                    >
+                      <Phone className="w-4 h-4 text-gray-700" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 mb-1">{t.contact.phone}</p>
+                      <p className="text-sm font-semibold text-gray-900 mb-0.5">{t.contact.phone}</p>
                       <a
-                        href="tel:+84xxxxxxxxx"
-                        className="text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
+                        href="tel:+420000000000"
+                        className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
                       >
-                        +84 xxx xxx xxx
+                        +420 xxx xxx xxx
                       </a>
                     </div>
                   </li>
+                  {/* Address */}
                   <li className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0" aria-hidden="true">
-                      <MapPin className="w-5 h-5 text-gray-700" />
+                    <div
+                      className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                      aria-hidden="true"
+                    >
+                      <MapPin className="w-4 h-4 text-gray-700" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 mb-1">{t.contact.address}</p>
-                      <p className="text-gray-600">
-                        [Adresa studia]
+                      <p className="text-sm font-semibold text-gray-900 mb-0.5">{t.contact.address}</p>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        [Ulice a číslo popisné]
                         <br />
-                        Ho Chi Minh City, Vietnam
+                        Praha, Česká republika
                       </p>
                     </div>
                   </li>
+                  {/* Hours */}
                   <li className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0" aria-hidden="true">
-                      <Clock className="w-5 h-5 text-gray-700" />
+                    <div
+                      className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                      aria-hidden="true"
+                    >
+                      <Clock className="w-4 h-4 text-gray-700" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 mb-1">{t.contact.hours}</p>
-                      <dl className="text-gray-600 text-sm space-y-1">
+                      <p className="text-sm font-semibold text-gray-900 mb-1.5">{t.contact.hours}</p>
+                      <dl className="text-sm space-y-1">
                         {t.contact.hoursData.map((h) => (
                           <div key={h.day} className="flex gap-4">
-                            <dt className="font-medium text-gray-800 min-w-24">{h.day}</dt>
-                            <dd>{h.time}</dd>
+                            <dt className="font-medium text-gray-800 min-w-20">{h.day}</dt>
+                            <dd className="text-gray-600">{h.time}</dd>
                           </div>
                         ))}
                       </dl>
@@ -349,12 +497,12 @@ export default function Home() {
                   </li>
                 </ul>
 
-                <div className="mt-10">
+                <div className="reveal reveal-d4 mt-8">
                   <a
                     href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
+                    className="inline-flex items-center gap-2.5 px-5 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
                     aria-label={t.contact.messageBtn}
                   >
                     <FacebookIcon className="w-4 h-4" />
@@ -363,9 +511,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+              {/* ── Form column ─────────────────────────────────── */}
+              <div className="reveal reveal-d2 bg-white rounded-2xl p-5 sm:p-8 border border-gray-100 shadow-sm">
                 <h3
-                  className="text-2xl font-bold text-gray-900 mb-2"
+                  className="text-xl sm:text-2xl font-bold text-gray-900 mb-1.5"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {t.contact.formHeading}
@@ -378,20 +527,27 @@ export default function Home() {
         </section>
       </main>
 
-      {/* ── Footer ────────────────────────────────────────────────────────── */}
+      {/* ══════════════════════════════════════════════════════════
+          FOOTER
+      ══════════════════════════════════════════════════════════ */}
       <footer className="bg-gray-900 text-gray-400 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-3 gap-8 mb-10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="grid gap-8 sm:grid-cols-3 mb-10">
+            {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <Scissors className="w-5 h-5 text-gray-300" aria-hidden="true" strokeWidth={1.5} />
-                <span className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-playfair)" }}>
+                <span
+                  className="text-lg font-bold text-white"
+                  style={{ fontFamily: "var(--font-playfair)" }}
+                >
                   Linda Beauty Studio
                 </span>
               </div>
               <p className="text-sm leading-relaxed">{t.footer.tagline}</p>
             </div>
 
+            {/* Quick links */}
             <nav aria-label="Footer navigation">
               <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wider">
                 {t.footer.quickLinks}
@@ -399,10 +555,10 @@ export default function Home() {
               <ul className="space-y-2" role="list">
                 {[
                   { label: t.nav.services, href: "#services" },
-                  { label: t.nav.team, href: "#team" },
-                  { label: t.nav.gallery, href: "#gallery" },
-                  { label: t.nav.reviews, href: "#reviews" },
-                  { label: t.nav.contact, href: "#contact" },
+                  { label: t.nav.team,     href: "#team"     },
+                  { label: t.nav.gallery,  href: "#gallery"  },
+                  { label: t.nav.reviews,  href: "#reviews"  },
+                  { label: t.nav.contact,  href: "#contact"  },
                 ].map((link) => (
                   <li key={link.href}>
                     <a
@@ -416,6 +572,7 @@ export default function Home() {
               </ul>
             </nav>
 
+            {/* Social + phone */}
             <div>
               <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wider">
                 {t.footer.followUs}
@@ -425,24 +582,24 @@ export default function Home() {
                   href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                  className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
                   aria-label="Facebook"
                 >
                   <FacebookIcon className="w-4 h-4 text-gray-400" />
                 </a>
                 <a
                   href="#"
-                  className="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                  className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
                   aria-label="Instagram"
                 >
                   <InstagramIcon className="w-4 h-4 text-gray-400" />
                 </a>
               </div>
               <a
-                href="tel:+84xxxxxxxxx"
+                href="tel:+420000000000"
                 className="text-sm hover:text-gray-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
               >
-                +84 xxx xxx xxx
+                +420 xxx xxx xxx
               </a>
             </div>
           </div>
@@ -454,6 +611,26 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* ══════════════════════════════════════════════════════════
+          FLOATING MOBILE CTA
+          Appears after hero, hides when contact section is visible
+      ══════════════════════════════════════════════════════════ */}
+      <div
+        aria-hidden="true"
+        className={`md:hidden fixed bottom-0 left-0 right-0 z-30 px-4 pb-5 pt-3 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none transition-all duration-300 ${
+          showFloatCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
+      >
+        <a
+          href="#contact"
+          className={`pointer-events-auto flex items-center justify-center w-full py-4 bg-gray-900 text-white font-semibold rounded-2xl shadow-xl shadow-gray-900/25 hover:bg-gray-700 active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 ${
+            showFloatCTA ? "" : "pointer-events-none"
+          }`}
+        >
+          {t.nav.book}
+        </a>
+      </div>
     </>
   );
 }
