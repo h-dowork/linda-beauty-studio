@@ -468,12 +468,20 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-gray-900 mb-0.5">{t.contact.phone}</p>
-                      <a
-                        href="tel:+420000000000"
-                        className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
-                      >
-                        +420 xxx xxx xxx
-                      </a>
+                      <div className="flex flex-col gap-0.5">
+                        <a
+                          href="tel:+420774109009"
+                          className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
+                        >
+                          +420 774 109 009
+                        </a>
+                        <a
+                          href="tel:+420778020615"
+                          className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
+                        >
+                          +420 778 020 615
+                        </a>
+                      </div>
                     </div>
                   </li>
                   {/* Address */}
@@ -487,9 +495,9 @@ export default function Home() {
                     <div>
                       <p className="text-sm font-semibold text-gray-900 mb-0.5">{t.contact.address}</p>
                       <p className="text-gray-600 text-sm leading-relaxed">
-                        [Ulice a číslo popisné]
+                        28. Října 857/20
                         <br />
-                        Praha, Česká republika
+                        Teplice, Česká republika
                       </p>
                     </div>
                   </li>
@@ -541,7 +549,7 @@ export default function Home() {
               <div className="rounded-2xl overflow-hidden border border-gray-200 h-64 sm:h-80">
                 {/* Replace the src with your exact Google Maps embed URL */}
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d163956.47266707773!2d14.24381825!3d50.0596696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b939c0970798b%3A0x400af0f66164090!2sPraha!5e0!3m2!1scs!2scz!4v1685000000000!5m2!1scs!2scz"
+                  src="https://maps.google.com/maps?q=28.+%C5%98%C3%ADjna+857%2F20%2C+Teplice&hl=cs&z=17&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -625,10 +633,10 @@ export default function Home() {
                 </a>
               </div>
               <a
-                href="tel:+420000000000"
+                href="tel:+420774109009"
                 className="text-sm hover:text-gray-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
               >
-                +420 xxx xxx xxx
+                +420 774 109 009
               </a>
             </div>
           </div>
