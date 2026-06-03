@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import ContactForm from "@/components/ContactForm";
 
 function FacebookIcon({ className }: { className?: string }) {
   return (
@@ -605,36 +606,18 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Map placeholder */}
+              {/* Contact form */}
               <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 border border-pink-100">
-                <div
-                  className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-6"
-                  aria-hidden="true"
-                >
-                  <MapPin className="w-6 h-6 text-pink-500" />
-                </div>
                 <h3
-                  className="text-2xl font-bold text-pink-900 mb-3"
+                  className="text-2xl font-bold text-pink-900 mb-2"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
-                  Find Us
+                  Send a Message
                 </h3>
-                <p className="text-pink-600 text-sm leading-relaxed mb-6">
-                  We are conveniently located in Ho Chi Minh City. Replace the
-                  card below with a Google Maps embed.
+                <p className="text-pink-500 text-sm mb-6">
+                  We&apos;ll reply within 24 hours.
                 </p>
-                <div
-                  className="h-56 rounded-xl bg-pink-100/50 border-2 border-dashed border-pink-200 flex items-center justify-center"
-                  aria-label="Map embed placeholder"
-                >
-                  <p className="text-pink-300 text-sm text-center px-4">
-                    Paste your Google Maps{" "}
-                    <code className="text-xs bg-pink-100 px-1 py-0.5 rounded">
-                      &lt;iframe&gt;
-                    </code>{" "}
-                    here
-                  </p>
-                </div>
+                <ContactForm />
               </div>
             </div>
           </div>
