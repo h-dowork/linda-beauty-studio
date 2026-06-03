@@ -1,21 +1,62 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, MessageCircle } from "lucide-react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 const SERVICES = ["Hair", "Nails", "Makeup & Lashes", "Skin Care", "Other"];
 
+// Facebook page numeric ID from the page URL
+const FB_PAGE_ID = "61560198843135";
+
+function buildMessengerUrl(fields: {
+  name: string;
+  phone: string;
+  email: string;
+  service: string;
+  message: string;
+}): string {
+  const lines = [
+    "🌸 BOOKING REQUEST — Linda Beauty Studio",
+    "",
+    `Name:    ${fields.name}`,
+    fields.phone ? `Phone:   ${fields.phone}` : null,
+    `Email:   ${fields.email}`,
+    fields.service ? `Service: ${fields.service}` : null,
+    "",
+    fields.message,
+  ]
+    .filter((l) => l !== null)
+    .join("\n");
+
+  return `https://m.me/${FB_PAGE_ID}?text=${encodeURIComponent(lines)}`;
+}
+
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>("idle");
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+  function handleChange(
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => { const next = { ...prev }; delete next[name]; return next; });
+    if (errors[name])
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -24,6 +65,7 @@ export default function ContactForm() {
     setErrors({});
 
     try {
+      // Server-side validation + logging
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,18 +73,26 @@ export default function ContactForm() {
       });
       const data = await res.json();
 
-      if (res.ok) {
-        setStatus("success");
-        setForm({ name: "", email: "", phone: "", service: "", message: "" });
-      } else if (res.status === 422 && data.errors) {
+      if (res.status === 422 && data.errors) {
         setErrors(data.errors);
         setStatus("idle");
-      } else if (res.status === 429) {
-        setErrors({ form: "Too many requests. Please wait 15 minutes and try again." });
-        setStatus("idle");
-      } else {
-        setStatus("error");
+        return;
       }
+      if (res.status === 429) {
+        setErrors({
+          form: "Too many requests. Please wait 15 minutes and try again.",
+        });
+        setStatus("idle");
+        return;
+      }
+
+      // Open Messenger with pre-filled booking message.
+      // The customer just needs to tap Send — you'll receive it in your page inbox.
+      const messengerUrl = buildMessengerUrl(form);
+      window.open(messengerUrl, "_blank", "noopener,noreferrer");
+
+      setStatus("success");
+      setForm({ name: "", email: "", phone: "", service: "", message: "" });
     } catch {
       setStatus("error");
     }
@@ -51,40 +101,85 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
-        <CheckCircle className="w-12 h-12 text-green-500 mb-4" aria-hidden="true" />
-        <h3 className="text-xl font-bold text-pink-900 mb-2" style={{ fontFamily: "var(--font-playfair)" }}>
-          Message Sent!
-        </h3>
-        <p className="text-pink-600 text-sm">We&apos;ll get back to you shortly.</p>
-        <button
-          onClick={() => setStatus("idle")}
-          className="mt-6 text-sm text-pink-500 underline hover:text-pink-700 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 rounded"
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+          <CheckCircle
+            className="w-8 h-8 text-green-500"
+            aria-hidden="true"
+          />
+        </div>
+        <h3
+          className="text-xl font-bold text-pink-900 mb-2"
+          style={{ fontFamily: "var(--font-playfair)" }}
         >
-          Send another message
-        </button>
+          Almost there!
+        </h3>
+        <p className="text-pink-600 text-sm max-w-xs">
+          Messenger opened in a new tab with your booking details pre-filled.
+          Just hit{" "}
+          <strong className="text-pink-800">Send</strong> to confirm your
+          appointment with Linda.
+        </p>
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <a
+            href={buildMessengerUrl(form)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400"
+          >
+            <MessageCircle className="w-4 h-4" aria-hidden="true" />
+            Open Messenger Again
+          </a>
+          <button
+            onClick={() => setStatus("idle")}
+            className="text-sm text-pink-500 underline hover:text-pink-700 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 rounded"
+          >
+            New booking
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4" aria-label="Contact form">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="space-y-4"
+      aria-label="Booking request form"
+    >
       {status === "error" && (
-        <div role="alert" className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
-          <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" aria-hidden="true" />
-          Something went wrong. Please try again.
+        <div
+          role="alert"
+          className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700"
+        >
+          <AlertCircle
+            className="w-4 h-4 flex-shrink-0 mt-0.5"
+            aria-hidden="true"
+          />
+          Something went wrong. Please try again or message us directly on
+          Facebook.
         </div>
       )}
 
       {errors.form && (
-        <div role="alert" className="flex items-start gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-sm text-yellow-800">
-          <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" aria-hidden="true" />
+        <div
+          role="alert"
+          className="flex items-start gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-sm text-yellow-800"
+        >
+          <AlertCircle
+            className="w-4 h-4 flex-shrink-0 mt-0.5"
+            aria-hidden="true"
+          />
           {errors.form}
         </div>
       )}
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-pink-900 mb-1.5">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-pink-900 mb-1.5"
+          >
             Name <span aria-label="required">*</span>
           </label>
           <input
@@ -104,12 +199,17 @@ export default function ContactForm() {
             aria-invalid={!!errors.name}
           />
           {errors.name && (
-            <p id="name-error" role="alert" className="mt-1 text-xs text-red-600">{errors.name}</p>
+            <p id="name-error" role="alert" className="mt-1 text-xs text-red-600">
+              {errors.name}
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-pink-900 mb-1.5">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-pink-900 mb-1.5"
+          >
             Email <span aria-label="required">*</span>
           </label>
           <input
@@ -129,14 +229,19 @@ export default function ContactForm() {
             aria-invalid={!!errors.email}
           />
           {errors.email && (
-            <p id="email-error" role="alert" className="mt-1 text-xs text-red-600">{errors.email}</p>
+            <p id="email-error" role="alert" className="mt-1 text-xs text-red-600">
+              {errors.email}
+            </p>
           )}
         </div>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-pink-900 mb-1.5">
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-pink-900 mb-1.5"
+          >
             Phone
           </label>
           <input
@@ -153,7 +258,10 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="service" className="block text-sm font-medium text-pink-900 mb-1.5">
+          <label
+            htmlFor="service"
+            className="block text-sm font-medium text-pink-900 mb-1.5"
+          >
             Service
           </label>
           <select
@@ -165,14 +273,19 @@ export default function ContactForm() {
           >
             <option value="">Select a service</option>
             {SERVICES.map((s) => (
-              <option key={s} value={s}>{s}</option>
+              <option key={s} value={s}>
+                {s}
+              </option>
             ))}
           </select>
         </div>
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-pink-900 mb-1.5">
+        <label
+          htmlFor="message"
+          className="block text-sm font-medium text-pink-900 mb-1.5"
+        >
           Message <span aria-label="required">*</span>
         </label>
         <textarea
@@ -184,7 +297,7 @@ export default function ContactForm() {
           minLength={10}
           maxLength={1000}
           rows={4}
-          placeholder="Tell us about the service you're interested in, preferred dates, or any questions..."
+          placeholder="Preferred date, time, and any details about the service you'd like…"
           className={`w-full px-4 py-3 rounded-xl border text-sm text-pink-900 placeholder-pink-300 bg-white focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors resize-none ${
             errors.message ? "border-red-400" : "border-pink-200"
           }`}
@@ -193,8 +306,12 @@ export default function ContactForm() {
         />
         <div className="flex justify-between mt-1">
           {errors.message ? (
-            <p id="message-error" role="alert" className="text-xs text-red-600">{errors.message}</p>
-          ) : <span />}
+            <p id="message-error" role="alert" className="text-xs text-red-600">
+              {errors.message}
+            </p>
+          ) : (
+            <span />
+          )}
           <span className="text-xs text-pink-300">{form.message.length}/1000</span>
         </div>
       </div>
@@ -206,16 +323,23 @@ export default function ContactForm() {
       >
         {status === "loading" ? (
           <>
-            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
-            Sending…
+            <span
+              className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
+              aria-hidden="true"
+            />
+            Opening Messenger…
           </>
         ) : (
           <>
             <Send className="w-4 h-4" aria-hidden="true" />
-            Send Message
+            Book via Messenger
           </>
         )}
       </button>
+
+      <p className="text-center text-xs text-pink-400">
+        Messenger will open pre-filled — just tap Send to confirm.
+      </p>
     </form>
   );
 }
