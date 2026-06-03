@@ -20,7 +20,7 @@ const securityHeaders = [
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://images.unsplash.com",
       "connect-src 'self'",
-      "frame-src 'none'",
+      "frame-src https://www.google.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",

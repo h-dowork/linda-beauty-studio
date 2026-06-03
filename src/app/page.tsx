@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import {
   Scissors, Sparkles, Heart, Star,
-  Phone, MapPin, Clock, ChevronRight, ChevronDown,
+  Phone, MapPin, Clock, ChevronRight, ChevronDown, X,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ContactForm from "@/components/ContactForm";
@@ -54,6 +54,21 @@ export default function Home() {
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
+  // ── Service card modal ───────────────────────────────────────
+  const [activeService, setActiveService] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (activeService === null) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveService(null); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [activeService]);
+
+  useEffect(() => {
+    document.body.style.overflow = activeService !== null ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [activeService]);
 
   // ── Floating mobile CTA ───────────────────────────────────────
   const [showFloatCTA, setShowFloatCTA] = useState(false);
@@ -208,9 +223,12 @@ export default function Home() {
                 {t.services.items.map((service, i) => {
                   const Icon = serviceIcons[i];
                   return (
-                    <div
+                    <button
                       key={service.title}
-                      className={`reveal reveal-d${i + 1} snap-start flex-none w-[82vw] sm:w-full group bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-gray-300 hover:shadow-lg hover:shadow-gray-100 active:scale-[0.98] transition-all duration-300`}
+                      type="button"
+                      onClick={() => setActiveService(i)}
+                      className={`reveal reveal-d${i + 1} snap-start flex-none w-[82vw] sm:w-full group bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-gray-300 hover:shadow-lg hover:shadow-gray-100 active:scale-[0.98] transition-all duration-300 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400`}
+                      aria-label={`Zobrazit detail: ${service.title}`}
                     >
                       <div className="w-11 h-11 bg-gray-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-gray-200 transition-colors duration-200">
                         <Icon className="w-5 h-5 text-gray-700" aria-hidden="true" strokeWidth={1.5} />
@@ -233,7 +251,7 @@ export default function Home() {
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
@@ -342,20 +360,20 @@ export default function Home() {
           </div>
 
           <GalleryTrack />
-
-          {/* Bottom Facebook link */}
-          <div className="absolute bottom-8 left-0 right-0 z-10 text-center pointer-events-none">
-            <a
-              href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pointer-events-auto inline-flex items-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/20 hover:bg-white/20 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
-            >
-              <FacebookIcon className="w-4 h-4" />
-              {t.gallery.followUs}
-            </a>
-          </div>
         </section>
+
+        {/* Facebook follow strip — between gallery and reviews */}
+        <div className="bg-gray-950 py-8 text-center">
+          <a
+            href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/20 hover:bg-white/20 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+          >
+            <FacebookIcon className="w-4 h-4" />
+            {t.gallery.followUs}
+          </a>
+        </div>
 
         {/* ══════════════════════════════════════════════════════════
             REVIEWS
@@ -511,6 +529,29 @@ export default function Home() {
                 <ContactForm />
               </div>
             </div>
+
+            {/* ── Google Maps ──────────────────────────────────── */}
+            <div className="reveal mt-12">
+              <h3
+                className="text-lg font-semibold text-gray-900 mb-4"
+                style={{ fontFamily: "var(--font-playfair)" }}
+              >
+                {t.contact.findUs}
+              </h3>
+              <div className="rounded-2xl overflow-hidden border border-gray-200 h-64 sm:h-80">
+                {/* Replace the src with your exact Google Maps embed URL */}
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d163956.47266707773!2d14.24381825!3d50.0596696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b939c0970798b%3A0x400af0f66164090!2sPraha!5e0!3m2!1scs!2scz!4v1685000000000!5m2!1scs!2scz"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={t.contact.findUs}
+                />
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -605,6 +646,87 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* ══════════════════════════════════════════════════════════
+          SERVICE DETAIL PANEL
+          Slide-up sheet on mobile, centered overlay on desktop
+      ══════════════════════════════════════════════════════════ */}
+      {activeService !== null && (() => {
+        const service = t.services.items[activeService];
+        const Icon = serviceIcons[activeService];
+        return (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={service.title}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+            onClick={() => setActiveService(null)}
+          >
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" aria-hidden="true" />
+
+            {/* Panel — bottom sheet on mobile, card on sm+ */}
+            <div
+              className="relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-2xl max-h-[88dvh] overflow-y-auto shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Mobile drag handle */}
+              <div className="sm:hidden pt-3 pb-1 flex justify-center" aria-hidden="true">
+                <div className="w-10 h-1 bg-gray-200 rounded-full" />
+              </div>
+
+              <div className="px-6 pb-8 pt-4 sm:p-8">
+                {/* Close */}
+                <button
+                  onClick={() => setActiveService(null)}
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                  aria-label="Zavřít"
+                >
+                  <X className="w-4 h-4 text-gray-700" aria-hidden="true" />
+                </button>
+
+                {/* Icon */}
+                <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-5">
+                  <Icon className="w-7 h-7 text-gray-700" aria-hidden="true" strokeWidth={1.5} />
+                </div>
+
+                {/* Title + description */}
+                <h3
+                  className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 leading-tight"
+                  style={{ fontFamily: "var(--font-playfair)" }}
+                >
+                  {service.title}
+                </h3>
+                <p className="text-gray-500 text-base leading-relaxed mb-6">{service.description}</p>
+
+                {/* Service items */}
+                <ul className="space-y-3" role="list">
+                  {service.items.map((item) => (
+                    <li
+                      key={item.name}
+                      className="flex items-center justify-between text-base border-b border-gray-100 pb-3 last:border-0 last:pb-0"
+                    >
+                      <span className="text-gray-700">{item.name}</span>
+                      <span className="font-semibold text-gray-400 ml-4 flex-shrink-0">
+                        {item.price === "—" ? t.services.pricePlaceholder : item.price}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Book CTA */}
+                <a
+                  href="#contact"
+                  onClick={() => setActiveService(null)}
+                  className="mt-7 flex items-center justify-center w-full py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-700 active:scale-[0.98] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                >
+                  {t.hero.cta}
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ══════════════════════════════════════════════════════════
           FLOATING MOBILE CTA
