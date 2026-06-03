@@ -26,7 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="cs" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="cs" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
       <body className="min-h-dvh font-sans antialiased bg-white text-gray-900">
         {/* Skip to main content — keyboard / screen reader navigation */}
         <a

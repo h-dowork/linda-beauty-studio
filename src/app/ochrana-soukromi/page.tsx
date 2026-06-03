@@ -32,7 +32,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-bold text-gray-900 mb-3">1. Správce osobních údajů</h2>
             <p>
               Správcem osobních údajů je <strong>Linda Beauty Studio</strong> (dále jen „Studio"),
-              provozované v Praze, Česká republika. Kontakt: prostřednictvím formuláře na webu nebo
+              provozované v Teplicích, Česká republika. Kontakt: prostřednictvím formuláře na webu nebo
               přes Facebook stránku Studia.
             </p>
           </section>
@@ -180,7 +180,7 @@ export default function PrivacyPage() {
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-xl font-bold text-gray-900 mb-3">Privacy Policy — English Summary</h2>
             <p className="text-gray-600">
-              <strong className="text-gray-800">Data controller:</strong> Linda Beauty Studio, Prague, Czech Republic.
+              <strong className="text-gray-800">Data controller:</strong> Linda Beauty Studio, Teplice, Czech Republic.
             </p>
             <p className="mt-2 text-gray-600">
               <strong className="text-gray-800">Data collected:</strong> Name, email, optional phone and service preference,

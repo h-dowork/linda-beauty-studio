@@ -13,8 +13,14 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("cs");
+
+  function handleSetLang(l: Lang) {
+    setLang(l);
+    if (typeof document !== "undefined") document.documentElement.lang = l;
+  }
+
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>
+    <LanguageContext.Provider value={{ lang, setLang: handleSetLang, t: translations[lang] }}>
       {children}
     </LanguageContext.Provider>
   );

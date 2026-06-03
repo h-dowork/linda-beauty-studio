@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// In-memory store for rate limiting (single-instance only).
-// For multi-instance / production: replace with Upstash Redis.
+// In-memory rate store — single-instance only.
+// For multi-instance / production deployments replace with Upstash Redis.
 const rateStore = new Map<string, { count: number; resetAt: number }>();
 
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-const MAX_REQUESTS_DEFAULT = 100;  // general API requests per window
-const MAX_REQUESTS_AUTH = 5;       // auth routes per window
-
-const AUTH_PATTERNS = ["/api/auth", "/api/login", "/api/register", "/api/reset-password"];
+const WINDOW_MS = 15 * 60 * 1000;
+const MAX_REQUESTS_CONTACT = 10;  // contact form: 10 per 15 min per IP
+const MAX_REQUESTS_DEFAULT = 60;
 
 function getIp(req: NextRequest): string {
   return (
@@ -18,7 +16,7 @@ function getIp(req: NextRequest): string {
   );
 }
 
-function isRateLimited(key: string, max: number): { limited: boolean; remaining: number; resetAt: number } {
+function checkLimit(key: string, max: number): { limited: boolean; remaining: number; resetAt: number } {
   const now = Date.now();
   const entry = rateStore.get(key);
 
@@ -28,11 +26,15 @@ function isRateLimited(key: string, max: number): { limited: boolean; remaining:
   }
 
   entry.count += 1;
-  const remaining = Math.max(0, max - entry.count);
-  return { limited: entry.count > max, remaining, resetAt: entry.resetAt };
+  return {
+    limited: entry.count > max,
+    remaining: Math.max(0, max - entry.count),
+    resetAt: entry.resetAt,
+  };
 }
 
-// Prune stale entries periodically to prevent memory growth.
+let lastPrune = Date.now();
+
 function pruneStore() {
   const now = Date.now();
   for (const [key, val] of rateStore.entries()) {
@@ -40,27 +42,23 @@ function pruneStore() {
   }
 }
 
-let lastPrune = Date.now();
-
-export function proxy(req: NextRequest) {
+export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Only rate-limit API routes.
-  if (!pathname.startsWith("/api/")) {
-    return NextResponse.next();
-  }
+  if (!pathname.startsWith("/api/")) return NextResponse.next();
 
-  if (Date.now() - lastPrune > 5 * 60 * 1000) {
+  const now = Date.now();
+  if (now - lastPrune > 5 * 60 * 1000) {
     pruneStore();
-    lastPrune = Date.now();
+    lastPrune = now;
   }
 
   const ip = getIp(req);
-  const isAuth = AUTH_PATTERNS.some((p) => pathname.startsWith(p));
-  const max = isAuth ? MAX_REQUESTS_AUTH : MAX_REQUESTS_DEFAULT;
-  const storeKey = `${isAuth ? "auth" : "api"}:${ip}`;
+  const isContact = pathname.startsWith("/api/contact");
+  const max = isContact ? MAX_REQUESTS_CONTACT : MAX_REQUESTS_DEFAULT;
+  const key = `${isContact ? "contact" : "api"}:${ip}`;
 
-  const { limited, remaining, resetAt } = isRateLimited(storeKey, max);
+  const { limited, remaining, resetAt } = checkLimit(key, max);
 
   if (limited) {
     return new NextResponse(
@@ -69,7 +67,7 @@ export function proxy(req: NextRequest) {
         status: 429,
         headers: {
           "Content-Type": "application/json",
-          "Retry-After": String(Math.ceil((resetAt - Date.now()) / 1000)),
+          "Retry-After": String(Math.ceil((resetAt - now) / 1000)),
           "X-RateLimit-Limit": String(max),
           "X-RateLimit-Remaining": "0",
           "X-RateLimit-Reset": String(Math.ceil(resetAt / 1000)),
