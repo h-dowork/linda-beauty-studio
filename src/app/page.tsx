@@ -549,7 +549,7 @@ export default function Home() {
               <div className="rounded-2xl overflow-hidden border border-gray-200 h-64 sm:h-80">
                 {/* Replace the src with your exact Google Maps embed URL */}
                 <iframe
-                  src="https://maps.google.com/maps?q=28.+%C5%98%C3%ADjna+857%2F20%2C+Teplice&hl=cs&z=17&output=embed"
+                  src="https://www.google.com/maps?q=28.+%C5%98%C3%ADjna+857%2F20%2C+Teplice&hl=cs&z=17&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
