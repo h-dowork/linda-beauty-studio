@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #FDF2F8;
-  --color-foreground: #831843;
+  --color-background: #ffffff;
+  --color-foreground: #111827;
   --font-heading: var(--font-playfair);
   --font-sans: var(--font-inter);
 }
@@ -12,8 +12,8 @@ html {
 }
 
 body {
-  background: #FDF2F8;
-  color: #831843;
+  background: #ffffff;
+  color: #111827;
 }
 
 @media (prefers-reduced-motion: reduce) {

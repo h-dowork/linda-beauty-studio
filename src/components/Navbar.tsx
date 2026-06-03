@@ -2,16 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X, Scissors } from "lucide-react";
-
-const links = [
-  { label: "Services", href: "#services" },
-  { label: "Team", href: "#team" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/context/LanguageContext";
+import type { Lang } from "@/lib/i18n";
 
 export default function Navbar() {
+  const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,31 +16,41 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  const links = [
+    { label: t.nav.services, href: "#services" },
+    { label: t.nav.team, href: "#team" },
+    { label: t.nav.gallery, href: "#gallery" },
+    { label: t.nav.reviews, href: "#reviews" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
+
+  const otherLang: Lang = lang === "cs" ? "en" : "cs";
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-pink-50/95 backdrop-blur-md shadow-sm border-b border-pink-100"
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
           : "bg-transparent"
       }`}
     >
       <nav
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
-        aria-label="Main navigation"
+        aria-label="Hlavní navigace"
       >
         {/* Logo */}
         <a
           href="#"
           className="flex items-center gap-2 cursor-pointer"
-          aria-label="Linda Beauty Studio — back to top"
+          aria-label="Linda Beauty Studio — zpět nahoru"
         >
           <Scissors
-            className="w-5 h-5 text-pink-500"
+            className="w-5 h-5 text-rose-700"
             aria-hidden="true"
             strokeWidth={1.5}
           />
           <span
-            className="text-xl font-bold text-pink-900"
+            className="text-xl font-bold text-gray-900"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             Linda Beauty
@@ -58,7 +63,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm font-medium text-pink-800 hover:text-pink-500 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 rounded"
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 rounded"
               >
                 {link.label}
               </a>
@@ -66,35 +71,54 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Book CTA */}
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center px-5 py-2.5 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 active:bg-pink-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:ring-offset-2 cursor-pointer"
-        >
-          Book Now
-        </a>
+        <div className="hidden md:flex items-center gap-3">
+          {/* Language toggle */}
+          <button
+            onClick={() => setLang(otherLang)}
+            className="text-xs font-semibold text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-400 px-2.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 uppercase tracking-wide"
+            aria-label={`Přepnout jazyk na ${otherLang === "en" ? "angličtinu" : "češtinu"}`}
+          >
+            {otherLang.toUpperCase()}
+          </button>
+          {/* Book CTA */}
+          <a
+            href="#contact"
+            className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white text-sm font-semibold rounded-full hover:bg-gray-700 active:bg-gray-800 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
+          >
+            {t.nav.book}
+          </a>
+        </div>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setOpen((o) => !o)}
-          className="md:hidden p-2 rounded-lg text-pink-800 hover:bg-pink-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 cursor-pointer"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-        >
-          {open ? (
-            <X className="w-5 h-5" aria-hidden="true" />
-          ) : (
-            <Menu className="w-5 h-5" aria-hidden="true" />
-          )}
-        </button>
+        {/* Mobile: lang toggle + menu button */}
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={() => setLang(otherLang)}
+            className="text-xs font-semibold text-gray-500 border border-gray-200 px-2 py-1 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 uppercase tracking-wide"
+            aria-label={`Switch language to ${otherLang}`}
+          >
+            {otherLang.toUpperCase()}
+          </button>
+          <button
+            onClick={() => setOpen((o) => !o)}
+            className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 cursor-pointer"
+            aria-label={open ? "Zavřít menu" : "Otevřít menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+          >
+            {open ? (
+              <X className="w-5 h-5" aria-hidden="true" />
+            ) : (
+              <Menu className="w-5 h-5" aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       {open && (
         <div
           id="mobile-menu"
-          className="md:hidden bg-pink-50/98 backdrop-blur-md border-t border-pink-100 px-4 pb-4"
+          className="md:hidden bg-white/98 backdrop-blur-md border-t border-gray-100 px-4 pb-4"
         >
           <ul className="flex flex-col gap-1 pt-2" role="list">
             {links.map((link) => (
@@ -102,7 +126,7 @@ export default function Navbar() {
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-3 px-2 text-base font-medium text-pink-800 hover:text-pink-500 hover:bg-pink-100 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400"
+                  className="block py-3 px-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
                 >
                   {link.label}
                 </a>
@@ -112,9 +136,9 @@ export default function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="block w-full text-center py-3 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400"
+                className="block w-full text-center py-3 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
               >
-                Book Now
+                {t.nav.book}
               </a>
             </li>
           </ul>
