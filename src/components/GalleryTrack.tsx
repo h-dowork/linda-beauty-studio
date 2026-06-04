@@ -13,6 +13,23 @@ const images = [
   "https://images.unsplash.com/photo-1516681100942-77d8e7f9dd97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
 ];
 
+// Mirrors the CSS: width: clamp(240px, 70vw, 380px), gap: 4vmin
+function computeTrackWidth() {
+  const vw = window.innerWidth;
+  const vmin = Math.min(vw, window.innerHeight);
+  const imageW = Math.min(Math.max(240, 0.7 * vw), 380);
+  const gapW = 0.04 * vmin;
+  return images.length * imageW + (images.length - 1) * gapW;
+}
+
+// The minimum % at which the last image's right edge meets the container's right edge.
+// translate(X%) is relative to the track's own width, and the track starts at left: 50%.
+// Solving: containerW/2 + (X/100)*trackW + trackW = containerW → X = (containerW/2 - trackW)/trackW * 100
+function computeMinPct(containerW: number) {
+  const trackW = computeTrackWidth();
+  return ((containerW / 2 - trackW) / trackW) * 100;
+}
+
 export default function GalleryTrack() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -23,7 +40,7 @@ export default function GalleryTrack() {
     startX: 0,
     startPct: 0,
     curPct: 0,
-    vx: 0,
+    vx: 0,      // %/ms, same scale as drag delta
     prevX: 0,
     prevT: 0,
   });
@@ -34,7 +51,8 @@ export default function GalleryTrack() {
     if (!container || !track) return;
 
     const applyPct = (pct: number) => {
-      const clamped = Math.max(Math.min(pct, 0), -100);
+      const minPct = computeMinPct(container.clientWidth);
+      const clamped = Math.max(Math.min(pct, 0), minPct);
       drag.current.curPct = clamped;
       track.style.transform = `translate(${clamped}%, -50%)`;
       for (const img of track.getElementsByClassName("gi")) {
@@ -68,18 +86,19 @@ export default function GalleryTrack() {
       const now = Date.now();
       const dt = now - drag.current.prevT;
 
+      // maxDelta: pixels of drag = 100% translate. 2× screen width feels natural (≈2.5x amplification).
+      const maxDelta = window.innerWidth * 2;
+
       if (dt > 0 && dt < 150) {
-        const maxDelta = window.innerWidth / 2;
         const rawVx = ((drag.current.prevX - clientX) / dt / maxDelta) * -100;
-        drag.current.vx = drag.current.vx * 0.6 + rawVx * 0.4;
+        drag.current.vx = drag.current.vx * 0.6 + rawVx * 0.4; // EMA smoothing
       } else if (dt >= 150) {
-        drag.current.vx = 0;
+        drag.current.vx = 0; // paused — no momentum
       }
 
       drag.current.prevX = clientX;
       drag.current.prevT = now;
 
-      const maxDelta = window.innerWidth / 2;
       const deltaPct = ((drag.current.startX - clientX) / maxDelta) * -100;
       applyPct(drag.current.startPct + deltaPct);
     };
@@ -88,34 +107,25 @@ export default function GalleryTrack() {
       if (!drag.current.active) return;
       drag.current.active = false;
 
-      let velocity = drag.current.vx * 35;
+      let velocity = drag.current.vx; // no extra boost — raw velocity is the momentum
       let lastT = Date.now();
 
       const animate = () => {
         const now = Date.now();
-        const dt = now - lastT;
+        const dt = Math.min(now - lastT, 64); // cap dt to avoid huge jumps after tab switch
         lastT = now;
 
-        const next = drag.current.curPct + velocity * dt;
-        const clamped = Math.max(Math.min(next, 0), -100);
-        applyPct(clamped);
+        applyPct(drag.current.curPct + velocity * dt);
+        velocity *= Math.pow(0.82, dt / 16); // friction — coast fades in ~80ms
 
-        // Stop at boundaries
-        if (clamped !== next) {
-          velocity = 0;
-        }
-
-        // Friction
-        velocity *= Math.pow(0.90, dt / 16);
-
-        if (Math.abs(velocity) > 0.005) {
+        if (Math.abs(velocity) > 0.003) {
           rafRef.current = requestAnimationFrame(animate);
         } else {
           rafRef.current = null;
         }
       };
 
-      if (Math.abs(velocity) > 0.005) {
+      if (Math.abs(velocity) > 0.003) {
         rafRef.current = requestAnimationFrame(animate);
       }
     };
