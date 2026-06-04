@@ -16,66 +16,130 @@ const images = [
 export default function GalleryTrack() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+
+  const drag = useRef({
+    active: false,
+    startX: 0,
+    startPct: 0,
+    curPct: 0,
+    vx: 0,
+    prevX: 0,
+    prevT: 0,
+  });
 
   useEffect(() => {
     const container = containerRef.current;
     const track = trackRef.current;
     if (!container || !track) return;
 
-    const handleDown = (clientX: number) => {
-      track.dataset.mouseDownAt = String(clientX);
-    };
-
-    const handleUp = () => {
-      track.dataset.mouseDownAt = "0";
-      track.dataset.prevPercentage = track.dataset.percentage ?? "0";
-    };
-
-    const handleMove = (clientX: number) => {
-      if (track.dataset.mouseDownAt === "0") return;
-
-      const mouseDelta = parseFloat(track.dataset.mouseDownAt!) - clientX;
-      const maxDelta = window.innerWidth / 2;
-      const percentage = (mouseDelta / maxDelta) * -100;
-      const nextUnconstrained = parseFloat(track.dataset.prevPercentage ?? "0") + percentage;
-      const next = Math.max(Math.min(nextUnconstrained, 0), -100);
-
-      track.dataset.percentage = String(next);
-
-      track.animate(
-        { transform: `translate(${next}%, -50%)` },
-        { duration: 1200, fill: "forwards" }
-      );
-
+    const applyPct = (pct: number) => {
+      const clamped = Math.max(Math.min(pct, 0), -100);
+      drag.current.curPct = clamped;
+      track.style.transform = `translate(${clamped}%, -50%)`;
       for (const img of track.getElementsByClassName("gi")) {
-        (img as HTMLElement).animate(
-          { objectPosition: `${100 + next}% center` },
-          { duration: 1200, fill: "forwards" }
-        );
+        (img as HTMLElement).style.objectPosition = `${100 + clamped}% center`;
       }
     };
 
-    const onDown = (e: MouseEvent) => handleDown(e.clientX);
-    const onTouchStart = (e: TouchEvent) => handleDown(e.touches[0].clientX);
-    const onUp = () => handleUp();
-    const onTouchEnd = () => handleUp();
-    const onMove = (e: MouseEvent) => handleMove(e.clientX);
-    const onTouchMove = (e: TouchEvent) => handleMove(e.touches[0].clientX);
+    const cancelMomentum = () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
 
-    container.addEventListener("mousedown", onDown);
-    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    const onDown = (clientX: number) => {
+      cancelMomentum();
+      drag.current = {
+        active: true,
+        startX: clientX,
+        startPct: drag.current.curPct,
+        curPct: drag.current.curPct,
+        vx: 0,
+        prevX: clientX,
+        prevT: Date.now(),
+      };
+    };
+
+    const onMove = (clientX: number) => {
+      if (!drag.current.active) return;
+
+      const now = Date.now();
+      const dt = now - drag.current.prevT;
+
+      if (dt > 0 && dt < 150) {
+        const maxDelta = window.innerWidth / 2;
+        const rawVx = ((drag.current.prevX - clientX) / dt / maxDelta) * -100;
+        drag.current.vx = drag.current.vx * 0.6 + rawVx * 0.4;
+      } else if (dt >= 150) {
+        drag.current.vx = 0;
+      }
+
+      drag.current.prevX = clientX;
+      drag.current.prevT = now;
+
+      const maxDelta = window.innerWidth / 2;
+      const deltaPct = ((drag.current.startX - clientX) / maxDelta) * -100;
+      applyPct(drag.current.startPct + deltaPct);
+    };
+
+    const onUp = () => {
+      if (!drag.current.active) return;
+      drag.current.active = false;
+
+      let velocity = drag.current.vx * 35;
+      let lastT = Date.now();
+
+      const animate = () => {
+        const now = Date.now();
+        const dt = now - lastT;
+        lastT = now;
+
+        const next = drag.current.curPct + velocity * dt;
+        const clamped = Math.max(Math.min(next, 0), -100);
+        applyPct(clamped);
+
+        // Stop at boundaries
+        if (clamped !== next) {
+          velocity = 0;
+        }
+
+        // Friction
+        velocity *= Math.pow(0.90, dt / 16);
+
+        if (Math.abs(velocity) > 0.005) {
+          rafRef.current = requestAnimationFrame(animate);
+        } else {
+          rafRef.current = null;
+        }
+      };
+
+      if (Math.abs(velocity) > 0.005) {
+        rafRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    const mouseDown = (e: MouseEvent) => onDown(e.clientX);
+    const mouseMove = (e: MouseEvent) => onMove(e.clientX);
+    const touchStart = (e: TouchEvent) => onDown(e.touches[0].clientX);
+    const touchMove = (e: TouchEvent) => onMove(e.touches[0].clientX);
+
+    container.addEventListener("mousedown", mouseDown);
+    window.addEventListener("mousemove", mouseMove);
     window.addEventListener("mouseup", onUp);
-    window.addEventListener("touchend", onTouchEnd);
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    container.addEventListener("touchstart", touchStart, { passive: true });
+    window.addEventListener("touchmove", touchMove, { passive: true });
+    window.addEventListener("touchend", onUp);
 
     return () => {
-      container.removeEventListener("mousedown", onDown);
-      container.removeEventListener("touchstart", onTouchStart);
+      cancelMomentum();
+      container.removeEventListener("mousedown", mouseDown);
+      window.removeEventListener("mousemove", mouseMove);
       window.removeEventListener("mouseup", onUp);
-      window.removeEventListener("touchend", onTouchEnd);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchstart", touchStart);
+      window.removeEventListener("touchmove", touchMove);
+      window.removeEventListener("touchend", onUp);
     };
   }, []);
 
@@ -86,9 +150,6 @@ export default function GalleryTrack() {
     >
       <div
         ref={trackRef}
-        data-mouse-down-at="0"
-        data-prev-percentage="0"
-        data-percentage="0"
         className="select-none"
         style={{
           display: "flex",
@@ -97,6 +158,7 @@ export default function GalleryTrack() {
           left: "50%",
           top: "50%",
           transform: "translate(0%, -50%)",
+          willChange: "transform",
         }}
       >
         {images.map((src, i) => (
@@ -108,12 +170,13 @@ export default function GalleryTrack() {
             alt=""
             draggable={false}
             style={{
-              width: "40vmin",
-              height: "56vmin",
+              width: "clamp(240px, 70vw, 380px)",
+              height: "clamp(336px, 98vw, 530px)",
               objectFit: "cover",
               objectPosition: "100% center",
               pointerEvents: "none",
               borderRadius: "16px",
+              willChange: "object-position",
             }}
           />
         ))}

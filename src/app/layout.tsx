@@ -16,10 +16,38 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+// TODO: set NEXT_PUBLIC_SITE_URL env var to the real production domain before launch
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lindabeautystudio.cz";
+
+const title = "Linda Beauty Studio | Kadeřnictví · Nehty · Make-up · Péče o pleť";
+const description =
+  "Profesionální salon nabízející střihy pro ženy i muže, péči o nehty, make-up, prodloužení řas a ošetření pleti. Rezervujte si termín ještě dnes.";
+
 export const metadata: Metadata = {
-  title: "Linda Beauty Studio | Kadeřnictví · Nehty · Make-up · Péče o pleť",
-  description:
-    "Profesionální salon nabízející střihy pro ženy i muže, péči o nehty, make-up, prodloužení řas a ošetření pleti. Rezervujte si termín ještě dnes.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    type: "website",
+    locale: "cs_CZ",
+    siteName: "Linda Beauty Studio",
+    title,
+    description,
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1024,
+        height: 1024,
+        alt: "Linda Beauty Studio — logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({

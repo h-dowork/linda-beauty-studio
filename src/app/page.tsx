@@ -8,6 +8,7 @@ import {
 import Navbar from "@/components/Navbar";
 import ContactForm from "@/components/ContactForm";
 import GalleryTrack from "@/components/GalleryTrack";
+import NFCReviewPlate from "@/components/NFCReviewPlate";
 import { useLanguage } from "@/context/LanguageContext";
 
 function FacebookIcon({ className }: { className?: string }) {
@@ -427,6 +428,43 @@ export default function Home() {
                 </figure>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            NFC REVIEW PLATES
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          id="nfc-reviews"
+          className="py-16 sm:py-24 bg-gray-50"
+          aria-labelledby="nfc-heading"
+        >
+          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div className="text-center mb-10 sm:mb-14">
+              <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
+                {t.nfcReviews.sectionLabel}
+              </p>
+              <h2
+                id="nfc-heading"
+                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900 mb-4"
+                style={{ fontFamily: "var(--font-playfair)" }}
+              >
+                {t.nfcReviews.heading}
+              </h2>
+              <p className="reveal reveal-d2 text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+                {t.nfcReviews.subheading}
+              </p>
+            </div>
+
+            {/* Plate cards */}
+            <div className="reveal reveal-d3 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+              <NFCReviewPlate lang={lang} />
+              <NFCReviewPlate lang={lang} />
+            </div>
+
+            <p className="reveal text-center text-xs text-gray-400 mt-8">
+              {t.nfcReviews.note}
+            </p>
           </div>
         </section>
 

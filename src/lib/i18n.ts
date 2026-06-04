@@ -172,6 +172,14 @@ export const translations = {
       accept: "Rozumím",
       learnMore: "Zásady ochrany soukromí",
     },
+    // NFC Review Plates
+    nfcReviews: {
+      sectionLabel: "Ohodnoťte nás",
+      heading: "Zanechte recenzi",
+      subheading:
+        "V salonu najdete naše NFC destičky — stačí přiložit telefon nebo naskenovat QR kód a ohodnotit nás na Google. Každá recenze nám velmi pomáhá.",
+      note: "Destičky jsou umístěny na recepci a u každého pracovního místa.",
+    },
     // Footer
     footer: {
       tagline:
@@ -342,6 +350,14 @@ export const translations = {
       notice: "This site uses only essential cookies necessary for basic functionality. No tracking or marketing cookies are used.",
       accept: "Got it",
       learnMore: "Privacy Policy",
+    },
+    // NFC Review Plates
+    nfcReviews: {
+      sectionLabel: "Rate Us",
+      heading: "Leave a Review",
+      subheading:
+        "Find our NFC review plates in the salon — tap your phone or scan the QR code to rate us on Google. Every review means the world to us.",
+      note: "Plates are placed at the reception and at each workstation.",
     },
     footer: {
       tagline:
