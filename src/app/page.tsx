@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import ContactForm from "@/components/ContactForm";
 import GalleryTrack from "@/components/GalleryTrack";
 import NFCReviewPlate from "@/components/NFCReviewPlate";
+import ReviewsSection from "@/components/ReviewsSection";
 import { useLanguage } from "@/context/LanguageContext";
 
 function FacebookIcon({ className }: { className?: string }) {
@@ -376,60 +377,7 @@ export default function Home() {
           </a>
         </div>
 
-        {/* ══════════════════════════════════════════════════════════
-            REVIEWS
-        ══════════════════════════════════════════════════════════ */}
-        <section
-          id="reviews"
-          className="py-16 sm:py-24 bg-white"
-          aria-labelledby="reviews-heading"
-        >
-          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-            <div className="text-center mb-10 sm:mb-14">
-              <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
-                {t.reviews.sectionLabel}
-              </p>
-              <h2
-                id="reviews-heading"
-                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                {t.reviews.heading}
-              </h2>
-            </div>
-
-            {/* Single column on mobile, 3-col on sm+ */}
-            <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
-              {t.reviews.items.map((review, i) => (
-                <figure
-                  key={review.name}
-                  className={`reveal reveal-d${i + 1} bg-gray-50 rounded-2xl p-5 sm:p-6 border border-gray-100`}
-                >
-                  <div className="flex gap-1 mb-3" aria-label="5 hvězd z 5">
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <Star key={j} className="w-4 h-4 text-yellow-400 fill-yellow-400" aria-hidden="true" />
-                    ))}
-                  </div>
-                  <blockquote className="text-gray-600 text-sm leading-relaxed mb-4">
-                    &ldquo;{review.text}&rdquo;
-                  </blockquote>
-                  <figcaption className="flex items-center gap-3">
-                    <div
-                      className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 text-xs font-bold flex-shrink-0"
-                      aria-hidden="true"
-                    >
-                      {review.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">{review.name}</p>
-                      <p className="text-xs text-gray-400">{review.service}</p>
-                    </div>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ReviewsSection />
 
         {/* ══════════════════════════════════════════════════════════
             NFC REVIEW PLATES

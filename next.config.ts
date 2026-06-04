@@ -18,7 +18,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: blob: https://images.unsplash.com",
+      "img-src 'self' data: blob: https://images.unsplash.com https://*.googleusercontent.com",
       "connect-src 'self'",
       "frame-src https://www.google.com https://maps.google.com",
       "object-src 'none'",
