@@ -140,11 +140,15 @@ export default function PrivacyPage() {
               <li><strong className="text-gray-800">Právo vznést námitku</strong> — proti zpracování na základě oprávněného zájmu.</li>
             </ul>
             <p className="mt-3">
-              Pro uplatnění práv nás kontaktujte prostřednictvím formuláře na{" "}
+              Pro uplatnění práv nás kontaktujte e-mailem na{" "}
+              <a href="mailto:do.official@proton.me" className="underline hover:text-gray-900">
+                do.official@proton.me
+              </a>
+              , prostřednictvím formuláře na{" "}
               <Link href="/#contact" className="underline hover:text-gray-900">
                 hlavní stránce
-              </Link>{" "}
-              nebo přes naši Facebook stránku.
+              </Link>
+              , nebo přes naši Facebook stránku.
             </p>
             <p className="mt-2">
               Máte také právo podat stížnost u dozorového orgánu:{" "}
@@ -225,7 +229,11 @@ export default function PrivacyPage() {
             </p>
             <p className="mt-2 text-gray-600">
               <strong className="text-gray-800">Your rights:</strong> Access, rectification, erasure, restriction,
-              portability, and objection under GDPR. Contact us via the website form or our Facebook page.
+              portability, and objection under GDPR. Contact us at{" "}
+              <a href="mailto:do.official@proton.me" className="underline hover:text-gray-900">
+                do.official@proton.me
+              </a>
+              , via the website form, or our Facebook page.
               You may also lodge a complaint with the Czech Data Protection Authority (ÚOOÚ) at{" "}
               <a href="https://www.uoou.cz" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-900">
                 uoou.cz
