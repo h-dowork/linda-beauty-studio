@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 // TODO: Replace with the salon's real Google review link.
 // Find it in Google Maps → Share → Copy link, then append &action=write-review
 export const GOOGLE_REVIEW_URL =
-  "https://search.google.com/local/writereview?placeid=PLACE_ID_HERE";
+  "https://search.google.com/local/writereview?placeid=ChIJobb8G1mPCUcRREWCbpDy6cc";
 
 function NFCWaves() {
   return (

@@ -216,6 +216,15 @@ export default function ReviewsSection() {
             );
           })}
 
+          {status === "fallback" && (
+            <>
+              <div className="sm:col-span-3 flex items-center justify-center gap-2 mb-1">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold">
+                  {lang === "cs" ? "Ukázkové recenze — budou nahrazeny skutečnými hodnoceními zákazníků" : "Sample reviews — will be replaced with real customer ratings"}
+                </span>
+              </div>
+            </>
+          )}
           {status === "fallback" && t.reviews.items.map((review, i) => (
             <figure
               key={review.name}

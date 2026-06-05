@@ -32,8 +32,10 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-bold text-gray-900 mb-3">1. Správce osobních údajů</h2>
             <p>
               Správcem osobních údajů je <strong>Linda Beauty Studio</strong> (dále jen „Studio"),
-              provozované v Teplicích, Česká republika. Kontakt: prostřednictvím formuláře na webu nebo
-              přes Facebook stránku Studia.
+              provozované na adrese <strong>28. října 857/20, 415 01 Teplice, Česká republika</strong>.{" "}
+              {/* TODO before launch: fill in IČO — required by Act 480/2004 §10 */}
+              IČO: <strong>[doplnit před spuštěním]</strong>.{" "}
+              Kontakt: prostřednictvím formuláře na webu nebo přes Facebook stránku Studia.
             </p>
           </section>
 
@@ -102,9 +104,11 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-3">5. Doba uchovávání</h2>
             <p>
-              Záznamy o odeslání formuláře uchováváme maximálně <strong>12 měsíců</strong> od
-              odeslání, poté jsou automaticky smazány. Zprávy v aplikaci Messenger podléhají
-              zásadám uchovávání Meta Platforms.
+              Formulářová data zadaná prostřednictvím rezervačního formuláře jsou přenášena
+              výhradně do aplikace <strong>Facebook Messenger</strong> a nejsou ukládána na
+              serverech tohoto webu. Zprávy v aplikaci Messenger podléhají zásadám uchovávání
+              Meta Platforms. Pro ochranu před zneužitím (spam) zpracováváme IP adresy dočasně
+              po dobu maximálně <strong>15 minut</strong>.
             </p>
           </section>
 
@@ -190,7 +194,7 @@ export default function PrivacyPage() {
               <strong className="text-gray-800">Legal basis:</strong> Legitimate interest (GDPR Art. 6(1)(f)).
             </p>
             <p className="mt-2 text-gray-600">
-              <strong className="text-gray-800">Retention:</strong> Up to 12 months.
+              <strong className="text-gray-800">Retention:</strong> Form data is forwarded directly to Facebook Messenger and is not stored on our servers. IP addresses are held transiently (up to 15 minutes) for spam prevention only.
             </p>
             <p className="mt-2 text-gray-600">
               <strong className="text-gray-800">Third parties:</strong> Meta Platforms (Facebook Messenger) only.

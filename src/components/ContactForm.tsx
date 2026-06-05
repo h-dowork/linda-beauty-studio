@@ -265,7 +265,7 @@ export default function ContactForm() {
       <p className="text-center text-xs text-gray-400 leading-relaxed">
         {lang === "cs" ? (
           <>
-            Odesláním souhlasíte se zpracováním osobních údajů dle naší{" "}
+            Vaše osobní údaje zpracováváme za účelem vyřízení rezervace na základě oprávněného zájmu dle naší{" "}
             <a href="/ochrana-soukromi" className="underline hover:text-gray-600 transition-colors">
               Zásady ochrany soukromí
             </a>
@@ -273,7 +273,7 @@ export default function ContactForm() {
           </>
         ) : (
           <>
-            By submitting you agree to our{" "}
+            Your personal data is processed for booking purposes based on legitimate interest per our{" "}
             <a href="/ochrana-soukromi" className="underline hover:text-gray-600 transition-colors">
               Privacy Policy
             </a>
