@@ -23,7 +23,7 @@ export default function PrivacyPage() {
         >
           Zásady ochrany soukromí
         </h1>
-        <p className="text-sm text-gray-400 mb-10">Platnost od: 1. června 2025 · Privacy Policy (EN summary at the bottom)</p>
+        <p className="text-sm text-gray-400 mb-10">Naposledy aktualizováno: 5. června 2026 · Platnost od: 1. června 2025 · Privacy Policy (EN summary at the bottom)</p>
 
         <div className="prose prose-gray max-w-none text-sm sm:text-base leading-relaxed text-gray-700 space-y-8">
 
@@ -97,6 +97,21 @@ export default function PrivacyPage() {
               . Přenos mimo EU probíhá na základě standardních smluvních doložek schválených
               Evropskou komisí.
             </p>
+            <p className="mt-3">
+              Na stránce kontaktu je integrována mapa <strong>Google Maps</strong> (Google LLC, USA),
+              která se načte pouze po vašem výslovném souhlasu (kliknutím na tlačítko „Zobrazit polohu
+              na Google Maps"). Při načtení mapy mohou být přeneseny vaše technické údaje (IP adresa)
+              na servery Google. Google zpracovává tyto údaje dle vlastních{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-900"
+              >
+                zásad ochrany soukromí
+              </a>
+              . Přenos mimo EU probíhá na základě standardních smluvních doložek.
+            </p>
             <p className="mt-2">Vaše údaje neprodáváme ani neposkytujeme jiným třetím stranám.</p>
           </section>
 
@@ -148,13 +163,20 @@ export default function PrivacyPage() {
           {/* 7 */}
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-3">7. Soubory cookie</h2>
-            <p>Tento web používá výhradně <strong>nezbytné cookies</strong>:</p>
+            <p>Tento web používá výhradně <strong>nezbytné soubory cookie a úložiště</strong>:</p>
             <ul className="list-disc list-inside space-y-1 mt-2 text-gray-600">
               <li>
                 <strong className="text-gray-800">linda_cookie_accepted</strong> — uloží vaše potvrzení
                 zobrazené informace o cookies (localStorage, platnost: trvalá do smazání).
               </li>
             </ul>
+            <p className="mt-3">
+              <strong className="text-gray-800">Google Maps (volitelné):</strong> Mapa na stránce kontaktu
+              se načítá pouze po vašem výslovném souhlasu. Při načtení může Google LLC ukládat vlastní
+              soubory cookie (např. <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">CONSENT</code>,{" "}
+              <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">NID</code>). Souhlas lze kdykoli
+              odvolat obnovením stránky bez kliknutí na mapu.
+            </p>
             <p className="mt-2">
               Nepoužíváme analytické, sledovací ani marketingové cookies. Na webu nejsou integrovány
               žádné reklamní sítě.
@@ -197,8 +219,9 @@ export default function PrivacyPage() {
               <strong className="text-gray-800">Retention:</strong> Form data is forwarded directly to Facebook Messenger and is not stored on our servers. IP addresses are held transiently (up to 15 minutes) for spam prevention only.
             </p>
             <p className="mt-2 text-gray-600">
-              <strong className="text-gray-800">Third parties:</strong> Meta Platforms (Facebook Messenger) only.
-              Data is not sold or shared with other parties.
+              <strong className="text-gray-800">Third parties:</strong> Meta Platforms (Facebook Messenger)
+              for booking communication. Google LLC (Google Maps) — map embed loaded only on explicit user
+              consent via a click-to-load gate. Data is not sold or shared with other parties.
             </p>
             <p className="mt-2 text-gray-600">
               <strong className="text-gray-800">Your rights:</strong> Access, rectification, erasure, restriction,
@@ -209,7 +232,8 @@ export default function PrivacyPage() {
               </a>.
             </p>
             <p className="mt-2 text-gray-600">
-              <strong className="text-gray-800">Cookies:</strong> Essential only (localStorage banner dismiss). No tracking or analytics.
+              <strong className="text-gray-800">Cookies:</strong> Essential only (localStorage banner dismiss).
+              Google Maps sets its own cookies if you choose to load the map. No tracking or analytics cookies.
             </p>
           </section>
         </div>

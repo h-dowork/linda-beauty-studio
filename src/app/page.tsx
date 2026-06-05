@@ -74,6 +74,7 @@ export default function Home() {
 
   // ── Floating mobile CTA ───────────────────────────────────────
   const [showFloatCTA, setShowFloatCTA] = useState(false);
+  const [mapConsented, setMapConsented] = useState(false);
 
   useEffect(() => {
     const hero    = document.getElementById("hero");
@@ -533,17 +534,37 @@ export default function Home() {
                 {t.contact.findUs}
               </h3>
               <div className="rounded-2xl overflow-hidden border border-gray-200 h-64 sm:h-80">
-                {/* Replace the src with your exact Google Maps embed URL */}
-                <iframe
-                  src="https://www.google.com/maps?q=28.+%C5%98%C3%ADjna+857%2F20%2C+Teplice&hl=cs&z=17&output=embed"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={t.contact.findUs}
-                />
+                {mapConsented ? (
+                  <iframe
+                    src="https://www.google.com/maps?q=28.+%C5%98%C3%ADjna+857%2F20%2C+Teplice&hl=cs&z=17&output=embed"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                    title={t.contact.findUs}
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setMapConsented(true)}
+                    className="w-full h-full flex flex-col items-center justify-center gap-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-inset"
+                    aria-label={lang === "cs" ? "Načíst mapu Google" : "Load Google Maps"}
+                  >
+                    <MapPin className="w-8 h-8 text-gray-300 group-hover:text-gray-400 transition-colors duration-200" aria-hidden="true" />
+                    <div className="text-center px-6">
+                      <p className="text-sm font-semibold text-gray-700 mb-1">
+                        {lang === "cs" ? "Zobrazit polohu na Google Maps" : "View location on Google Maps"}
+                      </p>
+                      <p className="text-xs text-gray-400 leading-relaxed max-w-xs">
+                        {lang === "cs"
+                          ? "Kliknutím souhlasíte s načtením mapy. Google může ukládat soubory cookie."
+                          : "By clicking you consent to loading the map. Google may set cookies."}
+                      </p>
+                    </div>
+                  </button>
+                )}
               </div>
             </div>
           </div>
