@@ -38,7 +38,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled || open
-            ? "bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100"
+            ? "bg-[#111]/98 backdrop-blur-md shadow-sm border-b border-[#2a2a2a]"
             : "bg-transparent"
         }`}
       >
@@ -54,7 +54,7 @@ export default function Navbar() {
           >
             <Scissors className="w-5 h-5 text-accent" aria-hidden="true" strokeWidth={1.5} />
             <span
-              className="text-lg font-bold text-gray-900"
+              className="text-lg font-bold text-white"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Linda's Hair
@@ -67,7 +67,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+                  className="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
                 >
                   {link.label}
                 </a>
@@ -79,14 +79,14 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={() => setLang(otherLang)}
-              className="text-xs font-semibold text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-400 px-2.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent uppercase tracking-wide"
+              className="text-xs font-semibold text-gray-400 hover:text-white border border-[#333] hover:border-[#555] px-2.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent uppercase tracking-wide"
               aria-label={`Přepnout jazyk na ${otherLang === "en" ? "angličtinu" : "češtinu"}`}
             >
               {otherLang.toUpperCase()}
             </button>
             <a
               href="#contact"
-              className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white text-sm font-semibold rounded-full hover:bg-gray-700 active:bg-gray-800 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
+              className="inline-flex items-center px-5 py-2.5 bg-[#E8933A] text-white text-sm font-semibold rounded-full hover:bg-[#d4832a] active:bg-[#c07325] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111] cursor-pointer"
             >
               {t.nav.book}
             </a>
@@ -103,7 +103,7 @@ export default function Navbar() {
             </button>
             <button
               onClick={() => setOpen((o) => !o)}
-              className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-300 hover:bg-[#1a1a1a] active:bg-[#222] transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               aria-label={open ? "Zavřít menu" : "Otevřít menu"}
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -128,7 +128,7 @@ export default function Navbar() {
         }`}
       >
         {/* White background */}
-        <div className="absolute inset-0 bg-white" />
+        <div className="absolute inset-0 bg-[#111]" />
 
         <div className="relative flex flex-col h-full pt-20 px-6 pb-10">
           {/* Nav links */}
@@ -140,13 +140,13 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setOpen(false)}
                     tabIndex={open ? 0 : -1}
-                    className={`flex items-center justify-between py-5 border-b border-gray-100 group transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
+                    className={`flex items-center justify-between py-5 border-b border-[#2a2a2a] group transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
                       open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
                     }`}
                     style={{ transitionDelay: open ? `${i * 55 + 60}ms` : "0ms" }}
                   >
                     <span
-                      className="text-2xl font-bold text-gray-900 group-hover:text-accent transition-colors duration-200"
+                      className="text-2xl font-bold text-white group-hover:text-accent transition-colors duration-200"
                       style={{ fontFamily: "var(--font-playfair)" }}
                     >
                       {link.label}
@@ -172,7 +172,7 @@ export default function Navbar() {
               href="#contact"
               onClick={() => setOpen(false)}
               tabIndex={open ? 0 : -1}
-              className="flex items-center justify-center w-full py-4 bg-gray-900 text-white text-lg font-semibold rounded-2xl hover:bg-gray-700 active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
+              className="flex items-center justify-center w-full py-4 bg-[#E8933A] text-white text-lg font-semibold rounded-2xl hover:bg-[#d4832a] active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A]"
             >
               {t.nav.book}
             </a>

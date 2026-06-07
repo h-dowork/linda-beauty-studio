@@ -33,9 +33,9 @@ function buildBookingText(fields: {
 }
 
 const inputBase =
-  "w-full px-4 py-3.5 rounded-xl border text-base sm:text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors";
-const inputOk    = `${inputBase} border-gray-200`;
-const inputError = `${inputBase} border-red-400`;
+  "w-full px-4 py-3.5 rounded-xl border text-base sm:text-sm text-white placeholder-gray-600 bg-[#222] focus:outline-none focus:ring-2 focus:ring-[#E8933A] transition-colors";
+const inputOk    = `${inputBase} border-[#333]`;
+const inputError = `${inputBase} border-red-500`;
 
 export default function ContactForm() {
   const { t, lang } = useLanguage();
@@ -103,11 +103,11 @@ export default function ContactForm() {
     const { text, url } = submittedRef.current ?? { text: "", url: "#" };
     return (
       <div className="flex flex-col items-center py-6 text-center">
-        <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4">
-          <CheckCircle className="w-8 h-8 text-green-500" aria-hidden="true" />
+        <div className="w-16 h-16 bg-green-950/50 rounded-full flex items-center justify-center mb-4">
+          <CheckCircle className="w-8 h-8 text-green-400" aria-hidden="true" />
         </div>
         <h3
-          className="text-xl font-bold text-gray-900 mb-2"
+          className="text-xl font-bold text-white mb-2"
           style={{ fontFamily: "var(--font-playfair)" }}
         >
           {f.successHeading}
@@ -115,12 +115,12 @@ export default function ContactForm() {
         <p className="text-gray-500 text-sm max-w-xs leading-relaxed">{f.successBody}</p>
 
         {/* Copy-paste fallback — shown when WhatsApp app ignores ?text= */}
-        <div className="mt-5 w-full text-left bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-200 bg-white">
+        <div className="mt-5 w-full text-left bg-[#111] border border-[#2a2a2a] rounded-xl overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#2a2a2a] bg-[#1a1a1a]">
             <p className="text-xs text-gray-500">{f.messengerHint}</p>
             <button
               onClick={handleCopy}
-              className="ml-3 flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-gray-900 text-white rounded-lg hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+              className="ml-3 flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-[#2a2a2a] text-white rounded-lg hover:bg-[#333] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] cursor-pointer"
               aria-label={f.copyText}
             >
               {copied
@@ -129,7 +129,7 @@ export default function ContactForm() {
               }
             </button>
           </div>
-          <pre className="px-4 py-3 text-xs text-gray-700 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto">{text}</pre>
+          <pre className="px-4 py-3 text-xs text-gray-400 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto">{text}</pre>
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
@@ -137,14 +137,14 @@ export default function ContactForm() {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-gray-900 text-white text-sm font-semibold rounded-xl hover:bg-gray-700 active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#E8933A] text-white text-sm font-semibold rounded-xl hover:bg-[#d4832a] active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A]"
           >
             <WhatsAppIcon className="w-4 h-4" />
             {f.openAgain}
           </a>
           <button
             onClick={() => { setStatus("idle"); submittedRef.current = null; setCopied(false); }}
-            className="text-sm text-gray-500 underline underline-offset-2 hover:text-gray-900 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded py-3 px-2"
+            className="text-sm text-gray-500 underline underline-offset-2 hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded py-3 px-2"
           >
             {f.newBooking}
           </button>
@@ -172,7 +172,7 @@ export default function ContactForm() {
       {/* Name + Email */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1.5">
             {f.name} <span aria-label="povinné" className="text-red-500">*</span>
           </label>
           <input
@@ -189,7 +189,7 @@ export default function ContactForm() {
           )}
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
             {f.email} <span aria-label="povinné" className="text-red-500">*</span>
           </label>
           <input
@@ -210,11 +210,11 @@ export default function ContactForm() {
       {/* Phone + Service */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1.5">
             {f.phone}
           </label>
-          <div className="flex rounded-xl border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-gray-400 bg-white">
-            <span className="flex items-center px-3 text-sm text-gray-500 bg-gray-50 border-r border-gray-200 select-none flex-shrink-0">
+          <div className="flex rounded-xl border border-[#333] overflow-hidden focus-within:ring-2 focus-within:ring-[#E8933A] bg-[#222]">
+            <span className="flex items-center px-3 text-sm text-gray-500 bg-[#2a2a2a] border-r border-[#333] select-none flex-shrink-0">
               +420
             </span>
             <input
@@ -226,7 +226,7 @@ export default function ContactForm() {
           </div>
         </div>
         <div>
-          <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label htmlFor="service" className="block text-sm font-medium text-gray-300 mb-1.5">
             {f.service}
           </label>
           <div className="relative">
@@ -247,7 +247,7 @@ export default function ContactForm() {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1.5">
           {f.message} <span aria-label="povinné" className="text-red-500">*</span>
         </label>
         <textarea
@@ -269,7 +269,7 @@ export default function ContactForm() {
       {/* Submit */}
       <button
         type="submit"
-        className="w-full flex items-center justify-center gap-2 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer text-base sm:text-sm"
+        className="w-full flex items-center justify-center gap-2 py-4 bg-[#E8933A] text-white font-semibold rounded-xl hover:bg-[#d4832a] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a1a] cursor-pointer text-base sm:text-sm"
       >
         <WhatsAppIcon className="w-4 h-4" />
         {f.submit}
@@ -280,7 +280,7 @@ export default function ContactForm() {
         {lang === "cs" ? (
           <>
             Vaše osobní údaje zpracováváme za účelem vyřízení rezervace na základě oprávněného zájmu dle naší{" "}
-            <a href="/ochrana-soukromi" className="underline hover:text-gray-600 transition-colors">
+            <a href="/ochrana-soukromi" className="underline hover:text-gray-200 transition-colors">
               Zásady ochrany soukromí
             </a>
             .
@@ -288,7 +288,7 @@ export default function ContactForm() {
         ) : (
           <>
             Your personal data is processed for booking purposes based on legitimate interest per our{" "}
-            <a href="/ochrana-soukromi" className="underline hover:text-gray-600 transition-colors">
+            <a href="/ochrana-soukromi" className="underline hover:text-gray-200 transition-colors">
               Privacy Policy
             </a>
             .

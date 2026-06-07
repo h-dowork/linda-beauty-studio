@@ -55,7 +55,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="cs" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-dvh font-sans antialiased bg-white text-gray-900">
+      <body className="min-h-dvh font-sans antialiased bg-[#111] text-gray-100">
         {/* Skip to main content — keyboard / screen reader navigation */}
         <a
           href="#main-content"

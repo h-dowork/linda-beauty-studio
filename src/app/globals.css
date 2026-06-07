@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #111827;
+  --color-background: #111111;
+  --color-foreground: #f9fafb;
   --color-accent: #E8933A;
   --color-accent-50: #FEF6EC;
   --color-accent-100: #FDEACF;
+  --color-surface: #1a1a1a;
+  --color-surface-2: #222222;
+  --color-edge: #2a2a2a;
   --font-heading: var(--font-playfair);
   --font-sans: var(--font-inter);
 }
@@ -13,8 +16,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: #ffffff;
-  color: #111827;
+  background: #111111;
+  color: #f9fafb;
 }
 
 /* ── Scroll reveal ──────────────────────────────────────────────── */

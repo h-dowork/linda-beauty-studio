@@ -108,21 +108,21 @@ export default function Home() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="hero"
-          className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-white"
+          className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-[#111]"
           aria-label="Hero"
         >
           {/* Background gradient */}
           <div
-            className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-accent-50/60"
+            className="absolute inset-0 bg-gradient-to-br from-[#111] via-[#161616] to-[#1a1208]"
             aria-hidden="true"
           />
           {/* Atmospheric blobs */}
           <div
-            className="blob absolute top-1/4 -right-12 sm:right-8 w-56 sm:w-80 h-56 sm:h-80 bg-accent-100/40 rounded-full blur-3xl"
+            className="blob absolute top-1/4 -right-12 sm:right-8 w-56 sm:w-80 h-56 sm:h-80 bg-[#E8933A]/10 rounded-full blur-3xl"
             aria-hidden="true"
           />
           <div
-            className="blob blob-2 absolute bottom-1/4 -left-12 sm:left-8 w-48 sm:w-64 h-48 sm:h-64 bg-gray-100/70 rounded-full blur-3xl"
+            className="blob blob-2 absolute bottom-1/4 -left-12 sm:left-8 w-48 sm:w-64 h-48 sm:h-64 bg-[#E8933A]/5 rounded-full blur-3xl"
             aria-hidden="true"
           />
 
@@ -133,7 +133,7 @@ export default function Home() {
             </p>
 
             <h1
-              className="hero-enter hero-enter-2 text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-[1.1] mb-5"
+              className="hero-enter hero-enter-2 text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-5"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Linda's Hair
@@ -141,7 +141,7 @@ export default function Home() {
               <span className="text-accent">Salon</span>
             </h1>
 
-            <p className="hero-enter hero-enter-3 text-base sm:text-xl text-gray-600 max-w-xl mx-auto mb-9 leading-relaxed">
+            <p className="hero-enter hero-enter-3 text-base sm:text-xl text-gray-400 max-w-xl mx-auto mb-9 leading-relaxed">
               {t.hero.tagline}
             </p>
 
@@ -149,14 +149,14 @@ export default function Home() {
             <div className="hero-enter hero-enter-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
               <a
                 href="#contact"
-                className="flex items-center justify-center gap-2 px-7 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-700 active:scale-95 transition-all duration-150 shadow-lg shadow-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-7 py-4 bg-[#E8933A] text-white font-semibold rounded-2xl hover:bg-[#d4832a] active:scale-95 transition-all duration-150 shadow-lg shadow-[#E8933A]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111] cursor-pointer"
               >
                 {t.hero.cta}
                 <ChevronRight className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
                 href="#services"
-                className="flex items-center justify-center gap-2 px-7 py-4 bg-white text-gray-700 font-semibold rounded-2xl border border-gray-200 hover:bg-gray-50 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-7 py-4 bg-transparent text-gray-300 font-semibold rounded-2xl border border-[#333] hover:border-[#555] hover:text-white active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111] cursor-pointer"
               >
                 {t.hero.viewServices}
               </a>
@@ -167,12 +167,13 @@ export default function Home() {
               {t.hero.stats.map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p
-                    className="text-2xl sm:text-3xl font-bold text-gray-900"
+                    className="text-2xl sm:text-3xl font-bold text-white"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
                     {stat.value}
                   </p>
                   <p className="text-xs text-gray-500 mt-1 leading-snug">{stat.label}</p>
+
                 </div>
               ))}
             </div>
@@ -193,7 +194,7 @@ export default function Home() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="services"
-          className="py-16 sm:py-24 bg-gray-50"
+          className="py-16 sm:py-24 bg-[#0d0d0d]"
           aria-labelledby="services-heading"
         >
           <div className="max-w-7xl mx-auto">
@@ -204,12 +205,12 @@ export default function Home() {
               </p>
               <h2
                 id="services-heading"
-                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900 mb-4"
+                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-white mb-4"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {t.services.heading}
               </h2>
-              <p className="reveal reveal-d2 text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+              <p className="reveal reveal-d2 text-gray-400 max-w-xl mx-auto text-sm sm:text-base">
                 {t.services.subheading}
               </p>
             </div>
@@ -218,7 +219,7 @@ export default function Home() {
             <div className="relative">
               {/* Fade hint on right edge — mobile only */}
               <div
-                className="absolute right-0 top-0 bottom-4 w-10 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none sm:hidden"
+                className="absolute right-0 top-0 bottom-4 w-10 bg-gradient-to-l from-[#0d0d0d] to-transparent z-10 pointer-events-none sm:hidden"
                 aria-hidden="true"
               />
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-5 no-scrollbar sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-6 sm:pb-0 lg:grid-cols-4 lg:px-8 lg:gap-6">
@@ -229,27 +230,27 @@ export default function Home() {
                       key={service.title}
                       type="button"
                       onClick={() => setActiveService(i)}
-                      className={`reveal reveal-d${i + 1} snap-start flex-none w-[82vw] sm:w-full group bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-gray-300 hover:shadow-lg hover:shadow-gray-100 active:scale-[0.98] transition-all duration-300 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400`}
+                      className={`reveal reveal-d${i + 1} snap-start flex-none w-[82vw] sm:w-full group bg-[#1a1a1a] rounded-2xl p-5 sm:p-6 border border-[#2a2a2a] hover:border-[#444] hover:shadow-lg hover:shadow-black/40 active:scale-[0.98] transition-all duration-300 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A]`}
                       aria-label={`Zobrazit detail: ${service.title}`}
                     >
-                      <div className="w-11 h-11 bg-gray-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-gray-200 transition-colors duration-200">
-                        <Icon className="w-5 h-5 text-gray-700" aria-hidden="true" strokeWidth={1.5} />
+                      <div className="w-11 h-11 bg-[#2a2a2a] rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#333] transition-colors duration-200">
+                        <Icon className="w-5 h-5 text-[#E8933A]" aria-hidden="true" strokeWidth={1.5} />
                       </div>
                       <h3
-                        className="text-lg sm:text-xl font-bold text-gray-900 mb-1.5"
+                        className="text-lg sm:text-xl font-bold text-white mb-1.5"
                         style={{ fontFamily: "var(--font-playfair)" }}
                       >
                         {service.title}
                       </h3>
-                      <p className="text-sm text-gray-500 mb-4 leading-relaxed">{service.description}</p>
+                      <p className="text-sm text-gray-400 mb-4 leading-relaxed">{service.description}</p>
                       <ul className="space-y-2.5" role="list">
                         {service.items.map((item) => (
                           <li
                             key={item.name}
-                            className="flex items-center justify-between text-sm border-b border-gray-100 pb-2 last:border-0 last:pb-0"
+                            className="flex items-center justify-between text-sm border-b border-[#2a2a2a] pb-2 last:border-0 last:pb-0"
                           >
-                            <span className="text-gray-700">{item.name}</span>
-                            <span className="font-semibold text-gray-400 ml-2 flex-shrink-0">{item.price}</span>
+                            <span className="text-gray-300">{item.name}</span>
+                            <span className="font-semibold text-gray-500 ml-2 flex-shrink-0">{item.price}</span>
                           </li>
                         ))}
                       </ul>
@@ -270,7 +271,7 @@ export default function Home() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="team"
-          className="py-16 sm:py-24 bg-white"
+          className="py-16 sm:py-24 bg-[#111]"
           aria-labelledby="team-heading"
         >
           <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
@@ -280,12 +281,12 @@ export default function Home() {
               </p>
               <h2
                 id="team-heading"
-                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900 mb-4"
+                className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-white mb-4"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {t.team.heading}
               </h2>
-              <p className="reveal reveal-d2 text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+              <p className="reveal reveal-d2 text-gray-400 max-w-xl mx-auto text-sm sm:text-base">
                 {t.team.subheading}
               </p>
             </div>
@@ -295,15 +296,15 @@ export default function Home() {
               {team.map((member, i) => (
                 <div
                   key={member.name}
-                  className={`reveal reveal-d${i + 1} bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-lg hover:shadow-gray-100 transition-all duration-300`}
+                  className={`reveal reveal-d${i + 1} bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#2a2a2a] hover:border-[#444] hover:shadow-lg hover:shadow-black/40 transition-all duration-300`}
                 >
                   {/* Avatar placeholder */}
                   <div
-                    className="h-32 sm:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+                    className="h-32 sm:h-48 bg-gradient-to-br from-[#222] to-[#2a2a2a] flex items-center justify-center"
                     aria-hidden="true"
                   >
                     <span
-                      className="text-2xl sm:text-4xl font-bold text-gray-400"
+                      className="text-2xl sm:text-4xl font-bold text-[#444]"
                       style={{ fontFamily: "var(--font-playfair)" }}
                     >
                       {member.initials}
@@ -311,16 +312,16 @@ export default function Home() {
                   </div>
                   <div className="p-3.5 sm:p-5">
                     <h3
-                      className="text-sm sm:text-lg font-bold text-gray-900 leading-tight"
+                      className="text-sm sm:text-lg font-bold text-white leading-tight"
                       style={{ fontFamily: "var(--font-playfair)" }}
                     >
                       {member.name}
                     </h3>
                     <p className="text-xs sm:text-sm font-medium text-accent mt-0.5 mb-0.5">{member.role}</p>
-                    <p className="text-xs text-gray-400 mb-3 leading-snug">{member.specialty}</p>
+                    <p className="text-xs text-gray-500 mb-3 leading-snug">{member.specialty}</p>
                     <a
                       href={`tel:${member.phone.replace(/\s/g, "")}`}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded cursor-pointer"
                     >
                       <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" aria-hidden="true" />
                       {member.phone}
@@ -337,7 +338,7 @@ export default function Home() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="gallery"
-          className="relative bg-gray-100 overflow-hidden"
+          className="relative bg-[#0d0d0d] overflow-hidden"
           style={{ height: "100svh" }}
           aria-labelledby="gallery-heading"
         >
@@ -348,12 +349,12 @@ export default function Home() {
             </p>
             <h2
               id="gallery-heading"
-              className="text-3xl sm:text-5xl font-bold text-gray-900 mb-3"
+              className="text-3xl sm:text-5xl font-bold text-white mb-3"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               {t.gallery.heading}
             </h2>
-            <p className="text-gray-500 text-xs sm:text-sm max-w-xs mx-auto px-4 leading-relaxed">
+            <p className="text-gray-400 text-xs sm:text-sm max-w-xs mx-auto px-4 leading-relaxed">
               {t.gallery.subheading}
             </p>
             <p className="text-gray-400 text-xs mt-3 tracking-wider">
@@ -365,14 +366,14 @@ export default function Home() {
         </section>
 
         {/* Facebook follow strip — between gallery and reviews */}
-        <div className="bg-white border-t border-gray-200 py-8 text-center">
+        <div className="bg-[#111] border-t border-[#2a2a2a] py-8 text-center">
           <a
             href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-white text-gray-700 text-sm font-semibold rounded-full border border-gray-200 hover:bg-gray-50 hover:border-gray-300 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#1a1a1a] text-gray-300 text-sm font-semibold rounded-full border border-[#333] hover:bg-[#222] hover:border-[#555] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600 cursor-pointer shadow-sm"
           >
-            <FacebookIcon className="w-4 h-4 text-gray-500" />
+            <FacebookIcon className="w-4 h-4 text-gray-400" />
             {t.gallery.followUs}
           </a>
         </div>
@@ -384,7 +385,7 @@ export default function Home() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="contact"
-          className="py-16 sm:py-24 bg-gray-50"
+          className="py-16 sm:py-24 bg-[#0d0d0d]"
           aria-labelledby="contact-heading"
         >
           <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
@@ -397,12 +398,12 @@ export default function Home() {
                 </p>
                 <h2
                   id="contact-heading"
-                  className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900 mb-4 leading-tight"
+                  className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-white mb-4 leading-tight"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {t.contact.heading}
                 </h2>
-                <p className="reveal reveal-d2 text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
+                <p className="reveal reveal-d2 text-gray-400 mb-8 leading-relaxed text-sm sm:text-base">
                   {t.contact.subheading}
                 </p>
 
@@ -410,23 +411,23 @@ export default function Home() {
                   {/* Phone */}
                   <li className="flex items-start gap-4">
                     <div
-                      className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                      className="w-10 h-10 bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl flex items-center justify-center flex-shrink-0"
                       aria-hidden="true"
                     >
-                      <Phone className="w-4 h-4 text-gray-700" />
+                      <Phone className="w-4 h-4 text-[#E8933A]" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 mb-0.5">{t.contact.phone}</p>
+                      <p className="text-sm font-semibold text-white mb-0.5">{t.contact.phone}</p>
                       <div className="flex flex-col gap-0.5">
                         <a
                           href="tel:+420774109009"
-                          className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
+                          className="text-gray-400 hover:text-white text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded"
                         >
                           +420 774 109 009
                         </a>
                         <a
                           href="tel:+420778020615"
-                          className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
+                          className="text-gray-400 hover:text-white text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded"
                         >
                           +420 778 020 615
                         </a>
@@ -436,14 +437,14 @@ export default function Home() {
                   {/* Address */}
                   <li className="flex items-start gap-4">
                     <div
-                      className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                      className="w-10 h-10 bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl flex items-center justify-center flex-shrink-0"
                       aria-hidden="true"
                     >
-                      <MapPin className="w-4 h-4 text-gray-700" />
+                      <MapPin className="w-4 h-4 text-[#E8933A]" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 mb-0.5">{t.contact.address}</p>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <p className="text-sm font-semibold text-white mb-0.5">{t.contact.address}</p>
+                      <p className="text-gray-400 text-sm leading-relaxed">
                         28. Října 857/20
                         <br />
                         Teplice, Česká republika
@@ -453,18 +454,18 @@ export default function Home() {
                   {/* Hours */}
                   <li className="flex items-start gap-4">
                     <div
-                      className="w-10 h-10 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                      className="w-10 h-10 bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl flex items-center justify-center flex-shrink-0"
                       aria-hidden="true"
                     >
-                      <Clock className="w-4 h-4 text-gray-700" />
+                      <Clock className="w-4 h-4 text-[#E8933A]" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 mb-1.5">{t.contact.hours}</p>
+                      <p className="text-sm font-semibold text-white mb-1.5">{t.contact.hours}</p>
                       <dl className="text-sm space-y-1">
                         {t.contact.hoursData.map((h) => (
                           <div key={h.day} className="flex gap-4">
-                            <dt className="font-medium text-gray-800 min-w-20">{h.day}</dt>
-                            <dd className="text-gray-600">{h.time}</dd>
+                            <dt className="font-medium text-gray-300 min-w-20">{h.day}</dt>
+                            <dd className="text-gray-400">{h.time}</dd>
                           </div>
                         ))}
                       </dl>
@@ -475,14 +476,14 @@ export default function Home() {
               </div>
 
               {/* ── Form column ─────────────────────────────────── */}
-              <div className="reveal reveal-d2 bg-white rounded-2xl p-5 sm:p-8 border border-gray-100 shadow-sm">
+              <div className="reveal reveal-d2 bg-[#1a1a1a] rounded-2xl p-5 sm:p-8 border border-[#2a2a2a] shadow-sm">
                 <h3
-                  className="text-xl sm:text-2xl font-bold text-gray-900 mb-1.5"
+                  className="text-xl sm:text-2xl font-bold text-white mb-1.5"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {t.contact.formHeading}
                 </h3>
-                <p className="text-gray-500 text-sm mb-6">{t.contact.formSub}</p>
+                <p className="text-gray-400 text-sm mb-6">{t.contact.formSub}</p>
                 <ContactForm />
               </div>
             </div>
@@ -490,12 +491,12 @@ export default function Home() {
             {/* ── Google Maps ──────────────────────────────────── */}
             <div className="reveal mt-12">
               <h3
-                className="text-lg font-semibold text-gray-900 mb-4"
+                className="text-lg font-semibold text-white mb-4"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {t.contact.findUs}
               </h3>
-              <div className="rounded-2xl overflow-hidden border border-gray-200 h-64 sm:h-80">
+              <div className="rounded-2xl overflow-hidden border border-[#2a2a2a] h-64 sm:h-80">
                 {mapConsented ? (
                   <iframe
                     src="https://www.google.com/maps?q=28.+%C5%98%C3%ADjna+857%2F20%2C+Teplice&hl=cs&z=17&output=embed"
@@ -511,15 +512,15 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setMapConsented(true)}
-                    className="w-full h-full flex flex-col items-center justify-center gap-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-inset"
+                    className="w-full h-full flex flex-col items-center justify-center gap-3 bg-[#1a1a1a] hover:bg-[#222] transition-colors duration-200 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] focus-visible:ring-inset"
                     aria-label={lang === "cs" ? "Načíst mapu Google" : "Load Google Maps"}
                   >
-                    <MapPin className="w-8 h-8 text-gray-300 group-hover:text-gray-400 transition-colors duration-200" aria-hidden="true" />
+                    <MapPin className="w-8 h-8 text-[#333] group-hover:text-[#444] transition-colors duration-200" aria-hidden="true" />
                     <div className="text-center px-6">
-                      <p className="text-sm font-semibold text-gray-700 mb-1">
+                      <p className="text-sm font-semibold text-gray-300 mb-1">
                         {lang === "cs" ? "Zobrazit polohu na Google Maps" : "View location on Google Maps"}
                       </p>
-                      <p className="text-xs text-gray-400 leading-relaxed max-w-xs">
+                      <p className="text-xs text-gray-500 leading-relaxed max-w-xs">
                         {lang === "cs"
                           ? "Kliknutím souhlasíte s načtením mapy. Google může ukládat soubory cookie."
                           : "By clicking you consent to loading the map. Google may set cookies."}
@@ -536,13 +537,13 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════
           FOOTER
       ══════════════════════════════════════════════════════════ */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
+      <footer className="bg-[#0a0a0a] text-gray-400 py-12 border-t border-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
           <div className="grid gap-8 sm:grid-cols-3 mb-10">
             {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <Scissors className="w-5 h-5 text-gray-300" aria-hidden="true" strokeWidth={1.5} />
+                <Scissors className="w-5 h-5 text-[#E8933A]" aria-hidden="true" strokeWidth={1.5} />
                 <span
                   className="text-lg font-bold text-white"
                   style={{ fontFamily: "var(--font-playfair)" }}
@@ -588,14 +589,14 @@ export default function Home() {
                   href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                  className="w-10 h-10 bg-[#1a1a1a] rounded-xl flex items-center justify-center hover:bg-[#222] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] cursor-pointer"
                   aria-label="Facebook"
                 >
                   <FacebookIcon className="w-4 h-4 text-gray-400" />
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                  className="w-10 h-10 bg-[#1a1a1a] rounded-xl flex items-center justify-center hover:bg-[#222] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] cursor-pointer"
                   aria-label="Instagram"
                 >
                   <InstagramIcon className="w-4 h-4 text-gray-400" />
@@ -610,7 +611,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <div className="border-t border-[#1a1a1a] pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
             <p className="text-xs text-gray-600">
               © {new Date().getFullYear()} Linda's Hair Salon. All rights reserved.
             </p>
@@ -644,47 +645,47 @@ export default function Home() {
 
             {/* Panel — bottom sheet on mobile, card on sm+ */}
             <div
-              className="relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-2xl max-h-[88dvh] overflow-y-auto shadow-2xl"
+              className="relative w-full sm:max-w-lg bg-[#1a1a1a] rounded-t-3xl sm:rounded-2xl max-h-[88dvh] overflow-y-auto shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Mobile drag handle */}
               <div className="sm:hidden pt-3 pb-1 flex justify-center" aria-hidden="true">
-                <div className="w-10 h-1 bg-gray-200 rounded-full" />
+                <div className="w-10 h-1 bg-[#333] rounded-full" />
               </div>
 
               <div className="px-6 pb-8 pt-4 sm:p-8">
                 {/* Close */}
                 <button
                   onClick={() => setActiveService(null)}
-                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[#2a2a2a] hover:bg-[#333] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] cursor-pointer"
                   aria-label="Zavřít"
                 >
-                  <X className="w-4 h-4 text-gray-700" aria-hidden="true" />
+                  <X className="w-4 h-4 text-gray-300" aria-hidden="true" />
                 </button>
 
                 {/* Icon */}
-                <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-5">
-                  <Icon className="w-7 h-7 text-gray-700" aria-hidden="true" strokeWidth={1.5} />
+                <div className="w-14 h-14 bg-[#2a2a2a] rounded-2xl flex items-center justify-center mb-5">
+                  <Icon className="w-7 h-7 text-[#E8933A]" aria-hidden="true" strokeWidth={1.5} />
                 </div>
 
                 {/* Title + description */}
                 <h3
-                  className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 leading-tight"
+                  className="text-2xl sm:text-3xl font-bold text-white mb-2 leading-tight"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {service.title}
                 </h3>
-                <p className="text-gray-500 text-base leading-relaxed mb-6">{service.description}</p>
+                <p className="text-gray-400 text-base leading-relaxed mb-6">{service.description}</p>
 
                 {/* Service items */}
                 <ul className="space-y-3" role="list">
                   {service.items.map((item) => (
                     <li
                       key={item.name}
-                      className="flex items-center justify-between text-base border-b border-gray-100 pb-3 last:border-0 last:pb-0"
+                      className="flex items-center justify-between text-base border-b border-[#2a2a2a] pb-3 last:border-0 last:pb-0"
                     >
-                      <span className="text-gray-700">{item.name}</span>
-                      <span className="font-semibold text-gray-400 ml-4 flex-shrink-0">
+                      <span className="text-gray-300">{item.name}</span>
+                      <span className="font-semibold text-gray-500 ml-4 flex-shrink-0">
                         {item.price === "—" ? t.services.pricePlaceholder : item.price}
                       </span>
                     </li>
@@ -695,7 +696,7 @@ export default function Home() {
                 <a
                   href="#contact"
                   onClick={() => setActiveService(null)}
-                  className="mt-7 flex items-center justify-center w-full py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-700 active:scale-[0.98] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+                  className="mt-7 flex items-center justify-center w-full py-4 bg-[#E8933A] text-white font-semibold rounded-xl hover:bg-[#d4832a] active:scale-[0.98] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] cursor-pointer"
                 >
                   {t.hero.cta}
                 </a>
@@ -711,13 +712,13 @@ export default function Home() {
       ══════════════════════════════════════════════════════════ */}
       <div
         aria-hidden="true"
-        className={`md:hidden fixed bottom-0 left-0 right-0 z-30 px-4 pb-5 pt-3 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none transition-all duration-300 ${
+        className={`md:hidden fixed bottom-0 left-0 right-0 z-30 px-4 pb-5 pt-3 bg-gradient-to-t from-[#111] via-[#111]/95 to-transparent pointer-events-none transition-all duration-300 ${
           showFloatCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         <a
           href="#contact"
-          className={`pointer-events-auto flex items-center justify-center w-full py-4 bg-gray-900 text-white font-semibold rounded-2xl shadow-xl shadow-gray-900/25 hover:bg-gray-700 active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 ${
+          className={`pointer-events-auto flex items-center justify-center w-full py-4 bg-[#E8933A] text-white font-semibold rounded-2xl shadow-xl shadow-[#E8933A]/20 hover:bg-[#d4832a] active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] ${
             showFloatCTA ? "" : "pointer-events-none"
           }`}
         >

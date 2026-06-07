@@ -49,7 +49,7 @@ function StarsRow({ rating, size = "sm" }: { rating: number; size?: "sm" | "md" 
       {[1, 2, 3, 4, 5].map((n) => (
         <Star
           key={n}
-          className={`${cls} ${n <= Math.round(rating) ? "text-yellow-400 fill-yellow-400" : "text-gray-200 fill-gray-200"}`}
+          className={`${cls} ${n <= Math.round(rating) ? "text-yellow-400 fill-yellow-400" : "text-[#333] fill-[#333]"}`}
           aria-hidden="true"
         />
       ))}
@@ -72,22 +72,22 @@ function GoogleLogo() {
 
 function SkeletonCard() {
   return (
-    <div className="bg-gray-50 rounded-2xl p-5 sm:p-6 border border-gray-100 animate-pulse">
+    <div className="bg-[#1a1a1a] rounded-2xl p-5 sm:p-6 border border-[#2a2a2a] animate-pulse">
       <div className="flex gap-1 mb-3">
         {[1,2,3,4,5].map((n) => (
-          <div key={n} className="w-4 h-4 bg-gray-200 rounded-full" />
+          <div key={n} className="w-4 h-4 bg-[#2a2a2a] rounded-full" />
         ))}
       </div>
       <div className="space-y-2 mb-4">
-        <div className="h-3 bg-gray-200 rounded w-full" />
-        <div className="h-3 bg-gray-200 rounded w-5/6" />
-        <div className="h-3 bg-gray-200 rounded w-4/6" />
+        <div className="h-3 bg-[#2a2a2a] rounded w-full" />
+        <div className="h-3 bg-[#2a2a2a] rounded w-5/6" />
+        <div className="h-3 bg-[#2a2a2a] rounded w-4/6" />
       </div>
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-gray-200 flex-shrink-0" />
+        <div className="w-9 h-9 rounded-full bg-[#2a2a2a] flex-shrink-0" />
         <div className="space-y-1.5">
-          <div className="h-3 bg-gray-200 rounded w-24" />
-          <div className="h-2.5 bg-gray-200 rounded w-16" />
+          <div className="h-3 bg-[#2a2a2a] rounded w-24" />
+          <div className="h-2.5 bg-[#2a2a2a] rounded w-16" />
         </div>
       </div>
     </div>
@@ -121,19 +121,19 @@ export default function ReviewsSection() {
   return (
     <section
       id="reviews"
-      className="py-16 sm:py-24 bg-white"
+      className="py-16 sm:py-24 bg-[#111]"
       aria-labelledby="reviews-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
         {/* Heading */}
         <div className="text-center mb-10 sm:mb-14">
-          <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
+          <p className="reveal text-[#E8933A] text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
             {t.reviews.sectionLabel}
           </p>
           <h2
             id="reviews-heading"
-            className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-gray-900"
+            className="reveal reveal-d1 text-3xl sm:text-5xl font-bold text-white"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             {t.reviews.heading}
@@ -143,7 +143,7 @@ export default function ReviewsSection() {
           {status === "live" && placeData?.rating != null && (
             <div className="reveal reveal-d2 mt-4 flex items-center justify-center gap-2.5">
               <span
-                className="text-3xl font-bold text-gray-900"
+                className="text-3xl font-bold text-white"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {placeData.rating.toFixed(1)}
@@ -178,12 +178,12 @@ export default function ReviewsSection() {
             return (
               <figure
                 key={i}
-                className={`reveal reveal-d${i + 1} bg-gray-50 rounded-2xl p-5 sm:p-6 border border-gray-100`}
+                className={`reveal reveal-d${i + 1} bg-[#1a1a1a] rounded-2xl p-5 sm:p-6 border border-[#2a2a2a]`}
               >
                 <div className="mb-3">
                   <StarsRow rating={review.rating} />
                 </div>
-                <blockquote className="text-gray-600 text-sm leading-relaxed mb-4">
+                <blockquote className="text-gray-400 text-sm leading-relaxed mb-4">
                   &ldquo;{reviewText}&rdquo;
                 </blockquote>
                 <figcaption className="flex items-center gap-3">
@@ -197,14 +197,14 @@ export default function ReviewsSection() {
                     />
                   ) : (
                     <div
-                      className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 text-xs font-bold flex-shrink-0"
+                      className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2a2a2a] to-[#333] flex items-center justify-center text-gray-400 text-xs font-bold flex-shrink-0"
                       aria-hidden="true"
                     >
                       {initials}
                     </div>
                   )}
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">
+                    <p className="text-sm font-semibold text-white">
                       {review.authorAttribution.displayName}
                     </p>
                     {when && (
@@ -259,7 +259,7 @@ export default function ReviewsSection() {
               href={placeData?.googleMapsUri ?? "https://maps.google.com"}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 rounded"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded"
             >
               <GoogleLogo />
               {lang === "cs"
