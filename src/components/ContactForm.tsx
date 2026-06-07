@@ -6,7 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 type Status = "idle" | "success" | "error";
 
-const FB_PAGE_ID = "61560198843135";
+const FB_MESSENGER_URL = "https://m.me/p/61560198843135";
 
 function buildBookingText(fields: {
   name: string; phone: string; email: string; service: string; message: string;
@@ -63,7 +63,7 @@ export default function ContactForm() {
 
     // Build text + URL synchronously, then open Messenger within the user gesture
     const text = buildBookingText(form);
-    const url  = `https://m.me/${FB_PAGE_ID}?text=${encodeURIComponent(text)}`;
+    const url  = `${FB_MESSENGER_URL}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
 
     // Store for success screen, reset form, show success — all sync
