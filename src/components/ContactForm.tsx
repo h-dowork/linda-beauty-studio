@@ -221,7 +221,7 @@ export default function ContactForm() {
               id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange}
               maxLength={16} autoComplete="tel-national"
               placeholder="xxx xxx xxx"
-              className="flex-1 px-3 py-3.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none"
+              className="flex-1 px-3 py-3.5 text-base sm:text-sm text-white placeholder-gray-600 bg-[#222] focus:outline-none"
             />
           </div>
         </div>
