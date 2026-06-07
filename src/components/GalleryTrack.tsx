@@ -3,14 +3,12 @@
 import { useRef, useEffect } from "react";
 
 const images = [
-  "https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
-  "https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1674&q=80",
-  "https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
-  "https://images.unsplash.com/photo-1495805442109-bf1cf975750b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
-  "https://images.unsplash.com/photo-1548021682-1720ed403a5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
-  "https://images.unsplash.com/photo-1496753480864-3e588e0269b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2134&q=80",
-  "https://images.unsplash.com/photo-1613346945084-35cccc812dd5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1759&q=80",
-  "https://images.unsplash.com/photo-1516681100942-77d8e7f9dd97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+  "/gallery/624851261_122207072684339961_3154784856979528981_n.jpg",
+  "/gallery/637151159_122209104800339961_7037923131650482814_n.jpg",
+  "/gallery/661399700_122213043008339961_5409018310455770294_n.jpg",
+  "/gallery/663284222_122214199244339961_5649872447762745557_n.jpg",
+  "/gallery/688875261_122216927558339961_4875173414182758606_n.jpg",
+  "/gallery/690676760_122217363836339961_7727855726894533995_n.jpg",
 ];
 
 // Mirrors the CSS: width: clamp(240px, 70vw, 380px), gap: 4vmin
