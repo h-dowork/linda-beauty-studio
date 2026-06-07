@@ -445,7 +445,7 @@ export default function Home() {
                     <div>
                       <p className="text-sm font-semibold text-white mb-0.5">{t.contact.address}</p>
                       <p className="text-gray-400 text-sm leading-relaxed">
-                        28. Října 857/20
+                        28. října 857/20
                         <br />
                         Teplice, Česká republika
                       </p>
@@ -499,7 +499,7 @@ export default function Home() {
               <div className="rounded-2xl overflow-hidden border border-[#2a2a2a] h-64 sm:h-80">
                 {mapConsented ? (
                   <iframe
-                    src="https://www.google.com/maps?q=28.+%C5%98%C3%ADjna+857%2F20%2C+Teplice&hl=cs&z=17&output=embed"
+                    src="https://www.google.com/maps?q=Linda+Hair+Salon+28.+%C5%99%C3%ADjna+857%2F20+Teplice&hl=cs&z=17&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
