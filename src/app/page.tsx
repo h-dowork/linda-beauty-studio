@@ -113,12 +113,12 @@ export default function Home() {
         >
           {/* Background gradient */}
           <div
-            className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-rose-50/40"
+            className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-accent-50/60"
             aria-hidden="true"
           />
           {/* Atmospheric blobs */}
           <div
-            className="blob absolute top-1/4 -right-12 sm:right-8 w-56 sm:w-80 h-56 sm:h-80 bg-rose-100/40 rounded-full blur-3xl"
+            className="blob absolute top-1/4 -right-12 sm:right-8 w-56 sm:w-80 h-56 sm:h-80 bg-accent-100/40 rounded-full blur-3xl"
             aria-hidden="true"
           />
           <div
@@ -128,7 +128,7 @@ export default function Home() {
 
           {/* Content */}
           <div className="relative z-10 max-w-4xl mx-auto px-5 sm:px-6 lg:px-8 text-center pt-20 pb-24">
-            <p className="hero-enter hero-enter-1 text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-4">
+            <p className="hero-enter hero-enter-1 text-accent text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-4">
               {t.hero.welcome}
             </p>
 
@@ -136,9 +136,9 @@ export default function Home() {
               className="hero-enter hero-enter-2 text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-[1.1] mb-5"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
-              Linda Beauty
+              Linda's Hair
               <br />
-              <span className="text-rose-700">Studio</span>
+              <span className="text-accent">Salon</span>
             </h1>
 
             <p className="hero-enter hero-enter-3 text-base sm:text-xl text-gray-600 max-w-xl mx-auto mb-9 leading-relaxed">
@@ -199,7 +199,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             {/* Heading */}
             <div className="text-center mb-10 sm:mb-14 px-5 sm:px-6 lg:px-8">
-              <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
+              <p className="reveal text-accent text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
                 {t.services.sectionLabel}
               </p>
               <h2
@@ -275,7 +275,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
             <div className="text-center mb-10 sm:mb-14">
-              <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
+              <p className="reveal text-accent text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
                 {t.team.sectionLabel}
               </p>
               <h2
@@ -316,7 +316,7 @@ export default function Home() {
                     >
                       {member.name}
                     </h3>
-                    <p className="text-xs sm:text-sm font-medium text-rose-700 mt-0.5 mb-0.5">{member.role}</p>
+                    <p className="text-xs sm:text-sm font-medium text-accent mt-0.5 mb-0.5">{member.role}</p>
                     <p className="text-xs text-gray-400 mb-3 leading-snug">{member.specialty}</p>
                     <a
                       href={`tel:${member.phone.replace(/\s/g, "")}`}
@@ -343,7 +343,7 @@ export default function Home() {
         >
           {/* Overlay heading */}
           <div className="absolute top-0 left-0 right-0 z-10 pt-12 sm:pt-16 pb-6 text-center pointer-events-none">
-            <p className="text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
+            <p className="text-accent text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
               {t.gallery.sectionLabel}
             </p>
             <h2
@@ -392,7 +392,7 @@ export default function Home() {
 
               {/* ── Info column ─────────────────────────────────── */}
               <div>
-                <p className="reveal text-rose-700 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
+                <p className="reveal text-accent text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] mb-3">
                   {t.contact.sectionLabel}
                 </p>
                 <h2
@@ -547,7 +547,7 @@ export default function Home() {
                   className="text-lg font-bold text-white"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
-                  Linda Beauty Studio
+                  Linda's Hair Salon
                 </span>
               </div>
               <p className="text-sm leading-relaxed">{t.footer.tagline}</p>
@@ -612,7 +612,7 @@ export default function Home() {
 
           <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
             <p className="text-xs text-gray-600">
-              © {new Date().getFullYear()} Linda Beauty Studio. All rights reserved.
+              © {new Date().getFullYear()} Linda's Hair Salon. All rights reserved.
             </p>
             <a
               href="/ochrana-soukromi"

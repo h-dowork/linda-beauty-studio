@@ -19,9 +19,9 @@ const playfair = Playfair_Display({
 // TODO: set NEXT_PUBLIC_SITE_URL env var to the real production domain before launch
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lindabeautystudio.cz";
 
-const title = "Linda Beauty Studio | Kadeřnictví · Nehty · Make-up · Péče o pleť";
+const title = "Linda's Hair Salon | Kadeřnictví · Nehty · Make-up · Péče o pleť";
 const description =
-  "Profesionální salon nabízející střihy pro ženy i muže, péči o nehty, make-up, prodloužení řas a ošetření pleti. Rezervujte si termín ještě dnes.";
+  "Profesionální kadeřnický salon nabízející střihy pro ženy i muže, péči o nehty, make-up, prodloužení řas a ošetření pleti. Rezervujte si termín ještě dnes.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "cs_CZ",
-    siteName: "Linda Beauty Studio",
+    siteName: "Linda's Hair Salon",
     title,
     description,
     images: [

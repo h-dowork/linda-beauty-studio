@@ -3,6 +3,9 @@
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #111827;
+  --color-accent: #E8933A;
+  --color-accent-50: #FEF6EC;
+  --color-accent-100: #FDEACF;
   --font-heading: var(--font-playfair);
   --font-sans: var(--font-inter);
 }

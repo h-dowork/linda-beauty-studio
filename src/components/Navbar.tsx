@@ -49,15 +49,15 @@ export default function Navbar() {
           {/* Logo */}
           <a
             href="#"
-            className="flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 rounded-lg"
-            aria-label="Linda Beauty Studio — zpět nahoru"
+            className="flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
+            aria-label="Linda's Hair Salon — zpět nahoru"
           >
-            <Scissors className="w-5 h-5 text-rose-700" aria-hidden="true" strokeWidth={1.5} />
+            <Scissors className="w-5 h-5 text-accent" aria-hidden="true" strokeWidth={1.5} />
             <span
               className="text-lg font-bold text-gray-900"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
-              Linda Beauty
+              Linda's Hair
             </span>
           </a>
 
@@ -67,7 +67,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 rounded"
+                  className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
                 >
                   {link.label}
                 </a>
@@ -79,7 +79,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={() => setLang(otherLang)}
-              className="text-xs font-semibold text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-400 px-2.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 uppercase tracking-wide"
+              className="text-xs font-semibold text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-400 px-2.5 py-1.5 rounded-full transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent uppercase tracking-wide"
               aria-label={`Přepnout jazyk na ${otherLang === "en" ? "angličtinu" : "češtinu"}`}
             >
               {otherLang.toUpperCase()}
@@ -96,14 +96,14 @@ export default function Navbar() {
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => setLang(otherLang)}
-              className="text-xs font-semibold text-gray-500 border border-gray-200 px-2.5 py-1.5 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 uppercase tracking-wide"
+              className="text-xs font-semibold text-gray-500 border border-gray-200 px-2.5 py-1.5 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent uppercase tracking-wide"
               aria-label={`Switch language to ${otherLang}`}
             >
               {otherLang.toUpperCase()}
             </button>
             <button
               onClick={() => setOpen((o) => !o)}
-              className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               aria-label={open ? "Zavřít menu" : "Otevřít menu"}
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -140,19 +140,19 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setOpen(false)}
                     tabIndex={open ? 0 : -1}
-                    className={`flex items-center justify-between py-5 border-b border-gray-100 group transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 rounded ${
+                    className={`flex items-center justify-between py-5 border-b border-gray-100 group transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
                       open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
                     }`}
                     style={{ transitionDelay: open ? `${i * 55 + 60}ms` : "0ms" }}
                   >
                     <span
-                      className="text-2xl font-bold text-gray-900 group-hover:text-rose-700 transition-colors duration-200"
+                      className="text-2xl font-bold text-gray-900 group-hover:text-accent transition-colors duration-200"
                       style={{ fontFamily: "var(--font-playfair)" }}
                     >
                       {link.label}
                     </span>
                     <ChevronRight
-                      className="w-5 h-5 text-gray-300 group-hover:text-rose-400 transition-colors duration-200 flex-shrink-0"
+                      className="w-5 h-5 text-gray-300 group-hover:text-accent/70 transition-colors duration-200 flex-shrink-0"
                       aria-hidden="true"
                     />
                   </a>

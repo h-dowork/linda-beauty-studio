@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Zásady ochrany soukromí | Linda Beauty Studio",
-  description: "Informace o zpracování osobních údajů dle GDPR. Privacy policy for Linda Beauty Studio.",
+  title: "Zásady ochrany soukromí | Linda's Hair Salon",
+  description: "Informace o zpracování osobních údajů dle GDPR. Privacy policy for Linda's Hair Salon.",
 };
 
 export default function PrivacyPage() {
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-3">1. Správce osobních údajů</h2>
             <p>
-              Správcem osobních údajů je <strong>Linda Beauty Studio</strong> (dále jen „Studio"),
+              Správcem osobních údajů je <strong>Linda's Hair Salon</strong> (dále jen „Studio"),
               provozované na adrese <strong>28. října 857/20, 415 01 Teplice, Česká republika</strong>.{" "}
               {/* TODO before launch: fill in IČO — required by Act 480/2004 §10 */}
               IČO: <strong>[doplnit před spuštěním]</strong>.{" "}
@@ -210,7 +210,7 @@ export default function PrivacyPage() {
           <section className="border-t border-gray-200 pt-8">
             <h2 className="text-xl font-bold text-gray-900 mb-3">Privacy Policy — English Summary</h2>
             <p className="text-gray-600">
-              <strong className="text-gray-800">Data controller:</strong> Linda Beauty Studio, Teplice, Czech Republic.
+              <strong className="text-gray-800">Data controller:</strong> Linda's Hair Salon, Teplice, Czech Republic.
             </p>
             <p className="mt-2 text-gray-600">
               <strong className="text-gray-800">Data collected:</strong> Name, email, optional phone and service preference,
