@@ -11,11 +11,12 @@ const FB_PAGE_ID = "61560198843135";
 function buildBookingText(fields: {
   name: string; phone: string; email: string; service: string; message: string;
 }): string {
+  const phone = fields.phone.trim() ? `+420 ${fields.phone.trim()}` : "";
   return [
-    "🌸 REZERVACE — Linda Beauty Studio",
+    "🌸 REZERVACE — Linda's Hair Salon",
     "",
     `Jméno:   ${fields.name}`,
-    fields.phone   ? `Telefon: ${fields.phone}`   : null,
+    phone          ? `Telefon: ${phone}`           : null,
     `E-mail:  ${fields.email}`,
     fields.service ? `Služba:  ${fields.service}` : null,
     "",
@@ -164,7 +165,7 @@ export default function ContactForm() {
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
-            {f.name} <span aria-label="povinné" className="text-rose-500">*</span>
+            {f.name} <span aria-label="povinné" className="text-red-500">*</span>
           </label>
           <input
             id="name" name="name" type="text" value={form.name} onChange={handleChange}
@@ -181,7 +182,7 @@ export default function ContactForm() {
         </div>
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
-            {f.email} <span aria-label="povinné" className="text-rose-500">*</span>
+            {f.email} <span aria-label="povinné" className="text-red-500">*</span>
           </label>
           <input
             id="email" name="email" type="email" value={form.email} onChange={handleChange}
@@ -204,12 +205,17 @@ export default function ContactForm() {
           <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">
             {f.phone}
           </label>
-          <input
-            id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange}
-            maxLength={20} autoComplete="tel"
-            placeholder={f.phonePlaceholder}
-            className={inputOk}
-          />
+          <div className="flex rounded-xl border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-gray-400 bg-white">
+            <span className="flex items-center px-3 text-sm text-gray-500 bg-gray-50 border-r border-gray-200 select-none flex-shrink-0">
+              +420
+            </span>
+            <input
+              id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange}
+              maxLength={16} autoComplete="tel-national"
+              placeholder="xxx xxx xxx"
+              className="flex-1 px-3 py-3.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none"
+            />
+          </div>
         </div>
         <div>
           <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -234,7 +240,7 @@ export default function ContactForm() {
       {/* Message */}
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1.5">
-          {f.message} <span aria-label="povinné" className="text-rose-500">*</span>
+          {f.message} <span aria-label="povinné" className="text-red-500">*</span>
         </label>
         <textarea
           id="message" name="message" value={form.message} onChange={handleChange}
