@@ -33,8 +33,7 @@ export default function PrivacyPage() {
             <p>
               Správcem osobních údajů je <strong>Linda's Hair Salon</strong> (dále jen „Studio"),
               provozované na adrese <strong>28. října 857/20, 415 01 Teplice, Česká republika</strong>.{" "}
-              {/* TODO before launch: fill in IČO — required by Act 480/2004 §10 */}
-              IČO: <strong>[doplnit před spuštěním]</strong>.{" "}
+              IČO: <strong>45997314</strong>.{" "}
               Kontakt: prostřednictvím formuláře na webu nebo přes Facebook stránku Studia.
             </p>
           </section>
