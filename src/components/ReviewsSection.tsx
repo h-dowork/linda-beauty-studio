@@ -106,8 +106,12 @@ export default function ReviewsSection() {
     fetch("/api/reviews")
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((data: PlaceData) => {
-        if (Array.isArray(data.reviews) && data.reviews.length > 0) {
-          setPlaceData(data);
+        // Only show reviews that have written text — rating-only reviews have no text field
+        const withText = Array.isArray(data.reviews)
+          ? data.reviews.filter((r) => (r.originalText ?? r.text)?.text)
+          : [];
+        if (withText.length > 0) {
+          setPlaceData({ ...data, reviews: withText });
           setStatus("live");
         } else {
           setStatus("fallback");
@@ -164,7 +168,7 @@ export default function ReviewsSection() {
           )}
 
           {status === "live" && live.map((review, i) => {
-            const reviewText = (review.originalText ?? review.text).text;
+            const reviewText = (review.originalText ?? review.text)?.text ?? "";
             const initials = review.authorAttribution.displayName
               .split(" ")
               .map((w) => w[0])
