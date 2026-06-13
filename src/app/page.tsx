@@ -30,10 +30,11 @@ function InstagramIcon({ className }: { className?: string }) {
 const serviceIcons = [Scissors, Sparkles, Heart, Star] as const;
 
 const team = [
-  { name: "Linda Nguyen", role: "Founder & Senior Stylist",  specialty: "Hair Color & Cuts",    phone: "+420 xxx xxx xxx", initials: "LN" },
-  { name: "Specialist 2", role: "Nail Technician",            specialty: "Nail Art & Gel",       phone: "+420 xxx xxx xxx", initials: "S2" },
-  { name: "Specialist 3", role: "Makeup Artist",              specialty: "Lashes & Brows",       phone: "+420 xxx xxx xxx", initials: "S3" },
-  { name: "Specialist 4", role: "Skin Care Therapist",        specialty: "Facials & Treatments", phone: "+420 xxx xxx xxx", initials: "S4" },
+  { name: "Linda",  role: "Owner & Senior Stylist", specialty: "Hair Color & Cuts",    initials: "L"  },
+  { name: "Kim",    role: "Nail Technician",         specialty: "Nail Art & Gel",       initials: "K"  },
+  { name: "Hina",   role: "Nail Technician",         specialty: "Nail Art & Gel",       initials: "H"  },
+  { name: "David",  role: "Barber",                  specialty: "Men's Cuts & Styling", initials: "D"  },
+  { name: "Daniel", role: "Barber",                  specialty: "Men's Cuts & Styling", initials: "Da" },
 ];
 
 export default function Home() {
@@ -292,7 +293,7 @@ export default function Home() {
             </div>
 
             {/* 2-col on mobile, 4-col on lg */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
               {team.map((member, i) => (
                 <div
                   key={member.name}
@@ -318,14 +319,7 @@ export default function Home() {
                       {member.name}
                     </h3>
                     <p className="text-xs sm:text-sm font-medium text-accent mt-0.5 mb-0.5">{member.role}</p>
-                    <p className="text-xs text-gray-500 mb-3 leading-snug">{member.specialty}</p>
-                    <a
-                      href={`tel:${member.phone.replace(/\s/g, "")}`}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded cursor-pointer"
-                    >
-                      <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" aria-hidden="true" />
-                      {member.phone}
-                    </a>
+                    <p className="text-xs text-gray-500 leading-snug">{member.specialty}</p>
                   </div>
                 </div>
               ))}
