@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { LanguageProvider } from "@/context/LanguageContext";
 import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
@@ -16,8 +17,7 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-// TODO: set NEXT_PUBLIC_SITE_URL env var to the real production domain before launch
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lindabeautystudio.cz";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.lindahairsalon.cz";
 
 const title = "Linda's Hair Salon | Kadeřnictví · Nehty · Make-up · Péče o pleť";
 const description =
@@ -67,6 +67,7 @@ export default function RootLayout({
           {children}
           <CookieBanner />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
