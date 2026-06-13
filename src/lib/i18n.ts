@@ -86,6 +86,13 @@ export const translations = {
       heading: "Naši specialisté",
       subheading:
         "Tým zkušených odborníků v oblasti krásy, kteří jsou tu pro vás.",
+      members: [
+        { role: "Majitelka & vrchní stylistka", specialty: "Barvení & střihy vlasů" },
+        { role: "Nehtová technička",            specialty: "Nail art & gel"          },
+        { role: "Nehtová technička",            specialty: "Nail art & gel"          },
+        { role: "Holič / Barber",               specialty: "Pánské střihy & styling" },
+        { role: "Holič / Barber",               specialty: "Pánské střihy & styling" },
+      ],
     },
     // Gallery
     gallery: {
@@ -270,6 +277,13 @@ export const translations = {
       heading: "Our Specialists",
       subheading:
         "A passionate team of skilled beauty professionals dedicated to bringing out your best.",
+      members: [
+        { role: "Owner & Senior Stylist", specialty: "Hair Color & Cuts"    },
+        { role: "Nail Technician",        specialty: "Nail Art & Gel"       },
+        { role: "Nail Technician",        specialty: "Nail Art & Gel"       },
+        { role: "Barber",                 specialty: "Men's Cuts & Styling" },
+        { role: "Barber",                 specialty: "Men's Cuts & Styling" },
+      ],
     },
     gallery: {
       sectionLabel: "Our Work",

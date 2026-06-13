@@ -21,11 +21,11 @@ function computeTrackWidth() {
 }
 
 // The minimum % at which the last image's right edge meets the container's right edge.
-// translate(X%) is relative to the track's own width, and the track starts at left: 50%.
-// Solving: containerW/2 + (X/100)*trackW + trackW = containerW → X = (containerW/2 - trackW)/trackW * 100
+// translate(X%) is relative to the track's own width, and the track starts at left: 0.
+// Solving: (X/100)*trackW + trackW = containerW → X = (containerW - trackW)/trackW * 100
 function computeMinPct(containerW: number) {
   const trackW = computeTrackWidth();
-  return ((containerW / 2 - trackW) / trackW) * 100;
+  return ((containerW - trackW) / trackW) * 100;
 }
 
 export default function GalleryTrack() {
@@ -163,7 +163,7 @@ export default function GalleryTrack() {
           display: "flex",
           gap: "4vmin",
           position: "absolute",
-          left: "50%",
+          left: "0",
           top: "50%",
           transform: "translate(0%, -50%)",
           willChange: "transform",

@@ -318,8 +318,8 @@ export default function Home() {
                     >
                       {member.name}
                     </h3>
-                    <p className="text-xs sm:text-sm font-medium text-accent mt-0.5 mb-0.5">{member.role}</p>
-                    <p className="text-xs text-gray-500 leading-snug">{member.specialty}</p>
+                    <p className="text-xs sm:text-sm font-medium text-accent mt-0.5 mb-0.5">{t.team.members[i].role}</p>
+                    <p className="text-xs text-gray-500 leading-snug">{t.team.members[i].specialty}</p>
                   </div>
                 </div>
               ))}
@@ -351,26 +351,10 @@ export default function Home() {
             <p className="text-gray-400 text-xs sm:text-sm max-w-xs mx-auto px-4 leading-relaxed">
               {t.gallery.subheading}
             </p>
-            <p className="text-gray-400 text-xs mt-3 tracking-wider">
-              ← {lang === "cs" ? "přejeďte" : "drag"} →
-            </p>
           </div>
 
           <GalleryTrack />
         </section>
-
-        {/* Facebook follow strip — between gallery and reviews */}
-        <div className="bg-[#111] border-t border-[#2a2a2a] py-8 text-center">
-          <a
-            href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#1a1a1a] text-gray-300 text-sm font-semibold rounded-full border border-[#333] hover:bg-[#222] hover:border-[#555] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600 cursor-pointer shadow-sm"
-          >
-            <FacebookIcon className="w-4 h-4 text-gray-400" />
-            {t.gallery.followUs}
-          </a>
-        </div>
 
         <ReviewsSection />
 
@@ -466,6 +450,19 @@ export default function Home() {
                     </div>
                   </li>
                 </ul>
+
+                {/* Facebook follow button */}
+                <div className="mt-7">
+                  <a
+                    href="https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-[#1a1a1a] text-gray-300 text-sm font-semibold rounded-full border border-[#333] hover:bg-[#222] hover:border-[#555] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600 cursor-pointer shadow-sm"
+                  >
+                    <FacebookIcon className="w-4 h-4 text-gray-400" />
+                    {t.gallery.followUs}
+                  </a>
+                </div>
 
               </div>
 

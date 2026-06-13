@@ -35,11 +35,12 @@ export async function GET() {
 
   if (!res.ok) {
     const text = await res.text();
-    console.error("Google Places API error:", res.status, text);
-    return NextResponse.json({ error: "Upstream API error." }, { status: 502 });
+    console.error("[reviews] Google Places API error:", res.status, text);
+    return NextResponse.json({ error: "Upstream API error.", status: res.status, detail: text }, { status: 502 });
   }
 
   const body = await res.json();
+  console.info("[reviews] Places API response — reviews:", (body as { reviews?: unknown[] }).reviews?.length ?? "none", "rating:", (body as { rating?: number }).rating);
   cache = { body, at: Date.now() };
   return NextResponse.json(body);
 }
