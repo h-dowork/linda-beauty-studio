@@ -23,7 +23,7 @@ export default function PrivacyPage() {
         >
           Zásady ochrany soukromí
         </h1>
-        <p className="text-sm text-gray-400 mb-10">Naposledy aktualizováno: 5. června 2026 · Platnost od: 1. června 2025 · Privacy Policy (EN summary at the bottom)</p>
+        <p className="text-sm text-gray-400 mb-10">Naposledy aktualizováno: 13. června 2026 · Platnost od: 1. června 2025 · Privacy Policy (EN summary at the bottom)</p>
 
         <div className="prose prose-gray max-w-none text-sm sm:text-base leading-relaxed text-gray-300 space-y-8">
 
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
               <li>Text zprávy / dotazu</li>
             </ul>
             <p className="mt-3">
-              Tyto údaje jsou přenášeny do aplikace Facebook Messenger (Meta Platforms, Inc.) pro
+              Tyto údaje jsou přenášeny do aplikace <strong>WhatsApp</strong> (Meta Platforms, Inc.) pro
               účely přímé komunikace a potvrzení termínu.
             </p>
           </section>
@@ -83,16 +83,16 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-3">4. Přenos údajů třetím stranám</h2>
             <p>
-              Vyplněním formuláře jsou vaše údaje předány aplikaci <strong>Facebook Messenger</strong>{" "}
+              Vyplněním formuláře jsou vaše údaje předány aplikaci <strong>WhatsApp</strong>{" "}
               (Meta Platforms, Inc., USA). Meta zpracovává tyto údaje dle vlastních zásad ochrany
               soukromí dostupných na{" "}
               <a
-                href="https://www.facebook.com/privacy/policy/"
+                href="https://www.whatsapp.com/legal/privacy-policy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-white"
               >
-                facebook.com/privacy/policy
+                whatsapp.com/legal/privacy-policy
               </a>
               . Přenos mimo EU probíhá na základě standardních smluvních doložek schválených
               Evropskou komisí.
@@ -112,6 +112,22 @@ export default function PrivacyPage() {
               </a>
               . Přenos mimo EU probíhá na základě standardních smluvních doložek.
             </p>
+            <p className="mt-3">
+              Tento web používá <strong>Vercel Analytics</strong> (Vercel Inc., USA) pro anonymní
+              měření návštěvnosti (počet zobrazení stránek, typ zařízení, země návštěvníka). Vercel
+              Analytics nepracuje se soubory cookie a nezpracovává osobně identifikovatelné
+              informace — IP adresa je použita výhradně k určení přibližné polohy (na úrovni země)
+              a není ukládána. Přenos mimo EU probíhá na základě standardních smluvních doložek.
+              Zásady zpracování dat Vercel jsou dostupné na{" "}
+              <a
+                href="https://vercel.com/legal/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-white"
+              >
+                vercel.com/legal/privacy-policy
+              </a>.
+            </p>
             <p className="mt-2">Vaše údaje neprodáváme ani neposkytujeme jiným třetím stranám.</p>
           </section>
 
@@ -120,8 +136,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-bold text-white mb-3">5. Doba uchovávání</h2>
             <p>
               Formulářová data zadaná prostřednictvím rezervačního formuláře jsou přenášena
-              výhradně do aplikace <strong>Facebook Messenger</strong> a nejsou ukládána na
-              serverech tohoto webu. Zprávy v aplikaci Messenger podléhají zásadám uchovávání
+              výhradně do aplikace <strong>WhatsApp</strong> a nejsou ukládána na
+              serverech tohoto webu. Zprávy v aplikaci WhatsApp podléhají zásadám uchovávání
               Meta Platforms. Pro ochranu před zneužitím (spam) zpracováváme IP adresy dočasně
               po dobu maximálně <strong>15 minut</strong>.
             </p>
@@ -181,9 +197,11 @@ export default function PrivacyPage() {
               <code className="text-xs bg-[#2a2a2a] px-1 py-0.5 rounded">NID</code>). Souhlas lze kdykoli
               odvolat obnovením stránky bez kliknutí na mapu.
             </p>
-            <p className="mt-2">
-              Nepoužíváme analytické, sledovací ani marketingové cookies. Na webu nejsou integrovány
-              žádné reklamní sítě.
+            <p className="mt-3">
+              <strong className="text-gray-200">Vercel Analytics (bez cookies):</strong> Pro anonymní
+              měření návštěvnosti používáme Vercel Analytics, který <em>nepoužívá soubory cookie</em> ani
+              nesleduje jednotlivé uživatele. Nepoužíváme sledovací ani marketingové cookies. Na webu
+              nejsou integrovány žádné reklamní sítě.
             </p>
           </section>
 
@@ -214,18 +232,19 @@ export default function PrivacyPage() {
             </p>
             <p className="mt-2 text-gray-400">
               <strong className="text-gray-200">Data collected:</strong> Name, email, optional phone and service preference,
-              and your message — submitted via the contact form and forwarded to Facebook Messenger to process your appointment request.
+              and your message — submitted via the contact form and forwarded to WhatsApp to process your appointment request.
             </p>
             <p className="mt-2 text-gray-400">
               <strong className="text-gray-200">Legal basis:</strong> Legitimate interest (GDPR Art. 6(1)(f)).
             </p>
             <p className="mt-2 text-gray-400">
-              <strong className="text-gray-200">Retention:</strong> Form data is forwarded directly to Facebook Messenger and is not stored on our servers. IP addresses are held transiently (up to 15 minutes) for spam prevention only.
+              <strong className="text-gray-200">Retention:</strong> Form data is forwarded directly to WhatsApp and is not stored on our servers. IP addresses are held transiently (up to 15 minutes) for spam prevention only.
             </p>
             <p className="mt-2 text-gray-400">
-              <strong className="text-gray-200">Third parties:</strong> Meta Platforms (Facebook Messenger)
+              <strong className="text-gray-200">Third parties:</strong> Meta Platforms (WhatsApp)
               for booking communication. Google LLC (Google Maps) — map embed loaded only on explicit user
-              consent via a click-to-load gate. Data is not sold or shared with other parties.
+              consent via a click-to-load gate. Vercel Inc. (Vercel Analytics) — cookieless, anonymised
+              page-view analytics; no personal data stored. Data is not sold or shared with other parties.
             </p>
             <p className="mt-2 text-gray-400">
               <strong className="text-gray-200">Your rights:</strong> Access, rectification, erasure, restriction,
@@ -241,7 +260,8 @@ export default function PrivacyPage() {
             </p>
             <p className="mt-2 text-gray-400">
               <strong className="text-gray-200">Cookies:</strong> Essential only (localStorage banner dismiss).
-              Google Maps sets its own cookies if you choose to load the map. No tracking or analytics cookies.
+              Google Maps sets its own cookies if you choose to load the map. Vercel Analytics is cookieless.
+              No tracking or marketing cookies are used.
             </p>
           </section>
         </div>

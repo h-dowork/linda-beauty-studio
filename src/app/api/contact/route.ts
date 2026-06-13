@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
   const errors = validateFields(name, email, message);
   if (Object.keys(errors).length > 0) return NextResponse.json({ errors }, { status: 422 });
 
-  // Booking goes via Messenger (client-side). This endpoint logs the submission server-side.
+  // Booking is sent via WhatsApp (client-side deep link). This endpoint only validates input.
   // To persist or email: await sendEmail({ name, email, phone, service, message });
 
   return NextResponse.json(
