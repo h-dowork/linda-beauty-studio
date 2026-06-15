@@ -81,7 +81,10 @@ const jsonLd = {
       closes: "18:00",
     },
   ],
-  sameAs: ["https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/"],
+  sameAs: [
+    "https://www.facebook.com/p/Linda-Beauty-Studio-61560198843135/",
+    "https://www.instagram.com/linda_beauty_studio.28",
+  ],
 };
 
 export default async function RootLayout({
