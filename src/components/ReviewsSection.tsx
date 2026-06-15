@@ -120,6 +120,30 @@ export default function ReviewsSection() {
       .catch(() => setStatus("fallback"));
   }, []);
 
+  // The global scroll-reveal observer in page.tsx runs before this async data
+  // lands, so the dynamically-rendered cards never get observed. Re-observe
+  // the section's .reveal elements after status settles.
+  useEffect(() => {
+    if (status === "loading") return;
+    const section = document.getElementById("reviews");
+    if (!section) return;
+    const els = section.querySelectorAll<Element>(".reveal:not(.is-visible)");
+    if (els.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -48px 0px" }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [status]);
+
   const live = placeData?.reviews?.slice(0, 3) ?? [];
 
   return (
