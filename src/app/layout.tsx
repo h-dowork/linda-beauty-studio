@@ -116,7 +116,7 @@ export default async function RootLayout({
           <CookieBanner />
         </LanguageProvider>
 
-        <Analytics nonce={nonce} />
+        <Analytics />
 
         <script
           nonce={nonce}
