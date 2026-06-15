@@ -21,14 +21,15 @@ body {
 }
 
 /* ── Scroll reveal ──────────────────────────────────────────────── */
-.reveal {
+/* Scoped to .js so content is immediately visible when JS is disabled or slow */
+.js .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition:
     opacity  0.65s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.reveal.is-visible { opacity: 1; transform: none; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
 .reveal-d1 { transition-delay:  80ms; }
 .reveal-d2 { transition-delay: 160ms; }
 .reveal-d3 { transition-delay: 240ms; }
@@ -75,7 +76,7 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal     { opacity: 1; transform: none; }
+  .js .reveal { opacity: 1; transform: none; }
   .hero-enter { animation: none; opacity: 1; }
   .blob       { animation: none; }
   .scroll-cue { animation: none; }

@@ -160,8 +160,6 @@ export const translations = {
         "Preferovaný termín, datum a podrobnosti o požadované službě…",
       messageRequired: "Zpráva musí mít alespoň 10 znaků.",
       submit: "Rezervovat přes WhatsApp",
-      submitting: "Otvírám WhatsApp…",
-      tooMany: "Příliš mnoho požadavků. Zkuste to prosím za 15 minut.",
       errorGeneric: "Něco se pokazilo. Zkuste to znovu nebo nás kontaktujte telefonicky.",
       successHeading: "Téměř hotovo!",
       successBody:
@@ -346,8 +344,6 @@ export const translations = {
       messagePlaceholder: "Preferred date, time, and details about the service you'd like…",
       messageRequired: "Message must be at least 10 characters.",
       submit: "Book via WhatsApp",
-      submitting: "Opening WhatsApp…",
-      tooMany: "Too many requests. Please wait 15 minutes and try again.",
       errorGeneric: "Something went wrong. Please try again or call us directly.",
       successHeading: "Almost there!",
       successBody:

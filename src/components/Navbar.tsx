@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Scissors, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { lockScroll, unlockScroll } from "@/lib/scrollLock";
 import type { Lang } from "@/lib/i18n";
 
 export default function Navbar() {
@@ -16,10 +17,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (open) {
+      lockScroll();
+      return () => unlockScroll();
+    }
   }, [open]);
 
   const links = [
@@ -96,7 +98,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => setLang(otherLang)}
-              className="text-xs font-semibold text-gray-500 border border-gray-200 px-2.5 py-1.5 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent uppercase tracking-wide"
+              className="min-h-[44px] inline-flex items-center text-xs font-semibold text-gray-500 border border-gray-200 px-2.5 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent uppercase tracking-wide"
               aria-label={`Switch language to ${otherLang}`}
             >
               {otherLang.toUpperCase()}

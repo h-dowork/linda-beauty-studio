@@ -37,7 +37,7 @@ export default function CookieBanner() {
           {c.notice}{" "}
           <a
             href="/ochrana-soukromi"
-            className="underline underline-offset-2 hover:text-white transition-colors"
+            className="underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded"
           >
             {c.learnMore}
           </a>

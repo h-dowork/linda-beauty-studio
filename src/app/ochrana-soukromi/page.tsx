@@ -268,7 +268,7 @@ export default function PrivacyPage() {
         <div className="mt-12 pt-8 border-t border-[#222] text-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-6 py-3 bg-[#E8933A] text-white hover:bg-[#d4832a] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer"
+            className="inline-flex items-center justify-center px-6 py-3 bg-[#E8933A] text-white hover:bg-[#d4832a] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 cursor-pointer rounded-xl"
           >
             ← Zpět na hlavní stránku
           </Link>

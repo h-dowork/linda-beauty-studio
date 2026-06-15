@@ -42,10 +42,11 @@ function timeAgo(isoDate: string, lang: string): string {
   }
 }
 
-function StarsRow({ rating, size = "sm" }: { rating: number; size?: "sm" | "md" }) {
+function StarsRow({ rating, size = "sm", lang = "cs" }: { rating: number; size?: "sm" | "md"; lang?: string }) {
   const cls = size === "md" ? "w-5 h-5" : "w-4 h-4";
+  const label = lang === "cs" ? `${rating} hvězd z 5` : `${rating} out of 5 stars`;
   return (
-    <div className="flex gap-0.5" aria-label={`${rating} hvězd z 5`}>
+    <div className="flex gap-0.5" aria-label={label}>
       {[1, 2, 3, 4, 5].map((n) => (
         <Star
           key={n}
@@ -105,13 +106,24 @@ export default function ReviewsSection() {
   useEffect(() => {
     fetch("/api/reviews")
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((data: PlaceData) => {
-        // Only show reviews that have written text — rating-only reviews have no text field
-        const withText = Array.isArray(data.reviews)
-          ? data.reviews.filter((r) => (r.originalText ?? r.text)?.text)
-          : [];
+      .then((raw: unknown) => {
+        if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+          setStatus("fallback");
+          return;
+        }
+        const d = raw as Record<string, unknown>;
+        if (!Array.isArray(d.reviews)) { setStatus("fallback"); return; }
+
+        const validated: PlaceData = {
+          reviews: d.reviews as GoogleReview[],
+          rating: typeof d.rating === "number" ? d.rating : 0,
+          userRatingCount: typeof d.userRatingCount === "number" ? d.userRatingCount : 0,
+          googleMapsUri: typeof d.googleMapsUri === "string" ? d.googleMapsUri : undefined,
+        };
+
+        const withText = validated.reviews.filter((r) => (r.originalText ?? r.text)?.text);
         if (withText.length > 0) {
-          setPlaceData({ ...data, reviews: withText });
+          setPlaceData({ ...validated, reviews: withText });
           setStatus("live");
         } else {
           setStatus("fallback");
@@ -176,7 +188,7 @@ export default function ReviewsSection() {
               >
                 {placeData.rating.toFixed(1)}
               </span>
-              <StarsRow rating={placeData.rating} size="md" />
+              <StarsRow rating={placeData.rating} size="md" lang={lang} />
               <span className="text-sm text-gray-400">
                 ({placeData.userRatingCount}{" "}
                 {lang === "cs" ? "hodnocení" : "reviews"})
@@ -205,11 +217,11 @@ export default function ReviewsSection() {
 
             return (
               <figure
-                key={i}
+                key={`${review.authorAttribution.displayName}-${review.publishTime ?? i}`}
                 className={`reveal reveal-d${i + 1} bg-[#1a1a1a] rounded-2xl p-5 sm:p-6 border border-[#2a2a2a]`}
               >
                 <div className="mb-3">
-                  <StarsRow rating={review.rating} />
+                  <StarsRow rating={review.rating} lang={lang} />
                 </div>
                 <blockquote className="text-gray-400 text-sm leading-relaxed mb-4">
                   &ldquo;{reviewText}&rdquo;
@@ -256,23 +268,23 @@ export default function ReviewsSection() {
           {status === "fallback" && t.reviews.items.map((review, i) => (
             <figure
               key={review.name}
-              className={`reveal reveal-d${i + 1} bg-gray-50 rounded-2xl p-5 sm:p-6 border border-gray-100`}
+              className={`reveal reveal-d${i + 1} bg-[#1a1a1a] rounded-2xl p-5 sm:p-6 border border-[#2a2a2a]`}
             >
               <div className="mb-3">
-                <StarsRow rating={5} />
+                <StarsRow rating={5} lang={lang} />
               </div>
-              <blockquote className="text-gray-600 text-sm leading-relaxed mb-4">
+              <blockquote className="text-gray-400 text-sm leading-relaxed mb-4">
                 &ldquo;{review.text}&rdquo;
               </blockquote>
               <figcaption className="flex items-center gap-3">
                 <div
-                  className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 text-xs font-bold flex-shrink-0"
+                  className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2a2a2a] to-[#333] flex items-center justify-center text-gray-400 text-xs font-bold flex-shrink-0"
                   aria-hidden="true"
                 >
                   {review.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">{review.name}</p>
+                  <p className="text-sm font-semibold text-white">{review.name}</p>
                   <p className="text-xs text-gray-400">{review.service}</p>
                 </div>
               </figcaption>

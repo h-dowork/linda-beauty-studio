@@ -4,16 +4,23 @@ const API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 const PLACE_ID = process.env.GOOGLE_PLACE_ID;
 const PLACES_URL = "https://places.googleapis.com/v1/places";
 
-// Simple in-memory cache — good enough for a single-instance deployment.
-// Replace with Upstash KV if you move to a multi-instance host.
-let cache: { body: unknown; at: number } | null = null;
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const MAPS_URI_RE = /^https:\/\/(maps|www)\.google\.(com|[a-z]{2,3})\//;
+
+interface PlaceBody {
+  reviews?: unknown[];
+  rating?: number;
+  userRatingCount?: number;
+  googleMapsUri?: string;
+}
+
+let cache: { body: PlaceBody; at: number } | null = null;
+const CACHE_TTL_MS = 60 * 60 * 1000;
 
 export async function GET() {
   if (!API_KEY || !PLACE_ID) {
     return NextResponse.json(
       { error: "Google Places API is not configured." },
-      { status: 503 }
+      { status: 503 },
     );
   }
 
@@ -28,6 +35,7 @@ export async function GET() {
         "X-Goog-Api-Key": API_KEY,
         "X-Goog-FieldMask": "reviews,rating,userRatingCount,googleMapsUri",
       },
+      signal: AbortSignal.timeout(5000),
     });
   } catch {
     return NextResponse.json({ error: "Network error reaching Places API." }, { status: 502 });
@@ -35,12 +43,19 @@ export async function GET() {
 
   if (!res.ok) {
     const text = await res.text();
-    console.error("[reviews] Google Places API error:", res.status, text);
-    return NextResponse.json({ error: "Upstream API error.", status: res.status, detail: text }, { status: 502 });
+    if (process.env.NODE_ENV !== "production") {
+      console.error("[reviews] Google Places API error:", res.status, text);
+    }
+    return NextResponse.json({ error: "Upstream API error." }, { status: 502 });
   }
 
-  const body = await res.json();
-  console.info("[reviews] Places API response — reviews:", (body as { reviews?: unknown[] }).reviews?.length ?? "none", "rating:", (body as { rating?: number }).rating);
-  cache = { body, at: Date.now() };
-  return NextResponse.json(body);
+  const raw = await res.json() as PlaceBody;
+
+  // Validate googleMapsUri before caching to prevent open-redirect via poisoned cache
+  if (raw.googleMapsUri && !MAPS_URI_RE.test(raw.googleMapsUri)) {
+    raw.googleMapsUri = undefined;
+  }
+
+  cache = { body: raw, at: Date.now() };
+  return NextResponse.json(raw);
 }

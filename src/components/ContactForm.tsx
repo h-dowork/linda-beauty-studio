@@ -19,7 +19,9 @@ const WA_URL = "https://wa.me/420774109009";
 function buildBookingText(fields: {
   name: string; phone: string; email: string; service: string; message: string;
 }): string {
-  const phone = fields.phone.trim() ? `+420 ${fields.phone.trim()}` : "";
+  // Strip any accidentally-typed +420 prefix before prepending — the UI already shows it as static text
+  const rawPhone = fields.phone.trim().replace(/^\+?420\s*/, "");
+  const phone = rawPhone ? `+420 ${rawPhone}` : "";
   return [
     "🌸 REZERVACE — Linda's Hair Salon",
     "",
@@ -129,7 +131,7 @@ export default function ContactForm() {
               }
             </button>
           </div>
-          <pre className="px-4 py-3 text-xs text-gray-400 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto">{text}</pre>
+          <pre tabIndex={0} className="px-4 py-3 text-xs text-gray-400 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] rounded-b-xl">{text}</pre>
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
@@ -154,7 +156,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4" aria-label={f.submit}>
+    <form onSubmit={handleSubmit} noValidate className="space-y-4" aria-label={t.contact.formHeading}>
       {/* Error alerts */}
       {status === "error" && (
         <div role="alert" className="flex items-start gap-2 p-3.5 bg-red-50 border border-red-100 rounded-xl text-sm text-red-700">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Scissors, Sparkles, Heart, Star,
   Phone, MapPin, Clock, ChevronRight, ChevronDown, X,
@@ -10,6 +10,7 @@ import ContactForm from "@/components/ContactForm";
 import GalleryTrack from "@/components/GalleryTrack";
 import ReviewsSection from "@/components/ReviewsSection";
 import { useLanguage } from "@/context/LanguageContext";
+import { lockScroll, unlockScroll } from "@/lib/scrollLock";
 
 function FacebookIcon({ className }: { className?: string }) {
   return (
@@ -19,13 +20,6 @@ function FacebookIcon({ className }: { className?: string }) {
   );
 }
 
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-    </svg>
-  );
-}
 
 const serviceIcons = [Scissors, Sparkles, Heart, Star] as const;
 
@@ -59,6 +53,7 @@ export default function Home() {
 
   // ── Service card modal ───────────────────────────────────────
   const [activeService, setActiveService] = useState<number | null>(null);
+  const modalPanelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (activeService === null) return;
@@ -68,8 +63,32 @@ export default function Home() {
   }, [activeService]);
 
   useEffect(() => {
-    document.body.style.overflow = activeService !== null ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (activeService !== null) {
+      lockScroll();
+      return () => unlockScroll();
+    }
+  }, [activeService]);
+
+  // Focus trap: keep keyboard focus inside the service modal while it's open
+  useEffect(() => {
+    if (activeService === null) return;
+    const panel = modalPanelRef.current;
+    if (!panel) return;
+    const sel = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusable = () => Array.from(panel.querySelectorAll<HTMLElement>(sel));
+    focusable()[0]?.focus();
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const els = focusable();
+      if (els.length === 0) return;
+      if (e.shiftKey) {
+        if (document.activeElement === els[0]) { e.preventDefault(); els[els.length - 1].focus(); }
+      } else {
+        if (document.activeElement === els[els.length - 1]) { e.preventDefault(); els[0].focus(); }
+      }
+    };
+    document.addEventListener("keydown", trap);
+    return () => document.removeEventListener("keydown", trap);
   }, [activeService]);
 
   // ── Floating mobile CTA ───────────────────────────────────────
@@ -225,7 +244,7 @@ export default function Home() {
               />
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-5 no-scrollbar sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-6 sm:pb-0 lg:grid-cols-4 lg:px-8 lg:gap-6">
                 {t.services.items.map((service, i) => {
-                  const Icon = serviceIcons[i];
+                  const Icon = serviceIcons[i % serviceIcons.length];
                   return (
                     <button
                       key={service.title}
@@ -294,35 +313,39 @@ export default function Home() {
 
             {/* 2-col on mobile, 4-col on lg */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
-              {team.map((member, i) => (
-                <div
-                  key={member.name}
-                  className={`reveal reveal-d${i + 1} bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#2a2a2a] hover:border-[#444] hover:shadow-lg hover:shadow-black/40 transition-all duration-300`}
-                >
-                  {/* Avatar placeholder */}
+              {team.map((member, i) => {
+                const memberI18n = t.team.members[i];
+                if (!memberI18n) return null;
+                return (
                   <div
-                    className="h-32 sm:h-48 bg-gradient-to-br from-[#222] to-[#2a2a2a] flex items-center justify-center"
-                    aria-hidden="true"
+                    key={member.name}
+                    className={`reveal reveal-d${i + 1} bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#2a2a2a] hover:border-[#444] hover:shadow-lg hover:shadow-black/40 transition-all duration-300`}
                   >
-                    <span
-                      className="text-2xl sm:text-4xl font-bold text-[#444]"
-                      style={{ fontFamily: "var(--font-playfair)" }}
+                    {/* Avatar placeholder */}
+                    <div
+                      className="h-32 sm:h-48 bg-gradient-to-br from-[#222] to-[#2a2a2a] flex items-center justify-center"
+                      aria-hidden="true"
                     >
-                      {member.initials}
-                    </span>
+                      <span
+                        className="text-2xl sm:text-4xl font-bold text-[#444]"
+                        style={{ fontFamily: "var(--font-playfair)" }}
+                      >
+                        {member.initials}
+                      </span>
+                    </div>
+                    <div className="p-3.5 sm:p-5">
+                      <h3
+                        className="text-sm sm:text-lg font-bold text-white leading-tight"
+                        style={{ fontFamily: "var(--font-playfair)" }}
+                      >
+                        {member.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm font-medium text-accent mt-0.5 mb-0.5">{memberI18n.role}</p>
+                      <p className="text-xs text-gray-500 leading-snug">{memberI18n.specialty}</p>
+                    </div>
                   </div>
-                  <div className="p-3.5 sm:p-5">
-                    <h3
-                      className="text-sm sm:text-lg font-bold text-white leading-tight"
-                      style={{ fontFamily: "var(--font-playfair)" }}
-                    >
-                      {member.name}
-                    </h3>
-                    <p className="text-xs sm:text-sm font-medium text-accent mt-0.5 mb-0.5">{t.team.members[i].role}</p>
-                    <p className="text-xs text-gray-500 leading-snug">{t.team.members[i].specialty}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -585,13 +608,6 @@ export default function Home() {
                 >
                   <FacebookIcon className="w-4 h-4 text-gray-400" />
                 </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-[#1a1a1a] rounded-xl flex items-center justify-center hover:bg-[#222] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] cursor-pointer"
-                  aria-label="Instagram"
-                >
-                  <InstagramIcon className="w-4 h-4 text-gray-400" />
-                </a>
               </div>
               <a
                 href="tel:+420774109009"
@@ -622,7 +638,7 @@ export default function Home() {
       ══════════════════════════════════════════════════════════ */}
       {activeService !== null && (() => {
         const service = t.services.items[activeService];
-        const Icon = serviceIcons[activeService];
+        const Icon = serviceIcons[activeService % serviceIcons.length];
         return (
           <div
             role="dialog"
@@ -636,6 +652,7 @@ export default function Home() {
 
             {/* Panel — bottom sheet on mobile, card on sm+ */}
             <div
+              ref={modalPanelRef}
               className="relative w-full sm:max-w-lg bg-[#1a1a1a] rounded-t-3xl sm:rounded-2xl max-h-[88dvh] overflow-y-auto shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
@@ -649,7 +666,7 @@ export default function Home() {
                 <button
                   onClick={() => setActiveService(null)}
                   className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[#2a2a2a] hover:bg-[#333] active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] cursor-pointer"
-                  aria-label="Zavřít"
+                  aria-label={lang === "cs" ? "Zavřít" : "Close"}
                 >
                   <X className="w-4 h-4 text-gray-300" aria-hidden="true" />
                 </button>
@@ -702,13 +719,14 @@ export default function Home() {
           Appears after hero, hides when contact section is visible
       ══════════════════════════════════════════════════════════ */}
       <div
-        aria-hidden="true"
         className={`md:hidden fixed bottom-0 left-0 right-0 z-30 px-4 pb-5 pt-3 bg-gradient-to-t from-[#111] via-[#111]/95 to-transparent pointer-events-none transition-all duration-300 ${
           showFloatCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         <a
           href="#contact"
+          aria-hidden={!showFloatCTA}
+          tabIndex={showFloatCTA ? 0 : -1}
           className={`pointer-events-auto flex items-center justify-center w-full py-4 bg-[#E8933A] text-white font-semibold rounded-2xl shadow-xl shadow-[#E8933A]/20 hover:bg-[#d4832a] active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8933A] ${
             showFloatCTA ? "" : "pointer-events-none"
           }`}

@@ -11,6 +11,9 @@ const images = [
   "/gallery/690676760_122217363836339961_7727855726894533995_n.jpg",
 ];
 
+// Precomputed friction decay base per 1ms — avoids repeated Math.pow(0.82, dt/16) calls
+const FRICTION = Math.pow(0.82, 1 / 16);
+
 // Mirrors the CSS: width: clamp(240px, 70vw, 380px), gap: 4vmin
 function computeTrackWidth() {
   const vw = window.innerWidth;
@@ -67,6 +70,7 @@ export default function GalleryTrack() {
 
     const onDown = (clientX: number) => {
       cancelMomentum();
+      track.style.willChange = "transform";
       drag.current = {
         active: true,
         startX: clientX,
@@ -114,17 +118,20 @@ export default function GalleryTrack() {
         lastT = now;
 
         applyPct(drag.current.curPct + velocity * dt);
-        velocity *= Math.pow(0.82, dt / 16); // friction — coast fades in ~80ms
+        velocity *= Math.pow(FRICTION, dt);
 
         if (Math.abs(velocity) > 0.003) {
           rafRef.current = requestAnimationFrame(animate);
         } else {
           rafRef.current = null;
+          track.style.willChange = "";
         }
       };
 
       if (Math.abs(velocity) > 0.003) {
         rafRef.current = requestAnimationFrame(animate);
+      } else {
+        track.style.willChange = "";
       }
     };
 
@@ -166,16 +173,17 @@ export default function GalleryTrack() {
           left: "0",
           top: "50%",
           transform: "translate(0%, -50%)",
-          willChange: "transform",
         }}
       >
-        {images.map((src, i) => (
+        {images.map((src) => (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            key={i}
+            key={src}
             className="gi"
             src={src}
             alt=""
+            loading="lazy"
+            decoding="async"
             draggable={false}
             style={{
               width: "clamp(240px, 70vw, 380px)",
@@ -184,7 +192,6 @@ export default function GalleryTrack() {
               objectPosition: "100% center",
               pointerEvents: "none",
               borderRadius: "16px",
-              willChange: "object-position",
             }}
           />
         ))}
