@@ -133,8 +133,8 @@ export const translations = {
       address: "Adresa",
       hours: "Otevírací doba",
       hoursData: [
-        { day: "Po – Pá", time: "8:00 – 18:30" },
-        { day: "Sobota", time: "9:00 – 18:00" },
+        { day: "Po – Pá", time: "8:00 – 19:00" },
+        { day: "Sobota", time: "8:30 – 19:00" },
         { day: "Neděle", time: "Objednávání" },
       ],
       messageBtn: "Napište nám přes WhatsApp",
@@ -319,8 +319,8 @@ export const translations = {
       address: "Address",
       hours: "Opening Hours",
       hoursData: [
-        { day: "Mon – Fri", time: "8:00 AM – 6:30 PM" },
-        { day: "Saturday", time: "9:00 AM – 6:00 PM" },
+        { day: "Mon – Fri", time: "8:00 AM – 7:00 PM" },
+        { day: "Saturday", time: "8:30 AM – 7:00 PM" },
         { day: "Sunday", time: "By appointment" },
       ],
       messageBtn: "Message us on WhatsApp",
