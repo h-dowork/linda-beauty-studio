@@ -37,54 +37,99 @@ export const translations = {
           title: "Vlasy",
           description:
             "Střihy, barvení a styling pro ženy i muže. Péče přizpůsobená každému typu vlasů.",
-          items: [
-            { name: "Pánský střih", price: "300 Kč" },
-            { name: "Úprava vousů", price: "200 Kč" },
-            { name: "Střih + vousy komplet", price: "450 Kč" },
-            { name: "Dětský střih (1–6 let)", price: "250 Kč" },
-            { name: "Dámský střih", price: "od 300 Kč" },
-            { name: "Melír – kratší vlasy", price: "1 200 Kč" },
-            { name: "Melír – k ramenům", price: "1 700 Kč" },
-            { name: "Melír – delší vlasy", price: "2 000 Kč" },
-            { name: "Umytí vlasů – kratší", price: "250 Kč" },
-            { name: "Umytí vlasů – delší", price: "350 Kč" },
-            { name: "Perma vlasů", price: "od 700 Kč" },
+          groups: [
+            {
+              label: "Střihy",
+              items: [
+                { name: "Pánský střih", price: "300 Kč" },
+                { name: "Dámský střih", price: "od 300 Kč" },
+                { name: "Dětský střih (1–6 let)", price: "250 Kč" },
+              ],
+            },
+            {
+              label: "Vousy",
+              items: [
+                { name: "Úprava vousů", price: "200 Kč" },
+                { name: "Střih + vousy komplet", price: "450 Kč" },
+              ],
+            },
+            {
+              label: "Barva & chemie",
+              items: [
+                { name: "Melír – kratší vlasy", price: "1 200 Kč" },
+                { name: "Melír – k ramenům", price: "1 700 Kč" },
+                { name: "Melír – delší vlasy", price: "2 000 Kč" },
+                { name: "Perma vlasů", price: "od 700 Kč" },
+              ],
+            },
+            {
+              label: "Mytí",
+              items: [
+                { name: "Kratší vlasy", price: "250 Kč" },
+                { name: "Delší vlasy", price: "350 Kč" },
+              ],
+            },
           ],
         },
         {
           title: "Nehty",
           description:
             "Akrylové nehty, francie, ombré a nail art dle přání. Prodloužení a design přizpůsobíme každé klientce.",
-          items: [
-            { name: "Nové akrylové nehty", price: "od 450 Kč" },
-            { name: "Doplnění akrylových", price: "od 400 Kč" },
-            { name: "Nové francie", price: "od 450 Kč" },
-            { name: "Nové ombré", price: "od 450 Kč" },
-            { name: "Prodloužení nehtů", price: "100–300 Kč" },
-            { name: "Jakýkoliv design", price: "100–300 Kč" },
+          groups: [
+            {
+              label: "Akrylové",
+              items: [
+                { name: "Nové akrylové", price: "od 450 Kč" },
+                { name: "Doplnění akrylových", price: "od 400 Kč" },
+              ],
+            },
+            {
+              label: "Design",
+              items: [
+                { name: "Francie", price: "od 450 Kč" },
+                { name: "Ombré", price: "od 450 Kč" },
+                { name: "Prodloužení nehtů", price: "100–300 Kč" },
+                { name: "Jakýkoliv design", price: "100–300 Kč" },
+              ],
+            },
           ],
         },
         {
           title: "Pedikúra",
           description:
             "Profesionální péče o nohy pro ženy i muže. Relaxační a estetická pedikúra s výběrem barev.",
-          items: [
-            { name: "Pánská pedikúra", price: "400 Kč" },
-            { name: "Dámská pedikúra", price: "od 350 Kč" },
-            { name: "Pedikúra jedné barvy", price: "450 Kč" },
-            { name: "Pedikúra dvou barev", price: "500 Kč" },
-            { name: "Francie", price: "480 Kč" },
+          groups: [
+            {
+              label: "Základní",
+              items: [
+                { name: "Pánská pedikúra", price: "400 Kč" },
+                { name: "Dámská pedikúra", price: "od 350 Kč" },
+              ],
+            },
+            {
+              label: "S lakem",
+              items: [
+                { name: "Jednobarevná", price: "450 Kč" },
+                { name: "Dvoubarevná", price: "500 Kč" },
+                { name: "Francie", price: "480 Kč" },
+              ],
+            },
           ],
         },
         {
           title: "Make-up & Řasy",
           description:
             "Profesionální líčení, prodloužení řas a úprava obočí.",
-          items: [
-            { name: "Celodenní make-up", price: "—" },
-            { name: "Prodloužení řas", price: "—" },
-            { name: "Úprava & barvení obočí", price: "—" },
-            { name: "Lifting řas", price: "—" },
+          groups: [
+            {
+              label: "",
+              items: [
+                { name: "Celodenní make-up", price: "—" },
+                { name: "Prodloužení řas", price: "—" },
+                { name: "Úprava & barvení obočí", price: "—" },
+                { name: "Lifting řas", price: "—" },
+              ],
+            },
           ],
         },
       ],
@@ -236,54 +281,99 @@ export const translations = {
           title: "Hair",
           description:
             "Cuts, color, and styling for women and men. Tailored to every hair type.",
-          items: [
-            { name: "Men's Haircut", price: "300 CZK" },
-            { name: "Beard Trim", price: "200 CZK" },
-            { name: "Haircut + Beard Combo", price: "450 CZK" },
-            { name: "Children's Haircut (1–6 yrs)", price: "250 CZK" },
-            { name: "Women's Haircut", price: "from 300 CZK" },
-            { name: "Highlights – Short Hair", price: "1,200 CZK" },
-            { name: "Highlights – Shoulder Length", price: "1,700 CZK" },
-            { name: "Highlights – Long Hair", price: "2,000 CZK" },
-            { name: "Hair Wash – Short", price: "250 CZK" },
-            { name: "Hair Wash – Long", price: "350 CZK" },
-            { name: "Perm", price: "from 700 CZK" },
+          groups: [
+            {
+              label: "Cuts",
+              items: [
+                { name: "Men's Haircut", price: "300 CZK" },
+                { name: "Women's Haircut", price: "from 300 CZK" },
+                { name: "Children's Haircut (1–6 yrs)", price: "250 CZK" },
+              ],
+            },
+            {
+              label: "Beard",
+              items: [
+                { name: "Beard Trim", price: "200 CZK" },
+                { name: "Haircut + Beard Combo", price: "450 CZK" },
+              ],
+            },
+            {
+              label: "Color & Chemical",
+              items: [
+                { name: "Highlights – Short Hair", price: "1,200 CZK" },
+                { name: "Highlights – Shoulder Length", price: "1,700 CZK" },
+                { name: "Highlights – Long Hair", price: "2,000 CZK" },
+                { name: "Perm", price: "from 700 CZK" },
+              ],
+            },
+            {
+              label: "Washing",
+              items: [
+                { name: "Short Hair", price: "250 CZK" },
+                { name: "Long Hair", price: "350 CZK" },
+              ],
+            },
           ],
         },
         {
           title: "Nails",
           description:
             "Acrylic nails, French, ombré, and nail art. Extensions and designs tailored to each client.",
-          items: [
-            { name: "New Acrylics", price: "from 450 CZK" },
-            { name: "Acrylic Infill", price: "from 400 CZK" },
-            { name: "New French", price: "from 450 CZK" },
-            { name: "New Ombré", price: "from 450 CZK" },
-            { name: "Nail Extensions", price: "100–300 CZK" },
-            { name: "Any Design", price: "100–300 CZK" },
+          groups: [
+            {
+              label: "Acrylics",
+              items: [
+                { name: "New Acrylics", price: "from 450 CZK" },
+                { name: "Acrylic Infill", price: "from 400 CZK" },
+              ],
+            },
+            {
+              label: "Design",
+              items: [
+                { name: "French", price: "from 450 CZK" },
+                { name: "Ombré", price: "from 450 CZK" },
+                { name: "Nail Extensions", price: "100–300 CZK" },
+                { name: "Any Design", price: "100–300 CZK" },
+              ],
+            },
           ],
         },
         {
           title: "Pedicure",
           description:
             "Professional foot care for women and men. Relaxing and aesthetic pedicures with a choice of colours.",
-          items: [
-            { name: "Men's Pedicure", price: "400 CZK" },
-            { name: "Women's Pedicure", price: "from 350 CZK" },
-            { name: "Single Colour Pedicure", price: "450 CZK" },
-            { name: "Two Colour Pedicure", price: "500 CZK" },
-            { name: "French Pedicure", price: "480 CZK" },
+          groups: [
+            {
+              label: "Basic",
+              items: [
+                { name: "Men's Pedicure", price: "400 CZK" },
+                { name: "Women's Pedicure", price: "from 350 CZK" },
+              ],
+            },
+            {
+              label: "With Polish",
+              items: [
+                { name: "Single Colour", price: "450 CZK" },
+                { name: "Two Colour", price: "500 CZK" },
+                { name: "French", price: "480 CZK" },
+              ],
+            },
           ],
         },
         {
           title: "Makeup & Lashes",
           description:
             "Professional makeup, lash extensions, and brow shaping.",
-          items: [
-            { name: "Full Makeup", price: "—" },
-            { name: "Lash Extensions", price: "—" },
-            { name: "Brow Shaping & Tint", price: "—" },
-            { name: "Lash Lift", price: "—" },
+          groups: [
+            {
+              label: "",
+              items: [
+                { name: "Full Makeup", price: "—" },
+                { name: "Lash Extensions", price: "—" },
+                { name: "Brow Shaping & Tint", price: "—" },
+                { name: "Lash Lift", price: "—" },
+              ],
+            },
           ],
         },
       ],

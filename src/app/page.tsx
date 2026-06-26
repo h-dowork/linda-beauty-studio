@@ -272,7 +272,7 @@ export default function Home() {
                       </h3>
                       <p className="text-sm text-gray-400 mb-4 leading-relaxed">{service.description}</p>
                       <ul className="space-y-2.5" role="list">
-                        {service.items.map((item) => (
+                        {service.groups.flatMap((g) => [...g.items] as { name: string; price: string }[]).slice(0, 5).map((item) => (
                           <li
                             key={item.name}
                             className="flex items-center justify-between text-sm border-b border-[#2a2a2a] pb-2 last:border-0 last:pb-0"
@@ -703,19 +703,30 @@ export default function Home() {
                 <p className="text-gray-400 text-base leading-relaxed mb-6">{service.description}</p>
 
                 {/* Service items */}
-                <ul className="space-y-3" role="list">
-                  {service.items.map((item) => (
-                    <li
-                      key={item.name}
-                      className="flex items-center justify-between text-base border-b border-[#2a2a2a] pb-3 last:border-0 last:pb-0"
-                    >
-                      <span className="text-gray-300">{item.name}</span>
-                      <span className="font-semibold text-gray-500 ml-4 flex-shrink-0">
-                        {item.price === "—" ? t.services.pricePlaceholder : item.price}
-                      </span>
-                    </li>
+                <div className="space-y-5">
+                  {service.groups.map((group, gi) => (
+                    <div key={gi}>
+                      {group.label && (
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#E8933A]/60 mb-2.5">
+                          {group.label}
+                        </p>
+                      )}
+                      <ul className="space-y-3" role="list">
+                        {group.items.map((item) => (
+                          <li
+                            key={item.name}
+                            className="flex items-center justify-between text-base border-b border-[#2a2a2a] pb-3 last:border-0 last:pb-0"
+                          >
+                            <span className="text-gray-300">{item.name}</span>
+                            <span className="font-semibold text-gray-500 ml-4 flex-shrink-0">
+                              {item.price === "—" ? t.services.pricePlaceholder : item.price}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
                 {/* Book CTA */}
                 <a
