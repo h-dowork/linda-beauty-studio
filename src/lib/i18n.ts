@@ -31,29 +31,49 @@ export const translations = {
       subheading:
         "Od rychlého střihu po kompletní proměnu — nabízíme vše, co potřebujete, abyste vypadali a cítili se skvěle.",
       pricePlaceholder: "Volejte",
-      priceNote: "Ceny jsou orientační. Kontaktujte nás pro přesnou nabídku.",
+      priceNote: "Při objednání předem (telefonicky nebo online) získáte slevu 100 Kč. Ceny jsou orientační.",
       items: [
         {
           title: "Vlasy",
           description:
             "Střihy, barvení a styling pro ženy i muže. Péče přizpůsobená každému typu vlasů.",
           items: [
-            { name: "Dámský střih & Foukaná", price: "—" },
-            { name: "Pánský střih", price: "—" },
-            { name: "Barvení / Melír", price: "—" },
-            { name: "Keratin", price: "—" },
-            { name: "Vlasová kúra", price: "—" },
+            { name: "Pánský střih", price: "300 Kč" },
+            { name: "Úprava vousů", price: "200 Kč" },
+            { name: "Střih + vousy komplet", price: "450 Kč" },
+            { name: "Dětský střih (1–6 let)", price: "250 Kč" },
+            { name: "Dámský střih", price: "od 300 Kč" },
+            { name: "Melír – kratší vlasy", price: "1 200 Kč" },
+            { name: "Melír – k ramenům", price: "1 700 Kč" },
+            { name: "Melír – delší vlasy", price: "2 000 Kč" },
+            { name: "Umytí vlasů – kratší", price: "250 Kč" },
+            { name: "Umytí vlasů – delší", price: "350 Kč" },
+            { name: "Perma vlasů", price: "od 700 Kč" },
           ],
         },
         {
           title: "Nehty",
           description:
-            "Luxusní manikúra a pedikúra s prémiové laky a nail art dle přání.",
+            "Akrylové nehty, francie, ombré a nail art dle přání. Prodloužení a design přizpůsobíme každé klientce.",
           items: [
-            { name: "Klasická manikúra", price: "—" },
-            { name: "Gel / Shellac", price: "—" },
-            { name: "Pedikúra", price: "—" },
-            { name: "Nail Art & Extensions", price: "—" },
+            { name: "Nové akrylové nehty", price: "od 450 Kč" },
+            { name: "Doplnění akrylových", price: "od 400 Kč" },
+            { name: "Nové francie", price: "od 450 Kč" },
+            { name: "Nové ombré", price: "od 450 Kč" },
+            { name: "Prodloužení nehtů", price: "100–300 Kč" },
+            { name: "Jakýkoliv design", price: "100–300 Kč" },
+          ],
+        },
+        {
+          title: "Pedikúra",
+          description:
+            "Profesionální péče o nohy pro ženy i muže. Relaxační a estetická pedikúra s výběrem barev.",
+          items: [
+            { name: "Pánská pedikúra", price: "400 Kč" },
+            { name: "Dámská pedikúra", price: "od 350 Kč" },
+            { name: "Pedikúra jedné barvy", price: "450 Kč" },
+            { name: "Pedikúra dvou barev", price: "500 Kč" },
+            { name: "Francie", price: "480 Kč" },
           ],
         },
         {
@@ -65,17 +85,6 @@ export const translations = {
             { name: "Prodloužení řas", price: "—" },
             { name: "Úprava & barvení obočí", price: "—" },
             { name: "Lifting řas", price: "—" },
-          ],
-        },
-        {
-          title: "Péče o pleť",
-          description:
-            "Omlazující ošetření pleti pro zářivý a zdravý vzhled.",
-          items: [
-            { name: "Klasické ošetření", price: "—" },
-            { name: "Hloubkové čistění", price: "—" },
-            { name: "Hydratační ošetření", price: "—" },
-            { name: "Anti-aging ošetření", price: "—" },
           ],
         },
       ],
@@ -169,7 +178,7 @@ export const translations = {
       copied: "Zkopírováno!",
       openAgain: "Otevřít WhatsApp znovu",
       newBooking: "Nová rezervace",
-      services: ["Vlasy – dámský", "Vlasy – pánský", "Nehty", "Make-up & Řasy", "Péče o pleť", "Ostatní"],
+      services: ["Vlasy – dámský", "Vlasy – pánský", "Nehty", "Pedikúra", "Make-up & Řasy", "Ostatní"],
     },
     // Cookie banner
     cookie: {
@@ -221,29 +230,49 @@ export const translations = {
       subheading:
         "From a quick cut to a full transformation — everything you need to look and feel your best.",
       pricePlaceholder: "Call us",
-      priceNote: "Prices are indicative. Contact us for an exact quote.",
+      priceNote: "Book in advance (by phone or online) and get 100 CZK off. Prices are indicative.",
       items: [
         {
           title: "Hair",
           description:
             "Cuts, color, and styling for women and men. Tailored to every hair type.",
           items: [
-            { name: "Women's Cut & Blowdry", price: "—" },
-            { name: "Men's Haircut", price: "—" },
-            { name: "Color / Highlights", price: "—" },
-            { name: "Keratin Treatment", price: "—" },
-            { name: "Hair Treatment", price: "—" },
+            { name: "Men's Haircut", price: "300 CZK" },
+            { name: "Beard Trim", price: "200 CZK" },
+            { name: "Haircut + Beard Combo", price: "450 CZK" },
+            { name: "Children's Haircut (1–6 yrs)", price: "250 CZK" },
+            { name: "Women's Haircut", price: "from 300 CZK" },
+            { name: "Highlights – Short Hair", price: "1,200 CZK" },
+            { name: "Highlights – Shoulder Length", price: "1,700 CZK" },
+            { name: "Highlights – Long Hair", price: "2,000 CZK" },
+            { name: "Hair Wash – Short", price: "250 CZK" },
+            { name: "Hair Wash – Long", price: "350 CZK" },
+            { name: "Perm", price: "from 700 CZK" },
           ],
         },
         {
           title: "Nails",
           description:
-            "Luxurious manicures and pedicures with premium polishes and nail art.",
+            "Acrylic nails, French, ombré, and nail art. Extensions and designs tailored to each client.",
           items: [
-            { name: "Classic Manicure", price: "—" },
-            { name: "Gel / Shellac", price: "—" },
-            { name: "Pedicure", price: "—" },
-            { name: "Nail Art & Extensions", price: "—" },
+            { name: "New Acrylics", price: "from 450 CZK" },
+            { name: "Acrylic Infill", price: "from 400 CZK" },
+            { name: "New French", price: "from 450 CZK" },
+            { name: "New Ombré", price: "from 450 CZK" },
+            { name: "Nail Extensions", price: "100–300 CZK" },
+            { name: "Any Design", price: "100–300 CZK" },
+          ],
+        },
+        {
+          title: "Pedicure",
+          description:
+            "Professional foot care for women and men. Relaxing and aesthetic pedicures with a choice of colours.",
+          items: [
+            { name: "Men's Pedicure", price: "400 CZK" },
+            { name: "Women's Pedicure", price: "from 350 CZK" },
+            { name: "Single Colour Pedicure", price: "450 CZK" },
+            { name: "Two Colour Pedicure", price: "500 CZK" },
+            { name: "French Pedicure", price: "480 CZK" },
           ],
         },
         {
@@ -255,17 +284,6 @@ export const translations = {
             { name: "Lash Extensions", price: "—" },
             { name: "Brow Shaping & Tint", price: "—" },
             { name: "Lash Lift", price: "—" },
-          ],
-        },
-        {
-          title: "Skin Care",
-          description:
-            "Rejuvenating facials and treatments for radiant, healthy-looking skin.",
-          items: [
-            { name: "Classic Facial", price: "—" },
-            { name: "Deep Cleansing Facial", price: "—" },
-            { name: "Hydrating Treatment", price: "—" },
-            { name: "Anti-Aging Treatment", price: "—" },
           ],
         },
       ],
@@ -353,7 +371,7 @@ export const translations = {
       copied: "Copied!",
       openAgain: "Open WhatsApp Again",
       newBooking: "New booking",
-      services: ["Hair – Women's", "Hair – Men's", "Nails", "Makeup & Lashes", "Skin Care", "Other"],
+      services: ["Hair – Women's", "Hair – Men's", "Nails", "Pedicure", "Makeup & Lashes", "Other"],
     },
     // Cookie banner
     cookie: {
